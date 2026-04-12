@@ -27,7 +27,6 @@ const messageHandler_1 = require("./handlers/messageHandler");
 const package_json_1 = require("../package.json");
 class ForgeLevels extends forgescript_1.ForgeExtension {
     constructor(options = {}) {
-        var _a, _b, _c;
         super();
         this.options = options;
         this.name = "forge.levels";
@@ -35,9 +34,6 @@ class ForgeLevels extends forgescript_1.ForgeExtension {
         this.version = package_json_1.version;
         this.requireExtensions = ["forge.db"];
         this.emitter = new tiny_typed_emitter_1.TypedEmitter();
-        (_a = this.options).autoNotify ?? (_a.autoNotify = true);
-        (_b = this.options).defaultNotification ?? (_b.defaultNotification = "channel");
-        (_c = this.options).defaultMessage ?? (_c.defaultMessage = "🎉 {user} just reached level **{level}**!");
     }
     async init(client) {
         this.client = client;

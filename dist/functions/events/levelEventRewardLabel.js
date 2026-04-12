@@ -2,12 +2,15 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const forgescript_1 = require("@tryforge/forgescript");
 exports.default = new forgescript_1.NativeFunction({
-    name: "$levelEventRewardLabel",
+    name: "$levelEventTotalXp",
     version: "1.0.0",
-    description: "Inside a levelReward event command, returns the reward label.",
+    description: "Inside a levelUp event, returns the member's total XP after levelling up.",
     unwrap: true,
-    output: forgescript_1.ArgType.String,
+    output: forgescript_1.ArgType.Number,
     args: [],
-    async execute(ctx) { return this.success(ctx.extras?.label ?? ""); },
+    async execute(ctx) {
+        // @ts-ignore
+        return this.success(ctx.runtime.extras.totalXp);
+    },
 });
 //# sourceMappingURL=levelEventRewardLabel.js.map

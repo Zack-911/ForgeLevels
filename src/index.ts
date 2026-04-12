@@ -13,12 +13,6 @@ export type TransformEvents<T> = {
 export interface IForgeLevelsOptions {
     /** Events to load: "levelUp" | "xpGain" | "levelReward" | "databaseConnect" */
     events?: Array<keyof ILevelEvents>
-    /** Whether to automatically send level-up messages. Default: true */
-    autoNotify?: boolean
-    /** Default notification channel/dm/custom/none. Default: "channel" */
-    defaultNotification?: "channel" | "dm" | "custom" | "none"
-    /** Default level-up message template. Supports {user} {level} {oldLevel} {xp} {guild} */
-    defaultMessage?: string
 }
 
 export class ForgeLevels extends ForgeExtension {
@@ -34,9 +28,6 @@ export class ForgeLevels extends ForgeExtension {
 
     public constructor(public readonly options: IForgeLevelsOptions = {}) {
         super()
-        this.options.autoNotify ??= true
-        this.options.defaultNotification ??= "channel"
-        this.options.defaultMessage ??= "🎉 {user} just reached level **{level}**!"
     }
 
     public async init(client: ForgeClient) {

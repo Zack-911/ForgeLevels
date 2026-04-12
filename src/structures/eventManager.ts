@@ -3,9 +3,9 @@ import { ForgeLevels } from ".."
 
 export interface ILevelEvents {
     /** Fired when a member gains XP */
-    xpGain: [{ userId: string; guildId: string; xp: number; totalXp: number }]
+    xpGain: [{ userId: string; guildId: string; xp: number; totalXp: number; obj?: any }]
     /** Fired when a member levels up */
-    levelUp: [{ userId: string; guildId: string; oldLevel: number; newLevel: number; totalXp: number }]
+    levelUp: [{ userId: string; guildId: string; oldLevel: number; newLevel: number; totalXp: number; obj?: any }]
     /** Fired when a role reward is granted */
     levelReward: [{ userId: string; guildId: string; level: number; label: string }]
     /** Fired when the database has connected */

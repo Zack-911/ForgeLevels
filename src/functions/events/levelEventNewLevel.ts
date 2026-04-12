@@ -1,4 +1,6 @@
 import { ArgType, NativeFunction } from "@tryforge/forgescript"
+import { ILevelEvents } from "../../structures/eventManager"
+
 export default new NativeFunction({
     name: "$levelEventNewLevel",
     version: "1.0.0",
@@ -6,5 +8,8 @@ export default new NativeFunction({
     unwrap: true,
     output: ArgType.Number,
     args: [],
-    async execute(ctx) { return this.success((ctx as any).extras?.newLevel ?? 0) },
+    async execute(ctx) {
+        // @ts-ignore
+        return this.success((ctx.runtime.extras as ILevelEvents["levelUp"][0]).newLevel)
+    },
 })

@@ -8,7 +8,7 @@ exports.default = new eventManager_1.LevelsEventHandler({
     name: "levelUp",
     version: "1.0.0",
     description: "Fired when a member levels up",
-    listener: async function ({ userId, guildId, oldLevel, newLevel, totalXp }) {
+    listener: async function ({ userId, guildId, oldLevel, newLevel, totalXp, obj }) {
         const ext = this.getExtension(__1.ForgeLevels, true);
         const cfg = await LevelsDatabase_1.LevelsDatabase.resolvedConfig(guildId);
         // ── Role rewards ──────────────────────────────────────────────────────
@@ -53,37 +53,6 @@ exports.default = new eventManager_1.LevelsEventHandler({
         for (const reward of msgRewards) {
             ext.emitter.emit("levelReward", { userId, guildId, level: newLevel, label: reward.label });
         }
-        // ── Auto-notification ─────────────────────────────────────────────────
-        const notifCfg = cfg.notification ?? {};
-        const notifType = notifCfg.type ?? ext.options.defaultNotification ?? "channel";
-        const template = notifCfg.message ?? ext.options.defaultMessage ??
-            "🎉 {user} just reached level **{level}**!";
-        const message = template
-            .replace("{user}", `<@${userId}>`)
-            .replace("{level}", String(newLevel))
-            .replace("{oldLevel}", String(oldLevel))
-            .replace("{xp}", String(totalXp))
-            .replace("{guild}", guild?.name ?? guildId);
-        if (ext.options.autoNotify && notifType !== "none" && notifType !== "custom") {
-            if (notifType === "dm") {
-                const user = await this.users.fetch(userId).catch(() => null);
-                if (user)
-                    await user.send(message).catch(() => null);
-            }
-            else if (notifType === "channel") {
-                // notifCfg.channelId = override channel, otherwise we need the
-                // event to come from a channel — stored in levelUp payload context.
-                // We emit to a fixed channel if configured.
-                const channelId = notifCfg.channelId;
-                if (channelId) {
-                    const channel = this.channels.cache.get(channelId);
-                    if (channel?.isTextBased()) {
-                        await channel.send(message).catch(() => null);
-                    }
-                }
-                // If no channel override the xpGain event handles sending in-channel
-            }
-        }
         // ── Run user-registered levelUp commands ──────────────────────────────
         const commands = ext.commands.get("levelUp");
         for (const command of commands) {
@@ -91,7 +60,7 @@ exports.default = new eventManager_1.LevelsEventHandler({
                 client: this,
                 command,
                 data: command.compiled.code,
-                obj: {},
+                obj: obj,
                 extras: { userId, guildId, oldLevel, newLevel, totalXp },
             });
         }

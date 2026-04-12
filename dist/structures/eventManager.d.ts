@@ -6,6 +6,7 @@ export interface ILevelEvents {
         guildId: string;
         xp: number;
         totalXp: number;
+        obj?: any;
     }];
     /** Fired when a member levels up */
     levelUp: [{
@@ -14,6 +15,7 @@ export interface ILevelEvents {
         oldLevel: number;
         newLevel: number;
         totalXp: number;
+        obj?: any;
     }];
     /** Fired when a role reward is granted */
     levelReward: [{

@@ -16,8 +16,10 @@ async function handleMessage(message, ext) {
     if (message.webhookId)
         return;
     // ── Ignore commands ───────────────────────────────────────────────────────
-    const prefixes = ext.client.options?.prefixes ?? [];
-    if (prefixes.some((p) => message.content.startsWith(p)))
+    // client.options.prefixes is IExtendedCompilationResult[], NOT string[].
+    // Use getPrefix() which properly evaluates the compiled prefix expressions.
+    const prefix = await ext.client.getPrefix(message);
+    if (prefix !== null)
         return;
     const guildId = message.guild.id;
     const userId = message.author.id;
@@ -76,29 +78,15 @@ async function handleMessage(message, ext) {
     record.lastXpAt = now;
     await LevelsDatabase_1.LevelsDatabase.setMember(record);
     // ── Emit events ───────────────────────────────────────────────────────────
-    ext.emitter.emit("xpGain", { userId, guildId, xp: xpGained, totalXp: newTotalXp });
+    ext.emitter.emit("xpGain", { userId, guildId, xp: xpGained, totalXp: newTotalXp, obj: message });
     if (newLevelData.level > oldLevelData.level) {
-        const notifType = cfg.notification?.type ?? ext.options.defaultNotification;
-        if (ext.options.autoNotify &&
-            notifType === "channel" &&
-            !cfg.notification?.channelId) {
-            const template = cfg.notification?.message ?? ext.options.defaultMessage ??
-                "🎉 {user} just reached level **{level}**!";
-            const msg = template
-                .replace("{user}", `<@${userId}>`)
-                .replace("{level}", String(newLevelData.level))
-                .replace("{oldLevel}", String(oldLevelData.level))
-                .replace("{xp}", String(newTotalXp))
-                .replace("{guild}", message.guild.name);
-            if (message.channel.isSendable())
-                await message.channel.send(msg).catch(() => null);
-        }
         ext.emitter.emit("levelUp", {
             userId,
             guildId,
             oldLevel: oldLevelData.level,
             newLevel: newLevelData.level,
             totalXp: newTotalXp,
+            obj: message,
         });
     }
 }

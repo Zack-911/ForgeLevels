@@ -1,10 +1,15 @@
 import { ArgType, NativeFunction } from "@tryforge/forgescript"
+import { ILevelEvents } from "../../structures/eventManager"
+
 export default new NativeFunction({
-    name: "$levelEventLevel",
+    name: "$levelEventGuildID",
     version: "1.0.0",
-    description: "Inside a levelReward event command, returns the level that triggered the reward.",
+    description: "Inside a level event command, returns the guild ID.",
     unwrap: true,
-    output: ArgType.Number,
+    output: ArgType.String,
     args: [],
-    async execute(ctx) { return this.success((ctx as any).extras?.level ?? 0) },
+    async execute(ctx) {
+        // @ts-ignore
+        return this.success((ctx.runtime.extras as ILevelEvents["levelUp"][0]).guildId)
+    },
 })

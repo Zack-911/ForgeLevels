@@ -10,10 +10,7 @@ const db = new ForgeDB({
 })
 
 const levels = new ForgeLevels({
-  events: ["levelUp", "xpGain", "levelReward", "databaseConnect"],
-  autoNotify: true,
-  defaultNotification: "channel",
-  defaultMessage: "🎉 {user} just leveled up to **Level {level}**! Keep it up!",
+  events: ["levelUp", "xpGain", "levelReward", "databaseConnect"]
 })
 
 const client = new ForgeClient({

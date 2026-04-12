@@ -8,6 +8,9 @@ exports.default = new forgescript_1.NativeFunction({
     unwrap: true,
     output: forgescript_1.ArgType.Number,
     args: [],
-    async execute(ctx) { return this.success(ctx.extras?.newLevel ?? 0); },
+    async execute(ctx) {
+        // @ts-ignore
+        return this.success(ctx.runtime.extras.newLevel);
+    },
 });
 //# sourceMappingURL=levelEventNewLevel.js.map

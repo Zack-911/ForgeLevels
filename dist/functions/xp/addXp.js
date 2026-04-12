@@ -45,7 +45,7 @@ exports.default = new forgescript_1.NativeFunction({
         record.level = (0, XpFormula_1.levelFromXp)(record.xp, cfg).level;
         await LevelsDatabase_1.LevelsDatabase.setMember(record);
         const ext = ctx.client.getExtension(__1.ForgeLevels, true);
-        ext.emitter.emit("xpGain", { userId: uid, guildId: gid, xp, totalXp: record.xp });
+        ext.emitter.emit("xpGain", { userId: uid, guildId: gid, xp, totalXp: record.xp, obj: ctx.obj });
         if (record.level > oldLevel) {
             ext.emitter.emit("levelUp", {
                 userId: uid,
@@ -53,6 +53,7 @@ exports.default = new forgescript_1.NativeFunction({
                 oldLevel,
                 newLevel: record.level,
                 totalXp: record.xp,
+                obj: ctx.obj
             });
         }
         return this.success();

@@ -2,12 +2,15 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const forgescript_1 = require("@tryforge/forgescript");
 exports.default = new forgescript_1.NativeFunction({
-    name: "$levelEventLevel",
+    name: "$levelEventGuildID",
     version: "1.0.0",
-    description: "Inside a levelReward event command, returns the level that triggered the reward.",
+    description: "Inside a level event command, returns the guild ID.",
     unwrap: true,
-    output: forgescript_1.ArgType.Number,
+    output: forgescript_1.ArgType.String,
     args: [],
-    async execute(ctx) { return this.success(ctx.extras?.level ?? 0); },
+    async execute(ctx) {
+        // @ts-ignore
+        return this.success(ctx.runtime.extras.guildId);
+    },
 });
 //# sourceMappingURL=levelEventLevel.js.map
