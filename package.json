@@ -1,0 +1,47 @@
+{
+  "name": "@tryforge/forge.levels",
+  "version": "1.0.0",
+  "description": "ForgeLevels is a powerful, fully customizable per-guild leveling system for ForgeScript bots.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "ts-node src/__tests__/index.ts",
+    "docgen": "tsc && typedoc src/index.ts && node dist/docgen",
+    "commit": "npm run docgen && node dist/commit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tryforge/ForgeLevels.git"
+  },
+  "keywords": [
+    "forgescript",
+    "forge",
+    "discord",
+    "bot",
+    "leveling",
+    "xp",
+    "levels"
+  ],
+  "author": "tryforge",
+  "license": "GPL-3.0",
+  "peerDependencies": {
+    "@tryforge/forge.db": "^2.1.0",
+    "@tryforge/forgescript": "^2.0.0"
+  },
+  "devDependencies": {
+    "@tryforge/forge.db": "^2.1.1",
+    "@tryforge/forgescript": "^2.5.0",
+    "discord.js": "^14.25.0",
+    "sqlite3": "^5.1.7",
+    "typedoc": "^0.26.11",
+    "typescript": "^5.6.3"
+  },
+  "dependencies": {
+    "tiny-typed-emitter": "^2.1.0",
+    "typeorm": "^0.3.27"
+  }
+}
