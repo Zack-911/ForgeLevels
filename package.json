@@ -1,5 +1,5 @@
 {
-  "name": "@tryforge/forge.levels",
+  "name": "forgelevels",
   "version": "1.0.0",
   "description": "ForgeLevels is a powerful, fully customizable per-guild leveling system for ForgeScript bots.",
   "main": "dist/index.js",

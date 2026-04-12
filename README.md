@@ -34,7 +34,7 @@ npm install @tryforge/forge.levels
 ```ts
 import { ForgeClient } from "@tryforge/forgescript"
 import { ForgeDB } from "@tryforge/forge.db"
-import { ForgeLevels } from "@tryforge/forge.levels"
+import { ForgeLevels } from "forgelevels"
 
 const client = new ForgeClient({
     token: process.env.DISCORD_TOKEN,
