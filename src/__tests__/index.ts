@@ -55,7 +55,7 @@ client.commands.add({
 $onlyIf[$hasPerms[$guildID;$authorID;ManageGuild];You need Manage Server!]
 $setLevelConfig[xpMin;$message[0]]
 $setLevelConfig[xpMax;$message[1]]
-✅ XP range set to **$message[0]** – **$message[1]** per message.
+✅ XP range set to **$message[0]** - **$message[1]** per message.
   `,
 })
 

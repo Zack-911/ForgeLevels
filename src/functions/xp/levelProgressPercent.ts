@@ -5,7 +5,7 @@ import { levelFromXp } from "../../structures/XpFormula"
 export default new NativeFunction({
     name: "$levelProgress",
     version: "1.0.0",
-    description: "Returns the member's progress percentage (0–100) toward the next level.",
+    description: "Returns the member's progress percentage (0-100) toward the next level.",
     brackets: false,
     unwrap: true,
     output: ArgType.Number,

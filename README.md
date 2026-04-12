@@ -118,7 +118,7 @@ $resetLevelConfig[guildID?]
 | `$xpRequired[level;cumulative?;guildID?]` | XP for a level step or total |
 | `$xpForNextLevel[userID?;guildID?]` | XP needed for next level |
 | `$xpProgress[userID?;guildID?]` | XP within current level |
-| `$levelProgress[userID?;guildID?]` | Progress % (0–100) |
+| `$levelProgress[userID?;guildID?]` | Progress % (0-100) |
 
 ### Level Functions
 

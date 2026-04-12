@@ -6,7 +6,7 @@ const XpFormula_1 = require("../../structures/XpFormula");
 exports.default = new forgescript_1.NativeFunction({
     name: "$levelProgress",
     version: "1.0.0",
-    description: "Returns the member's progress percentage (0–100) toward the next level.",
+    description: "Returns the member's progress percentage (0-100) toward the next level.",
     brackets: false,
     unwrap: true,
     output: forgescript_1.ArgType.Number,

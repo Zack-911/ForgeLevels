@@ -5,8 +5,8 @@ import { ILevelConfig, DEFAULT_CONFIG } from "./types"
  * i.e., the cost of a single level step.
  */
 export function xpForLevel(level: number, cfg: ILevelConfig): number {
-    const formula  = cfg.formula   ?? DEFAULT_CONFIG.formula
-    const base     = cfg.xpBase    ?? DEFAULT_CONFIG.xpBase
+    const formula = cfg.formula ?? DEFAULT_CONFIG.formula
+    const base = cfg.xpBase ?? DEFAULT_CONFIG.xpBase
     const exponent = cfg.xpExponent ?? DEFAULT_CONFIG.xpExponent
 
     if (level <= 0) return 0
@@ -54,7 +54,7 @@ export function levelFromXp(totalXp: number, cfg: ILevelConfig): {
     level: number
     currentLevelXp: number
     nextLevelXp: number
-    progress: number // 0–1
+    progress: number // 0-1
 } {
     const maxLevel = cfg.maxLevel ?? DEFAULT_CONFIG.maxLevel
 
