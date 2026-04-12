@@ -39,13 +39,13 @@ export async function handleMessage(
     const record = await LevelsDatabase.getOrCreate(guildId, userId)
     const now = Date.now()
 
-    //   // ── Cooldown check ────────────────────────────────────────────────────────
-    //   const onCooldown = now - record.lastXpAt < cfg.xpCooldown
-    //   if (onCooldown) {
-    //       // Atomic increment only — avoids overwriting XP if a concurrent addXp ran
-    //       await LevelsDatabase.addMessage(guildId, userId)
-    //       return
-    //   }
+    // ── Cooldown check ────────────────────────────────────────────────────────
+    const onCooldown = now - record.lastXpAt < cfg.xpCooldown
+    if (onCooldown) {
+        // Atomic increment only — avoids overwriting XP if a concurrent addXp ran
+        await LevelsDatabase.addMessage(guildId, userId)
+        return
+    }
 
     // ── No-XP roles (counts as message, but no XP) ────────────────────────────
     if (cfg.noXpRoles?.some(r => memberRoles.includes(r))) {

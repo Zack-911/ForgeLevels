@@ -11,7 +11,6 @@ export type TransformEvents<T> = {
 }
 
 export interface IForgeLevelsOptions {
-    /** Events to load: "levelUp" | "xpGain" | "levelReward" | "databaseConnect" */
     events?: Array<keyof ILevelEvents>
 }
 

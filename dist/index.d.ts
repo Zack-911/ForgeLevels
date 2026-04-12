@@ -6,7 +6,6 @@ export type TransformEvents<T> = {
     [P in keyof T]: T[P] extends unknown[] ? (...args: T[P]) => void : never;
 };
 export interface IForgeLevelsOptions {
-    /** Events to load: "levelUp" | "xpGain" | "levelReward" | "databaseConnect" */
     events?: Array<keyof ILevelEvents>;
 }
 export declare class ForgeLevels extends ForgeExtension {
