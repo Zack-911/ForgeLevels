@@ -1,0 +1,412 @@
+<!DOCTYPE html><html class="default" lang="en"><head><meta charset="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>@tryforge/forge.levels</title><meta name="description" content="Documentation for @tryforge/forge.levels"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="assets/style.css"/><link rel="stylesheet" href="assets/highlight.css"/><script defer src="assets/main.js"></script><script async src="assets/icons.js" id="tsd-icons-script"></script><script async src="assets/search.js" id="tsd-search-script"></script><script async src="assets/navigation.js" id="tsd-nav-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os";document.body.style.display="none";setTimeout(() => app?app.showPage():document.body.style.removeProperty("display"),500)</script><header class="tsd-page-toolbar"><div class="tsd-toolbar-contents container"><div class="table-cell" id="tsd-search" data-base="."><div class="field"><label for="tsd-search-field" class="tsd-widget tsd-toolbar-icon search no-caption"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><use href="assets/icons.svg#icon-search"></use></svg></label><input type="text" id="tsd-search-field" aria-label="Search"/></div><div class="field"><div id="tsd-toolbar-links"></div></div><ul class="results"><li class="state loading">Preparing search index...</li><li class="state failure">The search index is not available</li></ul><a href="index.html" class="title">@tryforge/forge.levels</a></div><div class="table-cell" id="tsd-widgets"><a href="#" class="tsd-widget tsd-toolbar-icon menu no-caption" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><use href="assets/icons.svg#icon-menu"></use></svg></a></div></div></header><div class="container container-main"><div class="col-content"><div class="tsd-page-title"><h1>@tryforge/forge.levels</h1></div><div class="tsd-panel tsd-typography"><a id="md:forgelevels" class="tsd-anchor"></a><h1 class="tsd-anchor-link">ForgeLevels<a href="#md:forgelevels" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h1><p>A powerful, fully customizable <strong>per-guild leveling system</strong> for <a href="https://github.com/tryforge/ForgeScript" target="_blank" class="external">ForgeScript</a> bots.</p>
+<a id="md:features" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Features<a href="#md:features" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><ul>
+<li>✅ XP awarded automatically on every message</li>
+<li>✅ Per-guild configuration (XP range, cooldown, formula, max level, notifications)</li>
+<li>✅ 4 XP formulas: <code>linear</code>, <code>quadratic</code>, <code>exponential</code>, <code>custom</code></li>
+<li>✅ Role &amp; channel XP multipliers (stack)</li>
+<li>✅ Role rewards at specific levels (stack or singular mode)</li>
+<li>✅ Custom message rewards (<code>levelReward</code> event)</li>
+<li>✅ Configurable level-up notifications: <code>channel</code> | <code>dm</code> | <code>custom</code> | <code>none</code></li>
+<li>✅ Ignore lists: channels, roles, users</li>
+<li>✅ No-XP roles (appear on leaderboard but earn nothing)</li>
+<li>✅ Paginated leaderboard with custom formatting</li>
+<li>✅ Full TypeORM persistence via ForgeDB (SQLite / MySQL / PostgreSQL / MongoDB)</li>
+<li>✅ Config cached in-memory to minimise DB reads per message</li>
+</ul>
+<hr>
+<a id="md:installation" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Installation<a href="#md:installation" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><pre><code class="bash"><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-2">install</span><span class="hl-1"> </span><span class="hl-2">@tryforge/forge.levels</span>
+</code><button type="button">Copy</button></pre>
+
+<blockquote>
+<p><strong>Requires:</strong> <code>@tryforge/forgescript ^2.5.0</code> and <code>@tryforge/forge.db ^2.1.0</code></p>
+</blockquote>
+<hr>
+<a id="md:quick-start" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Quick Start<a href="#md:quick-start" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><pre><code class="ts"><span class="hl-3">import</span><span class="hl-1"> { </span><span class="hl-4">ForgeClient</span><span class="hl-1"> } </span><span class="hl-3">from</span><span class="hl-1"> </span><span class="hl-2">&quot;@tryforge/forgescript&quot;</span><br/><span class="hl-3">import</span><span class="hl-1"> { </span><span class="hl-4">ForgeDB</span><span class="hl-1"> } </span><span class="hl-3">from</span><span class="hl-1"> </span><span class="hl-2">&quot;@tryforge/forge.db&quot;</span><br/><span class="hl-3">import</span><span class="hl-1"> { </span><span class="hl-4">ForgeLevels</span><span class="hl-1"> } </span><span class="hl-3">from</span><span class="hl-1"> </span><span class="hl-2">&quot;@tryforge/forge.levels&quot;</span><br/><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">client</span><span class="hl-1"> = </span><span class="hl-5">new</span><span class="hl-1"> </span><span class="hl-0">ForgeClient</span><span class="hl-1">({</span><br/><span class="hl-1">    </span><span class="hl-4">token:</span><span class="hl-1"> </span><span class="hl-4">process</span><span class="hl-1">.</span><span class="hl-4">env</span><span class="hl-1">.</span><span class="hl-6">DISCORD_TOKEN</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-4">intents:</span><span class="hl-1"> [</span><span class="hl-2">&quot;Guilds&quot;</span><span class="hl-1">, </span><span class="hl-2">&quot;GuildMessages&quot;</span><span class="hl-1">, </span><span class="hl-2">&quot;MessageContent&quot;</span><span class="hl-1">],</span><br/><span class="hl-1">    </span><span class="hl-4">prefixes:</span><span class="hl-1"> [</span><span class="hl-2">&quot;!&quot;</span><span class="hl-1">],</span><br/><span class="hl-1">    </span><span class="hl-4">events:</span><span class="hl-1"> [</span><span class="hl-2">&quot;messageCreate&quot;</span><span class="hl-1">],</span><br/><span class="hl-1">    </span><span class="hl-4">extensions:</span><span class="hl-1"> [</span><br/><span class="hl-1">        </span><span class="hl-5">new</span><span class="hl-1"> </span><span class="hl-0">ForgeDB</span><span class="hl-1">({ </span><span class="hl-4">type:</span><span class="hl-1"> </span><span class="hl-2">&quot;sqlite&quot;</span><span class="hl-1"> }),</span><br/><span class="hl-1">        </span><span class="hl-5">new</span><span class="hl-1"> </span><span class="hl-0">ForgeLevels</span><span class="hl-1">({</span><br/><span class="hl-1">            </span><span class="hl-4">events:</span><span class="hl-1"> [</span><span class="hl-2">&quot;levelUp&quot;</span><span class="hl-1">, </span><span class="hl-2">&quot;xpGain&quot;</span><span class="hl-1">, </span><span class="hl-2">&quot;levelReward&quot;</span><span class="hl-1">],</span><br/><span class="hl-1">            </span><span class="hl-4">autoNotify:</span><span class="hl-1"> </span><span class="hl-5">true</span><span class="hl-1">,</span><br/><span class="hl-1">            </span><span class="hl-4">defaultNotification:</span><span class="hl-1"> </span><span class="hl-2">&quot;channel&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">            </span><span class="hl-4">defaultMessage:</span><span class="hl-1"> </span><span class="hl-2">&quot;🎉 {user} reached Level **{level}**!&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">        }),</span><br/><span class="hl-1">    ],</span><br/><span class="hl-1">})</span><br/><br/><span class="hl-4">client</span><span class="hl-1">.</span><span class="hl-0">login</span><span class="hl-1">()</span>
+</code><button type="button">Copy</button></pre>
+
+<hr>
+<a id="md:extension-options" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Extension Options<a href="#md:extension-options" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>events</code></td>
+<td><code>string[]</code></td>
+<td><code>[]</code></td>
+<td>Events to register commands for</td>
+</tr>
+<tr>
+<td><code>autoNotify</code></td>
+<td><code>boolean</code></td>
+<td><code>true</code></td>
+<td>Auto-send level-up messages</td>
+</tr>
+<tr>
+<td><code>defaultNotification</code></td>
+<td><code>&quot;channel&quot; | &quot;dm&quot; | &quot;custom&quot; | &quot;none&quot;</code></td>
+<td><code>&quot;channel&quot;</code></td>
+<td>Where to send level-up messages</td>
+</tr>
+<tr>
+<td><code>defaultMessage</code></td>
+<td><code>string</code></td>
+<td><code>&quot;🎉 {user} just reached level **{level}**!&quot;</code></td>
+<td>Default level-up message template</td>
+</tr>
+</tbody>
+</table>
+<p>Template variables: <code>{user}</code> <code>{level}</code> <code>{oldLevel}</code> <code>{xp}</code> <code>{guild}</code></p>
+<hr>
+<a id="md:per-guild-config-setlevelconfig" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Per-Guild Config (<code>$setLevelConfig</code>)<a href="#md:per-guild-config-setlevelconfig" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><p>All settings are per-guild and persist in the database.</p>
+<pre><code><span class="hl-4">$setLevelConfig</span><span class="hl-1">[</span><span class="hl-4">key</span><span class="hl-1">;</span><span class="hl-4">value</span><span class="hl-1">;</span><span class="hl-4">guildID</span><span class="hl-1">?]</span><br/><span class="hl-4">$getLevelConfig</span><span class="hl-1">[</span><span class="hl-4">key</span><span class="hl-1">;</span><span class="hl-4">guildID</span><span class="hl-1">?]</span><br/><span class="hl-4">$resetLevelConfig</span><span class="hl-1">[</span><span class="hl-4">guildID</span><span class="hl-1">?]</span>
+</code><button>Copy</button></pre>
+
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>enabled</code></td>
+<td>boolean</td>
+<td><code>true</code></td>
+<td>Enable/disable leveling</td>
+</tr>
+<tr>
+<td><code>xpMin</code></td>
+<td>number</td>
+<td><code>15</code></td>
+<td>Min XP per message</td>
+</tr>
+<tr>
+<td><code>xpMax</code></td>
+<td>number</td>
+<td><code>25</code></td>
+<td>Max XP per message</td>
+</tr>
+<tr>
+<td><code>xpCooldown</code></td>
+<td>number</td>
+<td><code>60000</code></td>
+<td>Cooldown between XP gains (ms)</td>
+</tr>
+<tr>
+<td><code>xpMultiplier</code></td>
+<td>number</td>
+<td><code>1</code></td>
+<td>Global XP multiplier</td>
+</tr>
+<tr>
+<td><code>formula</code></td>
+<td>string</td>
+<td><code>&quot;quadratic&quot;</code></td>
+<td>XP formula: <code>linear</code>, <code>quadratic</code>, <code>exponential</code>, <code>custom</code></td>
+</tr>
+<tr>
+<td><code>xpBase</code></td>
+<td>number</td>
+<td><code>100</code></td>
+<td>Base value for XP formula</td>
+</tr>
+<tr>
+<td><code>xpExponent</code></td>
+<td>number</td>
+<td><code>1.5</code></td>
+<td>Exponent for exponential formula</td>
+</tr>
+<tr>
+<td><code>customFormula</code></td>
+<td>string</td>
+<td>—</td>
+<td>JS expression: <code>base * level * (level + 1) / 2</code></td>
+</tr>
+<tr>
+<td><code>maxLevel</code></td>
+<td>number</td>
+<td><code>0</code></td>
+<td>Level cap (0 = unlimited)</td>
+</tr>
+<tr>
+<td><code>stackRoles</code></td>
+<td>boolean</td>
+<td><code>true</code></td>
+<td>Keep all role rewards vs. only highest</td>
+</tr>
+</tbody>
+</table>
+<a id="md:xp-formulas" class="tsd-anchor"></a><h3 class="tsd-anchor-link">XP Formulas<a href="#md:xp-formulas" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3><table>
+<thead>
+<tr>
+<th>Formula</th>
+<th>Calculation</th>
+<th>Level 10 XP step</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>linear</code></td>
+<td><code>base * level</code></td>
+<td>1,000</td>
+</tr>
+<tr>
+<td><code>quadratic</code></td>
+<td><code>base * level²</code></td>
+<td>10,000</td>
+</tr>
+<tr>
+<td><code>exponential</code></td>
+<td><code>base * exponent^level</code></td>
+<td>~5,766</td>
+</tr>
+<tr>
+<td><code>custom</code></td>
+<td>Your JS expression</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<a id="md:functions-reference" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Functions Reference<a href="#md:functions-reference" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><a id="md:xp-functions" class="tsd-anchor"></a><h3 class="tsd-anchor-link">XP Functions<a href="#md:xp-functions" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3><table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>$getXp[userID?;guildID?]</code></td>
+<td>Get total XP</td>
+</tr>
+<tr>
+<td><code>$setXp[xp;userID?;guildID?]</code></td>
+<td>Set XP directly</td>
+</tr>
+<tr>
+<td><code>$addXp[xp;userID?;guildID?]</code></td>
+<td>Add XP (fires events)</td>
+</tr>
+<tr>
+<td><code>$removeXp[xp;userID?;guildID?]</code></td>
+<td>Remove XP (floor: 0)</td>
+</tr>
+<tr>
+<td><code>$xpRequired[level;cumulative?;guildID?]</code></td>
+<td>XP for a level step or total</td>
+</tr>
+<tr>
+<td><code>$xpForNextLevel[userID?;guildID?]</code></td>
+<td>XP needed for next level</td>
+</tr>
+<tr>
+<td><code>$xpProgress[userID?;guildID?]</code></td>
+<td>XP within current level</td>
+</tr>
+<tr>
+<td><code>$levelProgress[userID?;guildID?]</code></td>
+<td>Progress % (0-100)</td>
+</tr>
+</tbody>
+</table>
+<a id="md:level-functions" class="tsd-anchor"></a><h3 class="tsd-anchor-link">Level Functions<a href="#md:level-functions" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3><table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>$getLevel[userID?;guildID?]</code></td>
+<td>Get current level</td>
+</tr>
+<tr>
+<td><code>$setLevel[level;userID?;guildID?]</code></td>
+<td>Set level (adjusts XP)</td>
+</tr>
+<tr>
+<td><code>$resetLevel[userID?;guildID?]</code></td>
+<td>Reset member to 0</td>
+</tr>
+<tr>
+<td><code>$resetGuildLevels[guildID?]</code></td>
+<td>Wipe all guild data</td>
+</tr>
+</tbody>
+</table>
+<a id="md:rank--leaderboard" class="tsd-anchor"></a><h3 class="tsd-anchor-link">Rank &amp; Leaderboard<a href="#md:rank--leaderboard" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3><table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>$getRank[userID?;guildID?]</code></td>
+<td>Leaderboard rank (1 = top)</td>
+</tr>
+<tr>
+<td><code>$getTotalMessages[userID?;guildID?]</code></td>
+<td>Total messages tracked</td>
+</tr>
+<tr>
+<td><code>$leaderboard[page?;perPage?;format?;separator?;guildID?]</code></td>
+<td>Formatted leaderboard</td>
+</tr>
+<tr>
+<td><code>$leaderboardSize[guildID?]</code></td>
+<td>Total ranked members</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Leaderboard format tokens:</strong> <code>{position}</code> <code>{userID}</code> <code>{user}</code> <code>{level}</code> <code>{xp}</code> <code>{messages}</code></p>
+<a id="md:config-functions" class="tsd-anchor"></a><h3 class="tsd-anchor-link">Config Functions<a href="#md:config-functions" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3><table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>$setLevelConfig[key;value;guildID?]</code></td>
+<td>Set a config value</td>
+</tr>
+<tr>
+<td><code>$getLevelConfig[key;guildID?]</code></td>
+<td>Get a config value</td>
+</tr>
+<tr>
+<td><code>$resetLevelConfig[guildID?]</code></td>
+<td>Reset config to defaults</td>
+</tr>
+<tr>
+<td><code>$levelEnabled[guildID?]</code></td>
+<td>Returns true/false</td>
+</tr>
+<tr>
+<td><code>$toggleLevels[guildID?]</code></td>
+<td>Toggle on/off, returns new state</td>
+</tr>
+<tr>
+<td><code>$setLevelNotification[type;message?;channelID?;guildID?]</code></td>
+<td>Configure notifications</td>
+</tr>
+<tr>
+<td><code>$addXpMultiplier[multiplier;roleID?;channelID?;guildID?]</code></td>
+<td>Add XP multiplier</td>
+</tr>
+<tr>
+<td><code>$clearXpMultipliers[guildID?]</code></td>
+<td>Remove all multipliers</td>
+</tr>
+<tr>
+<td><code>$setIgnoredChannels[ids;guildID?]</code></td>
+<td>Set ignored channels (comma-separated)</td>
+</tr>
+<tr>
+<td><code>$setIgnoredRoles[ids;guildID?]</code></td>
+<td>Set ignored roles</td>
+</tr>
+<tr>
+<td><code>$setIgnoredUsers[ids;guildID?]</code></td>
+<td>Set ignored users</td>
+</tr>
+</tbody>
+</table>
+<a id="md:reward-functions" class="tsd-anchor"></a><h3 class="tsd-anchor-link">Reward Functions<a href="#md:reward-functions" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3><table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>$addRoleReward[level;roleID;persistent?;guildID?]</code></td>
+<td>Add role reward at level</td>
+</tr>
+<tr>
+<td><code>$removeRoleReward[level;guildID?]</code></td>
+<td>Remove role reward</td>
+</tr>
+<tr>
+<td><code>$getRoleRewards[format?;separator?;guildID?]</code></td>
+<td>List all role rewards</td>
+</tr>
+<tr>
+<td><code>$addMessageReward[level;label;guildID?]</code></td>
+<td>Add custom reward (fires <code>levelReward</code>)</td>
+</tr>
+<tr>
+<td><code>$removeMessageReward[level;label?;guildID?]</code></td>
+<td>Remove custom reward</td>
+</tr>
+</tbody>
+</table>
+<a id="md:event-data-functions-inside-event-commands" class="tsd-anchor"></a><h3 class="tsd-anchor-link">Event Data Functions (inside event commands)<a href="#md:event-data-functions-inside-event-commands" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3><table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>$levelEventUserID</code></td>
+<td>User ID from event</td>
+</tr>
+<tr>
+<td><code>$levelEventGuildID</code></td>
+<td>Guild ID from event</td>
+</tr>
+<tr>
+<td><code>$levelEventNewLevel</code></td>
+<td>New level (levelUp)</td>
+</tr>
+<tr>
+<td><code>$levelEventOldLevel</code></td>
+<td>Old level (levelUp)</td>
+</tr>
+<tr>
+<td><code>$levelEventXp</code></td>
+<td>XP gained (xpGain) or total (levelUp)</td>
+</tr>
+<tr>
+<td><code>$levelEventTotalXp</code></td>
+<td>Total XP after level-up</td>
+</tr>
+<tr>
+<td><code>$levelEventRewardLabel</code></td>
+<td>Reward label (levelReward)</td>
+</tr>
+<tr>
+<td><code>$levelEventLevel</code></td>
+<td>Level that triggered reward</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<a id="md:events" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Events<a href="#md:events" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><p>Register event commands using the event name as the command <code>type</code>:</p>
+<pre><code class="ts"><span class="hl-4">client</span><span class="hl-1">.</span><span class="hl-4">commands</span><span class="hl-1">.</span><span class="hl-0">add</span><span class="hl-1">({</span><br/><span class="hl-1">    </span><span class="hl-4">type:</span><span class="hl-1"> </span><span class="hl-2">&quot;levelUp&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-4">code:</span><span class="hl-1"> </span><span class="hl-2">`🎉 &lt;@$levelEventUserID&gt; hit Level $levelEventNewLevel!`</span><span class="hl-1">,</span><br/><span class="hl-1">})</span><br/><br/><span class="hl-4">client</span><span class="hl-1">.</span><span class="hl-4">commands</span><span class="hl-1">.</span><span class="hl-0">add</span><span class="hl-1">({</span><br/><span class="hl-1">    </span><span class="hl-4">type:</span><span class="hl-1"> </span><span class="hl-2">&quot;xpGain&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-4">code:</span><span class="hl-1"> </span><span class="hl-2">`$log[$levelEventUserID gained $levelEventXp XP]`</span><span class="hl-1">,</span><br/><span class="hl-1">})</span><br/><br/><span class="hl-4">client</span><span class="hl-1">.</span><span class="hl-4">commands</span><span class="hl-1">.</span><span class="hl-0">add</span><span class="hl-1">({</span><br/><span class="hl-1">    </span><span class="hl-4">type:</span><span class="hl-1"> </span><span class="hl-2">&quot;levelReward&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-4">code:</span><span class="hl-1"> </span><span class="hl-2">`$sendDM[$levelEventUserID;You earned: $levelEventRewardLabel at Level $levelEventLevel!]`</span><span class="hl-1">,</span><br/><span class="hl-1">})</span>
+</code><button type="button">Copy</button></pre>
+
+<hr>
+<a id="md:example-setup" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Example Setup<a href="#md:example-setup" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><pre><code class="ts"><span class="hl-7">// Double XP in #xp-boost channel</span><br/><span class="hl-4">$addXpMultiplier</span><span class="hl-1">[</span><span class="hl-8">2</span><span class="hl-1">;;</span><span class="hl-4">$channelID</span><span class="hl-1">]</span><br/><br/><span class="hl-7">// Triple XP for Booster role</span><br/><span class="hl-4">$addXpMultiplier</span><span class="hl-1">[</span><span class="hl-8">3</span><span class="hl-1">;</span><span class="hl-4">$roleID</span><span class="hl-1">]</span><br/><br/><span class="hl-7">// Role rewards</span><br/><span class="hl-4">$addRoleReward</span><span class="hl-1">[</span><span class="hl-8">5</span><span class="hl-1">;</span><span class="hl-6">ROLE_ID_LVL5</span><span class="hl-1">]</span><br/><span class="hl-4">$addRoleReward</span><span class="hl-1">[</span><span class="hl-8">10</span><span class="hl-1">;</span><span class="hl-6">ROLE_ID_LVL10</span><span class="hl-1">]</span><br/><span class="hl-4">$addRoleReward</span><span class="hl-1">[</span><span class="hl-8">25</span><span class="hl-1">;</span><span class="hl-6">ROLE_ID_LVL25</span><span class="hl-1">]</span><br/><br/><span class="hl-7">// Exponential formula, cap at level 50</span><br/><span class="hl-4">$setLevelConfig</span><span class="hl-1">[</span><span class="hl-4">formula</span><span class="hl-1">;</span><span class="hl-4">exponential</span><span class="hl-1">]</span><br/><span class="hl-4">$setLevelConfig</span><span class="hl-1">[</span><span class="hl-4">xpBase</span><span class="hl-1">;</span><span class="hl-8">80</span><span class="hl-1">]</span><br/><span class="hl-4">$setLevelConfig</span><span class="hl-1">[</span><span class="hl-4">xpExponent</span><span class="hl-1">;</span><span class="hl-8">1.4</span><span class="hl-1">]</span><br/><span class="hl-4">$setLevelConfig</span><span class="hl-1">[</span><span class="hl-4">maxLevel</span><span class="hl-1">;</span><span class="hl-8">50</span><span class="hl-1">]</span><br/><br/><span class="hl-7">// Custom formula</span><br/><span class="hl-4">$setLevelConfig</span><span class="hl-1">[</span><span class="hl-4">formula</span><span class="hl-1">;</span><span class="hl-4">custom</span><span class="hl-1">]</span><br/><span class="hl-4">$setLevelConfig</span><span class="hl-1">[</span><span class="hl-4">customFormula</span><span class="hl-1">;</span><span class="hl-4">base</span><span class="hl-1"> * </span><span class="hl-4">level</span><span class="hl-1"> * (</span><span class="hl-4">level</span><span class="hl-1"> + </span><span class="hl-8">1</span><span class="hl-1">) / </span><span class="hl-8">2</span><span class="hl-1">]</span>
+</code><button type="button">Copy</button></pre>
+
+<hr>
+<a id="md:license" class="tsd-anchor"></a><h2 class="tsd-anchor-link">License<a href="#md:license" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><p>GPL-3.0</p>
+</div></div><div class="col-sidebar"><div class="page-menu"><div class="tsd-navigation settings"><details class="tsd-accordion"><summary class="tsd-accordion-summary"><h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><use href="assets/icons.svg#icon-chevronDown"></use></svg>Settings</h3></summary><div class="tsd-accordion-details"><div class="tsd-filter-visibility"><span class="settings-label">Member Visibility</span><ul id="tsd-filter-options"><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-protected" name="protected"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Protected</span></label></li><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-external" name="external"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>External</span></label></li></ul></div><div class="tsd-theme-toggle"><label class="settings-label" for="tsd-theme">Theme</label><select id="tsd-theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div><details open class="tsd-accordion tsd-page-navigation"><summary class="tsd-accordion-summary"><h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><use href="assets/icons.svg#icon-chevronDown"></use></svg>On This Page</h3></summary><div class="tsd-accordion-details"><a href="#md:forgelevels"><span>Forge<wbr/>Levels</span></a><ul><li><a href="#md:features"><span>Features</span></a></li><li><a href="#md:installation"><span>Installation</span></a></li><li><a href="#md:quick-start"><span>Quick <wbr/>Start</span></a></li><li><a href="#md:extension-options"><span>Extension <wbr/>Options</span></a></li><li><a href="#md:per-guild-config-setlevelconfig"><span>Per-<wbr/>Guild <wbr/>Config ($set<wbr/>Level<wbr/>Config)</span></a></li><li><ul><li><a href="#md:xp-formulas"><span>XP <wbr/>Formulas</span></a></li></ul></li><li><a href="#md:functions-reference"><span>Functions <wbr/>Reference</span></a></li><li><ul><li><a href="#md:xp-functions"><span>XP <wbr/>Functions</span></a></li><li><a href="#md:level-functions"><span>Level <wbr/>Functions</span></a></li><li><a href="#md:rank--leaderboard"><span>Rank &amp; <wbr/>Leaderboard</span></a></li><li><a href="#md:config-functions"><span>Config <wbr/>Functions</span></a></li><li><a href="#md:reward-functions"><span>Reward <wbr/>Functions</span></a></li><li><a href="#md:event-data-functions-inside-event-commands"><span>Event <wbr/>Data <wbr/>Functions (inside event commands)</span></a></li></ul></li><li><a href="#md:events"><span>Events</span></a></li><li><a href="#md:example-setup"><span>Example <wbr/>Setup</span></a></li><li><a href="#md:license"><span>License</span></a></li></ul></div></details></div><div class="site-menu"><nav class="tsd-navigation"><a href="modules.html" class="current"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="assets/icons.svg#icon-1"></use></svg><span>@tryforge/forge.levels</span></a><ul class="tsd-small-nested-navigation" id="tsd-nav-container" data-base="."><li>Loading...</li></ul></nav></div></div></div><footer><p class="tsd-generator">Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></footer><div class="overlay"></div></body></html>
