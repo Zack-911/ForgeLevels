@@ -17,6 +17,11 @@ export default new NativeFunction({
         if (!gid) return this.customError("Missing guild.")
         const cfg = await LevelsDatabase.getConfig(gid)
         const rewards = cfg.messageRewards ?? []
+
+        if (rewards.some(r => r.level === level && r.label === label)) {
+            return this.success()
+        }
+
         rewards.push({ level, label })
         await LevelsDatabase.patchConfig(gid, "messageRewards", rewards)
         return this.success()
