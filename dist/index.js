@@ -46,12 +46,17 @@ class ForgeLevels extends forgescript_1.ForgeExtension {
         }
         // Initialise the TypeORM database
         const levelsDb = new LevelsDatabase_1.LevelsDatabase();
-        await levelsDb.init();
-        this.emitter.emit("databaseConnect");
+        try {
+            await levelsDb.init();
+            this.emitter.emit("databaseConnect");
+            forgescript_1.Logger.info(`[ForgeLevels] v${this.version} connected to database.`);
+        }
+        catch (err) {
+            forgescript_1.Logger.error(`[ForgeLevels] Failed to connect to database: ${err.message}`);
+        }
         // Hook into messageCreate for XP processing
         const ext = this;
         client.on("messageCreate", (msg) => (0, messageHandler_1.handleMessage)(msg, ext));
-        forgescript_1.Logger.info(`[ForgeLevels] v${this.version} ready.`);
     }
 }
 exports.ForgeLevels = ForgeLevels;

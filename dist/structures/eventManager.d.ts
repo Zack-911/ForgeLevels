@@ -23,6 +23,7 @@ export interface ILevelEvents {
         guildId: string;
         level: number;
         label: string;
+        obj?: any;
     }];
     /** Fired when the database has connected */
     databaseConnect: [];

@@ -40,17 +40,20 @@ async function handleMessage(message, ext) {
     // ── Cooldown check ────────────────────────────────────────────────────────
     const onCooldown = now - record.lastXpAt < cfg.xpCooldown;
     if (onCooldown) {
-        // Atomic increment only — avoids overwriting XP if a concurrent addXp ran
-        await LevelsDatabase_1.LevelsDatabase.addMessage(guildId, userId);
+        record.totalMessages += 1;
+        await LevelsDatabase_1.LevelsDatabase.setMember(record);
         return;
     }
     // ── No-XP roles (counts as message, but no XP) ────────────────────────────
     if (cfg.noXpRoles?.some(r => memberRoles.includes(r))) {
-        await LevelsDatabase_1.LevelsDatabase.addMessage(guildId, userId);
+        record.totalMessages += 1;
+        await LevelsDatabase_1.LevelsDatabase.setMember(record);
         return;
     }
     // ── Calculate XP ──────────────────────────────────────────────────────────
-    let xpGained = Math.floor(Math.random() * (cfg.xpMax - cfg.xpMin + 1) + cfg.xpMin);
+    const min = Math.min(cfg.xpMin, cfg.xpMax);
+    const max = Math.max(cfg.xpMin, cfg.xpMax);
+    let xpGained = Math.floor(Math.random() * (max - min + 1) + min);
     let multiplier = cfg.xpMultiplier;
     for (const m of cfg.multipliers ?? []) {
         if (m.roleId && memberRoles.includes(m.roleId))
@@ -60,13 +63,15 @@ async function handleMessage(message, ext) {
     }
     xpGained = Math.floor(xpGained * multiplier);
     if (xpGained <= 0) {
-        await LevelsDatabase_1.LevelsDatabase.addMessage(guildId, userId);
+        record.totalMessages += 1;
+        await LevelsDatabase_1.LevelsDatabase.setMember(record);
         return;
     }
     // ── Level-up detection ────────────────────────────────────────────────────
     const oldLevelData = (0, XpFormula_1.levelFromXp)(record.xp, cfg);
     if (cfg.maxLevel > 0 && oldLevelData.level >= cfg.maxLevel) {
-        await LevelsDatabase_1.LevelsDatabase.addMessage(guildId, userId);
+        record.totalMessages += 1;
+        await LevelsDatabase_1.LevelsDatabase.setMember(record);
         return;
     }
     const newTotalXp = record.xp + xpGained;

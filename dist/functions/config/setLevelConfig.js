@@ -67,6 +67,18 @@ exports.default = new forgescript_1.NativeFunction({
             parsed = JSON.parse(value);
         }
         catch { /* keep as string */ }
+        // Validation for XP range (Issue 19)
+        if (keyName === "xpMin" || keyName === "xpMax") {
+            const num = Number(parsed);
+            if (isNaN(num))
+                return this.customError("Value must be a number.");
+            const cfg = await LevelsDatabase_1.LevelsDatabase.getConfig(gid);
+            const other = keyName === "xpMin" ? (cfg.xpMax ?? 25) : (cfg.xpMin ?? 15);
+            if (keyName === "xpMin" && num > other)
+                return this.customError("xpMin cannot be greater than xpMax.");
+            if (keyName === "xpMax" && num < other)
+                return this.customError("xpMax cannot be less than xpMin.");
+        }
         await LevelsDatabase_1.LevelsDatabase.patchConfig(gid, keyName, parsed);
         return this.success();
     },

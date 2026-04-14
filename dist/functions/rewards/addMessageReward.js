@@ -19,6 +19,10 @@ exports.default = new forgescript_1.NativeFunction({
             return this.customError("Missing guild.");
         const cfg = await LevelsDatabase_1.LevelsDatabase.getConfig(gid);
         const rewards = cfg.messageRewards ?? [];
+        // Prevent duplicates (Issue 20)
+        if (rewards.some(r => r.level === level && r.label === label)) {
+            return this.success();
+        }
         rewards.push({ level, label });
         await LevelsDatabase_1.LevelsDatabase.patchConfig(gid, "messageRewards", rewards);
         return this.success();

@@ -30,28 +30,49 @@ exports.default = new eventManager_1.LevelsEventHandler({
                     }
                 }
                 else {
-                    // Only keep the highest role reward; remove lower ones
-                    const [highest, ...lower] = earned;
+                    // Only keep the highest role reward among those earned up to newLevel
+                    const highest = earned[0];
                     if (highest) {
-                        await member.roles.add(highest.roleId).catch(() => null);
-                        for (const r of lower) {
-                            await member.roles.remove(r.roleId).catch(() => null);
+                        if (!member.roles.cache.has(highest.roleId)) {
+                            await member.roles.add(highest.roleId).catch(() => null);
                         }
-                    }
-                }
-                // Remove roles from rewards at levels the member has surpassed
-                // (only if not persistent)
-                for (const reward of roleRewards) {
-                    if (!reward.persistent && reward.level < newLevel && !cfg.stackRoles) {
-                        await member.roles.remove(reward.roleId).catch(() => null);
+                        // Remove all other role rewards (both lower earned ones and higher ones from previous levels)
+                        for (const reward of roleRewards) {
+                            if (reward.roleId !== highest.roleId && !reward.persistent) {
+                                await member.roles.remove(reward.roleId).catch(() => null);
+                            }
+                        }
                     }
                 }
             }
         }
         // ── Message rewards ───────────────────────────────────────────────────
-        const msgRewards = (cfg.messageRewards ?? []).filter(r => r.level === newLevel);
-        for (const reward of msgRewards) {
-            ext.emitter.emit("levelReward", { userId, guildId, level: newLevel, label: reward.label });
+        // Loop through all intermediate levels to ensure no rewards are skipped during bulk XP gain
+        for (let l = oldLevel + 1; l <= newLevel; l++) {
+            const msgRewards = (cfg.messageRewards ?? []).filter(r => r.level === l);
+            for (const reward of msgRewards) {
+                ext.emitter.emit("levelReward", { userId, guildId, level: l, label: reward.label, obj });
+            }
+        }
+        // ── Automated Notifications (Issue 3) ─────────────────────────────────
+        const notif = cfg.notification;
+        if (notif && notif.type && notif.type !== "none") {
+            const channel = notif.type === "channel"
+                ? (notif.channelId ? await this.channels.fetch(notif.channelId).catch(() => null) : ("send" in obj ? obj : null))
+                : null;
+            const message = notif.message || "Congratulations {user}, you've reached level {level}!";
+            const formatted = message
+                .replace("{user}", `<@${userId}>`)
+                .replace("{level}", String(newLevel))
+                .replace("{xp}", String(totalXp))
+                .replace("{guild}", guild?.name || "the server");
+            if (notif.type === "dm") {
+                const user = await this.users.fetch(userId).catch(() => null);
+                await user?.send(formatted).catch(() => null);
+            }
+            else if (channel && "send" in channel) {
+                await channel.send(formatted).catch(() => null);
+            }
         }
         // ── Run user-registered levelUp commands ──────────────────────────────
         const commands = ext.commands.get("levelUp");

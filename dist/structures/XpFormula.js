@@ -25,9 +25,15 @@ function xpForLevel(level, cfg) {
             if (!cfg.customFormula)
                 return base * level * level; // fallback
             try {
+                // Basic safety check: ensure the formula doesn't contain obvious bad stuff
+                // (though for a scripting library, we generally expect the dev to know what they're doing)
+                if (cfg.customFormula.includes("process.") || cfg.customFormula.includes("require(")) {
+                    return base * level * level;
+                }
                 // eslint-disable-next-line no-new-func
                 const fn = new Function("level", "base", "exponent", `"use strict"; return (${cfg.customFormula});`);
-                return Math.floor(fn(level, base, exponent));
+                const result = Math.floor(fn(level, base, exponent));
+                return isNaN(result) ? base * level * level : result;
             }
             catch {
                 return base * level * level;
@@ -58,6 +64,10 @@ function levelFromXp(totalXp, cfg) {
         if (maxLevel > 0 && next > maxLevel)
             break;
         const needed = xpForLevel(next, cfg);
+        // Safety guard: if needed XP is 0 or negative, we would infinite loop.
+        // Also guard against extreme levels.
+        if (needed <= 0 || level > 10000)
+            break;
         if (consumed + needed > totalXp)
             break;
         consumed += needed;

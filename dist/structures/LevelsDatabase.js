@@ -23,12 +23,13 @@ class LevelsDatabase extends LevelsDatabaseManager {
         };
         this.type ?? (this.type = "sqlite");
         this.db = this.getDB();
-        const isMongo = this.type === "mongodb";
-        LevelsDatabase.RecordEntity = isMongo ? LevelRecord_1.MongoLevelRecord : LevelRecord_1.LevelRecord;
-        LevelsDatabase.ConfigEntity = isMongo ? LevelRecord_1.MongoGuildConfig : LevelRecord_1.GuildConfig;
     }
     async init() {
         LevelsDatabase.db = await this.db;
+        // Correctly set entities after DB type is resolved from getDB()
+        const isMongo = this.type === "mongodb";
+        LevelsDatabase.RecordEntity = isMongo ? LevelRecord_1.MongoLevelRecord : LevelRecord_1.LevelRecord;
+        LevelsDatabase.ConfigEntity = isMongo ? LevelRecord_1.MongoGuildConfig : LevelRecord_1.GuildConfig;
     }
     // ── Helpers ──────────────────────────────────────────────────────────────
     static makeId(guildId, userId) {
@@ -51,10 +52,12 @@ class LevelsDatabase extends LevelsDatabaseManager {
         await this.db.getRepository(this.RecordEntity).save(record);
     }
     /** Atomically increments the message count for a member. */
-    static async addMessage(guildId, userId) {
+    static async addMessage(guildId, userId, recordExists = false) {
         const identifier = this.makeId(guildId, userId);
-        // Ensure record exists first
-        await this.getOrCreate(guildId, userId);
+        // Ensure record exists first if not already guaranteed
+        if (!recordExists) {
+            await this.getOrCreate(guildId, userId);
+        }
         await this.db.getRepository(this.RecordEntity).increment({ identifier }, "totalMessages", 1);
     }
     static async deleteMember(guildId, userId) {

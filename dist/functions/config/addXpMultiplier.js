@@ -46,6 +46,12 @@ exports.default = new forgescript_1.NativeFunction({
             return this.customError("Supply at least a roleID or channelID.");
         const cfg = await LevelsDatabase_1.LevelsDatabase.getConfig(gid);
         const multipliers = cfg.multipliers ?? [];
+        // Prevent duplicates (Issue 20)
+        const isDuplicate = multipliers.some(m => m.multiplier === multiplier &&
+            m.roleId === role?.id &&
+            m.channelId === channel?.id);
+        if (isDuplicate)
+            return this.success();
         multipliers.push({
             multiplier,
             roleId: role?.id,

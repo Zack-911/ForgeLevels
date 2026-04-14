@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const forgescript_1 = require("@tryforge/forgescript");
 const LevelsDatabase_1 = require("../../structures/LevelsDatabase");
 const XpFormula_1 = require("../../structures/XpFormula");
+const __1 = require("../..");
 exports.default = new forgescript_1.NativeFunction({
     name: "$removeXp",
     version: "1.0.0",
@@ -39,9 +40,24 @@ exports.default = new forgescript_1.NativeFunction({
             return this.customError("Missing user or guild.");
         const record = await LevelsDatabase_1.LevelsDatabase.getOrCreate(gid, uid);
         const cfg = await LevelsDatabase_1.LevelsDatabase.resolvedConfig(gid);
+        const oldLevel = (0, XpFormula_1.levelFromXp)(record.xp, cfg).level;
         record.xp = Math.max(0, record.xp - xp);
         record.level = (0, XpFormula_1.levelFromXp)(record.xp, cfg).level;
         await LevelsDatabase_1.LevelsDatabase.setMember(record);
+        const ext = ctx.client.getExtension(__1.ForgeLevels, true);
+        // Note: removeXp doesn't usually emit xpGain as it's a loss.
+        // But if the level changed (even downwards), we might want to notify.
+        // The requirements say "no events", implying we should add them.
+        if (record.level !== oldLevel) {
+            ext.emitter.emit("levelUp", {
+                userId: uid,
+                guildId: gid,
+                oldLevel,
+                newLevel: record.level,
+                totalXp: record.xp,
+                obj: ctx.obj
+            });
+        }
         return this.success();
     },
 });

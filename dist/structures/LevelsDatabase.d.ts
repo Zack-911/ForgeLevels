@@ -26,7 +26,7 @@ export declare class LevelsDatabase extends LevelsDatabaseManager {
     static getMember(guildId: Snowflake, userId: Snowflake): Promise<LevelRecord | null>;
     static setMember(record: LevelRecord): Promise<void>;
     /** Atomically increments the message count for a member. */
-    static addMessage(guildId: Snowflake, userId: Snowflake): Promise<void>;
+    static addMessage(guildId: Snowflake, userId: Snowflake, recordExists?: boolean): Promise<void>;
     static deleteMember(guildId: Snowflake, userId: Snowflake): Promise<import("typeorm").DeleteResult>;
     /** Creates a fresh LevelRecord with the composite identifier set */
     static makeFreshRecord(guildId: Snowflake, userId: Snowflake): LevelRecord;

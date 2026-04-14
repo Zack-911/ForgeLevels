@@ -7,7 +7,7 @@ exports.default = new eventManager_1.LevelsEventHandler({
     name: "xpGain",
     version: "1.0.0",
     description: "Fired when a member earns XP from a message",
-    listener: async function ({ userId, guildId, xp, totalXp }) {
+    listener: async function ({ userId, guildId, xp, totalXp, obj }) {
         const ext = this.getExtension(__1.ForgeLevels, true);
         const commands = ext.commands.get("xpGain");
         for (const command of commands) {
@@ -15,7 +15,7 @@ exports.default = new eventManager_1.LevelsEventHandler({
                 client: this,
                 command,
                 data: command.compiled.code,
-                obj: {},
+                obj: obj || {},
                 extras: { userId, guildId, xp, totalXp },
             });
         }

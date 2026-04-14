@@ -43,9 +43,13 @@ exports.default = new forgescript_1.NativeFunction({
         const oldLevel = (0, XpFormula_1.levelFromXp)(record.xp, cfg).level;
         record.xp = Math.max(0, record.xp + xp);
         record.level = (0, XpFormula_1.levelFromXp)(record.xp, cfg).level;
+        record.lastXpAt = Date.now(); // Update cooldown (Issue 15)
         await LevelsDatabase_1.LevelsDatabase.setMember(record);
         const ext = ctx.client.getExtension(__1.ForgeLevels, true);
-        ext.emitter.emit("xpGain", { userId: uid, guildId: gid, xp, totalXp: record.xp, obj: ctx.obj });
+        // Only emit xpGain if XP is positive (Issue 9)
+        if (xp > 0) {
+            ext.emitter.emit("xpGain", { userId: uid, guildId: gid, xp, totalXp: record.xp, obj: ctx.obj });
+        }
         if (record.level > oldLevel) {
             ext.emitter.emit("levelUp", {
                 userId: uid,
