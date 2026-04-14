@@ -36,7 +36,7 @@ export default new NativeFunction({
         const keyName = KEY_NAMES[key] as keyof ILevelConfig
         const cfg = await LevelsDatabase.resolvedConfig(gid)
         const val = (cfg as any)[keyName]
-        if (val === undefined) return this.success("undefined")
+        if (val === undefined) return this.success()
         return this.success(typeof val === "object" ? JSON.stringify(val) : String(val))
     },
 })
