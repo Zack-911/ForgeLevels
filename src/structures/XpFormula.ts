@@ -22,7 +22,7 @@ export function xpForLevel(level: number, cfg: ILevelConfig): number {
             return Math.floor(base * Math.pow(exponent, level))
 
         case "custom": {
-            if (!cfg.customFormula) return base * level * level // fallback
+            if (!cfg.customFormula) return base * level * level
             try {
                 // eslint-disable-next-line no-new-func
                 const fn = new Function("level", "base", "exponent",
