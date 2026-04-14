@@ -79,8 +79,11 @@ export default new NativeFunction({
             const { level } = levelFromXp(rec.xp, cfg)
             let user = `<@${rec.userId}>`
             try {
-                const u = await ctx.client.users.fetch(rec.userId)
-                user = u.username
+                // Check cache first (Issue 13)
+                const u = ctx.client.users.cache.get(rec.userId) ?? await ctx.client.users.fetch(rec.userId).catch(() => null)
+                if (u) {
+                    user = u.displayName // Use display name (Issue 17)
+                }
             } catch {}
             return fmt
                 .replace("{position}", String(offset + i + 1))
