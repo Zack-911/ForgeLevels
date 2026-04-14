@@ -43,14 +43,17 @@ export class ForgeLevels extends ForgeExtension {
 
         // Initialise the TypeORM database
         const levelsDb = new LevelsDatabase()
-        await levelsDb.init()
-        this.emitter.emit("databaseConnect")
+        try {
+            await levelsDb.init()
+            this.emitter.emit("databaseConnect")
+            Logger.info(`[ForgeLevels] v${this.version} connected to database.`)
+        } catch (err: any) {
+            Logger.error(`[ForgeLevels] Failed to connect to database: ${err.message}`)
+        }
 
         // Hook into messageCreate for XP processing
         const ext = this
         client.on("messageCreate", (msg) => handleMessage(msg, ext))
-
-        Logger.info(`[ForgeLevels] v${this.version} ready.`)
     }
 }
 
