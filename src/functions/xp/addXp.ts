@@ -43,10 +43,15 @@ export default new NativeFunction({
 
         record.xp = Math.max(0, record.xp + xp)
         record.level = levelFromXp(record.xp, cfg).level
+        record.lastXpAt = Date.now()
+
         await LevelsDatabase.setMember(record)
 
         const ext = ctx.client.getExtension(ForgeLevels, true)
-        ext.emitter.emit("xpGain", { userId: uid, guildId: gid, xp, totalXp: record.xp, obj: ctx.obj })
+
+        if (xp > 0) {
+            ext.emitter.emit("xpGain", { userId: uid, guildId: gid, xp, totalXp: record.xp, obj: ctx.obj })
+        }
 
         if (record.level > oldLevel) {
             ext.emitter.emit("levelUp", {

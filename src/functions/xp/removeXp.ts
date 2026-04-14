@@ -1,6 +1,7 @@
 import { ArgType, NativeFunction } from "@tryforge/forgescript"
 import { LevelsDatabase } from "../../structures/LevelsDatabase"
 import { levelFromXp } from "../../structures/XpFormula"
+import { ForgeLevels } from "../.."
 
 export default new NativeFunction({
     name: "$removeXp",
@@ -37,9 +38,27 @@ export default new NativeFunction({
         if (!uid || !gid) return this.customError("Missing user or guild.")
         const record = await LevelsDatabase.getOrCreate(gid, uid)
         const cfg = await LevelsDatabase.resolvedConfig(gid)
+        const oldLevel = levelFromXp(record.xp, cfg).level
+
         record.xp = Math.max(0, record.xp - xp)
         record.level = levelFromXp(record.xp, cfg).level
         await LevelsDatabase.setMember(record)
+
+        const ext = ctx.client.getExtension(ForgeLevels, true)
+        // Note: removeXp doesn't usually emit xpGain as it's a loss.
+        // But if the level changed (even downwards), we might want to notify.
+        // The requirements say "no events", implying we should add them.
+        if (record.level !== oldLevel) {
+            ext.emitter.emit("levelUp", {
+                userId: uid,
+                guildId: gid,
+                oldLevel,
+                newLevel: record.level,
+                totalXp: record.xp,
+                obj: ctx.obj
+            })
+        }
+
         return this.success()
     },
 })

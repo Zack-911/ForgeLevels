@@ -1,6 +1,7 @@
 import { ArgType, NativeFunction } from "@tryforge/forgescript"
 import { LevelsDatabase } from "../../structures/LevelsDatabase"
 import { levelFromXp } from "../../structures/XpFormula"
+import { ForgeLevels } from "../.."
 
 export default new NativeFunction({
     name: "$setXp",
@@ -37,9 +38,31 @@ export default new NativeFunction({
         if (!uid || !gid) return this.customError("Missing user or guild.")
         const record = await LevelsDatabase.getOrCreate(gid, uid)
         const cfg = await LevelsDatabase.resolvedConfig(gid)
+        const oldLevel = levelFromXp(record.xp, cfg).level
+        const oldXp = record.xp
+
         record.xp = Math.max(0, xp)
         record.level = levelFromXp(record.xp, cfg).level
         await LevelsDatabase.setMember(record)
+
+        const ext = ctx.client.getExtension(ForgeLevels, true)
+        
+        // Emit xpGain if it was an increase
+        if (record.xp > oldXp) {
+            ext.emitter.emit("xpGain", { userId: uid, guildId: gid, xp: record.xp - oldXp, totalXp: record.xp, obj: ctx.obj })
+        }
+
+        if (record.level !== oldLevel) {
+            ext.emitter.emit("levelUp", {
+                userId: uid,
+                guildId: gid,
+                oldLevel,
+                newLevel: record.level,
+                totalXp: record.xp,
+                obj: ctx.obj
+            })
+        }
+
         return this.success()
     },
 })
