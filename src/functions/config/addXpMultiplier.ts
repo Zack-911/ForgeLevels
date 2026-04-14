@@ -44,6 +44,15 @@ export default new NativeFunction({
 
         const cfg = await LevelsDatabase.getConfig(gid)
         const multipliers = cfg.multipliers ?? []
+
+        // Prevent duplicates (Issue 20)
+        const isDuplicate = multipliers.some(m => 
+            m.multiplier === multiplier && 
+            m.roleId === role?.id && 
+            m.channelId === channel?.id
+        )
+        if (isDuplicate) return this.success()
+
         multipliers.push({
             multiplier,
             roleId: role?.id,
