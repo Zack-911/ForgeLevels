@@ -2,14 +2,14 @@ import { ArgType, NativeFunction } from "@tryforge/forgescript"
 import { ILevelEvents } from "../../structures/eventManager"
 
 export default new NativeFunction({
-    name: "$levelEventTotalXp",
+    name: "$levelEventRewardLabel",
     version: "1.0.0",
-    description: "Inside a levelUp event, returns the member's total XP after levelling up.",
+    description: "Inside a levelReward event command, returns the reward label.",
     unwrap: true,
-    output: ArgType.Number,
+    output: ArgType.String,
     args: [],
     async execute(ctx) {
         // @ts-ignore
-        return this.success((ctx.runtime.extras as ILevelEvents["levelUp"][0]).totalXp)
+        return this.success((ctx.runtime.extras as ILevelEvents["levelReward"][0]).label)
     },
 })
