@@ -44,14 +44,15 @@ export class LevelsDatabase extends LevelsDatabaseManager {
         super()
         this.type ??= "sqlite"
         this.db = this.getDB()
-
-        const isMongo = this.type === "mongodb"
-        LevelsDatabase.RecordEntity = isMongo ? MongoLevelRecord : LevelRecord
-        LevelsDatabase.ConfigEntity = isMongo ? MongoGuildConfig : GuildConfig
     }
 
     public async init() {
         LevelsDatabase.db = await this.db
+        
+        // Correctly set entities after DB type is resolved from getDB()
+        const isMongo = this.type === "mongodb"
+        LevelsDatabase.RecordEntity = isMongo ? MongoLevelRecord : LevelRecord
+        LevelsDatabase.ConfigEntity = isMongo ? MongoGuildConfig : GuildConfig
     }
 
     // ── Helpers ──────────────────────────────────────────────────────────────
@@ -80,10 +81,13 @@ export class LevelsDatabase extends LevelsDatabaseManager {
     }
 
     /** Atomically increments the message count for a member. */
-    public static async addMessage(guildId: Snowflake, userId: Snowflake) {
+    public static async addMessage(guildId: Snowflake, userId: Snowflake, recordExists = false) {
         const identifier = this.makeId(guildId, userId)
-        // Ensure record exists first
-        await this.getOrCreate(guildId, userId)
+        
+        // Ensure record exists first if not already guaranteed
+        if (!recordExists) {
+            await this.getOrCreate(guildId, userId)
+        }
         
         await this.db.getRepository(this.RecordEntity).increment({ identifier }, "totalMessages", 1)
     }
