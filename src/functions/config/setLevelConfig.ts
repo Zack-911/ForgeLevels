@@ -64,7 +64,18 @@ export default new NativeFunction({
 
         // Try to parse as JSON (handles booleans, numbers, etc.)
         let parsed: unknown = value
-        try { parsed = JSON.parse(value) } catch { /* keep as string */ }
+        try { parsed = JSON.parse(value) } catch { }
+
+        if (keyName === "xpMin" || keyName === "xpMax") {
+            const num = Number(parsed)
+            if (isNaN(num)) return this.customError("Value must be a number.")
+
+            const cfg = await LevelsDatabase.getConfig(gid)
+            const other = keyName === "xpMin" ? (cfg.xpMax ?? 25) : (cfg.xpMin ?? 15)
+
+            if (keyName === "xpMin" && num > other) return this.customError("xpMin cannot be greater than xpMax.")
+            if (keyName === "xpMax" && num < other) return this.customError("xpMax cannot be less than xpMin.")
+        }
 
         await LevelsDatabase.patchConfig(gid, keyName, parsed as any)
         return this.success()
