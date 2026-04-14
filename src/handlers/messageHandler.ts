@@ -42,20 +42,23 @@ export async function handleMessage(
     // ── Cooldown check ────────────────────────────────────────────────────────
     const onCooldown = now - record.lastXpAt < cfg.xpCooldown
     if (onCooldown) {
-        // Atomic increment only — avoids overwriting XP if a concurrent addXp ran
-        await LevelsDatabase.addMessage(guildId, userId)
+        record.totalMessages += 1
+        await LevelsDatabase.setMember(record)
         return
     }
 
     // ── No-XP roles (counts as message, but no XP) ────────────────────────────
     if (cfg.noXpRoles?.some(r => memberRoles.includes(r))) {
-        await LevelsDatabase.addMessage(guildId, userId)
+        record.totalMessages += 1
+        await LevelsDatabase.setMember(record)
         return
     }
 
     // ── Calculate XP ──────────────────────────────────────────────────────────
+    const min = Math.min(cfg.xpMin, cfg.xpMax)
+    const max = Math.max(cfg.xpMin, cfg.xpMax)
     let xpGained = Math.floor(
-        Math.random() * (cfg.xpMax - cfg.xpMin + 1) + cfg.xpMin
+        Math.random() * (max - min + 1) + min
     )
 
     let multiplier = cfg.xpMultiplier
@@ -66,7 +69,8 @@ export async function handleMessage(
 
     xpGained = Math.floor(xpGained * multiplier)
     if (xpGained <= 0) {
-        await LevelsDatabase.addMessage(guildId, userId)
+        record.totalMessages += 1
+        await LevelsDatabase.setMember(record)
         return
     }
 
@@ -74,7 +78,8 @@ export async function handleMessage(
     const oldLevelData = levelFromXp(record.xp, cfg)
 
     if (cfg.maxLevel > 0 && oldLevelData.level >= cfg.maxLevel) {
-        await LevelsDatabase.addMessage(guildId, userId)
+        record.totalMessages += 1
+        await LevelsDatabase.setMember(record)
         return
     }
 
