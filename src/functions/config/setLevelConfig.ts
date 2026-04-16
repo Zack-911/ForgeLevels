@@ -12,7 +12,6 @@ export enum LevelConfigKey {
     formula,
     xpBase,
     xpExponent,
-    customFormula,
     maxLevel,
     stackRoles,
 }
@@ -21,7 +20,6 @@ export enum XPFormula {
     linear,
     quadratic,
     exponential,
-    custom,
 }
 
 const KEY_NAMES = Object.keys(LevelConfigKey).filter(k => isNaN(Number(k))) as Array<keyof ILevelConfig>

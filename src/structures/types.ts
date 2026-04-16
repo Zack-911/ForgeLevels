@@ -7,7 +7,6 @@ export type XPFormula =
     | "linear"       // xpRequired = base * level
     | "quadratic"    // xpRequired = base * level^2
     | "exponential"  // xpRequired = base * multiplier^level
-    | "custom"       // Use a JS expression string (advanced)
 
 // ─── Reward Types ─────────────────────────────────────────────────────────────
 
@@ -126,13 +125,6 @@ export interface ILevelConfig {
      * Default: 1.5
      */
     xpExponent?: number
-
-    /**
-     * A custom JS expression string evaluated when formula = "custom".
-     * Available variables: `level`, `base`, `exponent`
-     * Example: "base * level * (level + 1) / 2"
-     */
-    customFormula?: string
 
     // ── Level Cap ─────────────────────────────────────────────────────────────
 
