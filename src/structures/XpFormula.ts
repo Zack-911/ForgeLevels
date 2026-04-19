@@ -54,7 +54,7 @@ export function levelFromXp(totalXp: number, cfg: ILevelConfig): {
         if (maxLevel > 0 && next > maxLevel) break
 
         const needed = xpForLevel(next, cfg)
-        if (consumed + needed > totalXp) break
+        if (needed <= 0 || consumed + needed > totalXp) break
 
         consumed += needed
         level = next

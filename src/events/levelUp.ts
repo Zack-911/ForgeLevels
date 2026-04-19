@@ -38,7 +38,7 @@ export default new LevelsEventHandler({
                         }
 
                         // Remove all other role rewards (both lower earned ones and higher ones from previous levels)
-                        for (const reward of roleRewards) {
+                        for (const reward of earned) {
                             if (reward.roleId !== highest.roleId && !reward.persistent) {
                                 await member.roles.remove(reward.roleId).catch(() => null)
                             }
