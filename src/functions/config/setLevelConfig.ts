@@ -14,6 +14,12 @@ export enum LevelConfigKey {
     xpExponent,
     maxLevel,
     stackRoles,
+    noXpRoles,
+    multipliers,
+    roleRewards,
+    messageRewards,
+    notification,
+    ignore
 }
 
 export enum XPFormula {
