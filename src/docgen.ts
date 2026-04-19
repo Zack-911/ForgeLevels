@@ -1,2 +1,2 @@
 import { generateMetadata } from "@tryforge/forgescript"
-generateMetadata(`${__dirname}/functions`, "functions", undefined, false, undefined, `${__dirname}/events`)
+generateMetadata(`${__dirname}/functions`, "functions", "ForgeLevelEvents", false, undefined, `${__dirname}/events`)
