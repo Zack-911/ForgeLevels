@@ -45,8 +45,9 @@ export default new NativeFunction({
         await LevelsDatabase.setMember(record)
 
         const ext = ctx.client.getExtension(ForgeLevels, true)
-        if (record.level !== oldLevel) {
-            ext.emitter.emit("levelDown", {
+
+        if (record.level > oldLevel) {
+            ext.emitter.emit("levelUp", {
                 userId: uid,
                 guildId: gid,
                 oldLevel,
@@ -56,6 +57,16 @@ export default new NativeFunction({
             })
         }
 
+        if (record.level < oldLevel) {
+            ext.emitter.emit("levelDown", {
+                userId: uid,
+                guildId: gid,
+                oldLevel,
+                newLevel: record.level,
+                totalXp: record.xp,
+                obj: ctx.obj
+            })
+        }
         return this.success()
     },
 })

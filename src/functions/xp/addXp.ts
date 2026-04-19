@@ -62,6 +62,17 @@ export default new NativeFunction({
                 obj: ctx.obj
             })
         }
+
+        if (record.level < oldLevel) {
+            ext.emitter.emit("levelDown", {
+                userId: uid,
+                guildId: gid,
+                oldLevel,
+                newLevel: record.level,
+                totalXp: record.xp,
+                obj: ctx.obj
+            })
+        }
         return this.success()
     },
 })

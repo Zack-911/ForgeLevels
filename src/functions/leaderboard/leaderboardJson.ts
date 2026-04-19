@@ -60,10 +60,12 @@ export default new NativeFunction({
       let displayName: string | null = null
       let avatarURL: string | null = null
       try {
-        const u = await ctx.client.users.fetch(rec.userId)
-        username = u.username
-        displayName = u.displayName
-        avatarURL = u.displayAvatarURL()
+        const u = ctx.client.users.cache.get(rec.userId) ?? await ctx.client.users.fetch(rec.userId).catch(() => null)
+        if (u) {
+          username = u.username
+          displayName = u.displayName
+          avatarURL = u.displayAvatarURL()
+        }
       } catch { }
 
       return {
