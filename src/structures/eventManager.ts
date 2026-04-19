@@ -6,6 +6,8 @@ export interface ILevelEvents {
     xpGain: [{ userId: string; guildId: string; xp: number; totalXp: number; obj?: any }]
     /** Fired when a member levels up */
     levelUp: [{ userId: string; guildId: string; oldLevel: number; newLevel: number; totalXp: number; obj?: any }]
+    /** Fired when a member levels down */
+    levelDown: [{ userId: string; guildId: string; oldLevel: number; newLevel: number; totalXp: number; obj?: any }]
     /** Fired when a role reward is granted */
     levelReward: [{ userId: string; guildId: string; level: number; label: string; obj?: any }]
     /** Fired when the database has connected */

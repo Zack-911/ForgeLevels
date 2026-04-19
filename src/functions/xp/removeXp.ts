@@ -45,11 +45,8 @@ export default new NativeFunction({
         await LevelsDatabase.setMember(record)
 
         const ext = ctx.client.getExtension(ForgeLevels, true)
-        // Note: removeXp doesn't usually emit xpGain as it's a loss.
-        // But if the level changed (even downwards), we might want to notify.
-        // The requirements say "no events", implying we should add them.
         if (record.level !== oldLevel) {
-            ext.emitter.emit("levelUp", {
+            ext.emitter.emit("levelDown", {
                 userId: uid,
                 guildId: gid,
                 oldLevel,
