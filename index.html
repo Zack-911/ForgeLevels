@@ -1,0 +1,1991 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ForgeLevels Documentation</title>
+  <meta name="description" content="ForgeLevels - ForgeScript Extension Documentation">
+  <meta name="theme-color" content="#5240ff">
+
+  <link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link rel="preconnect" href="https://unpkg.com" crossorigin>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/iconify-icon@2.1.0/dist/iconify-icon.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/markdown-it@14.1.0/dist/markdown-it.min.js"
+    integrity="sha256-OMcKHnypGrQOLZ5uYBKYUacX7Rx9Ssu91Bv5UDeRz2g=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/markdown-it-task-lists@2.1.1/dist/markdown-it-task-lists.min.js"
+    integrity="sha256-Tzsj9BuzeHlX2iYC+8zE3w0BeSjB/OYlgxWeCWuDKoE=" crossorigin="anonymous"></script>
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.2.0/github-markdown.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.6/dist/purify.min.js"
+    integrity="sha256-ieH6dkfLSVNw06mXrOQ4f10V2fTFrxI1LFPapACVYoc=" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@popperjs/core@2"></script>
+  <script src="https://unpkg.com/tippy.js@6"></script>
+
+  <style>
+    .markdown-body {
+      background-color: transparent !important;
+    }
+
+    .markdown-body hr {
+      height: 1px !important;
+      background-color: #2d2d59;
+    }
+
+    .markdown-body .highlight pre,
+    .markdown-body pre {
+      background-color: #1f1f485c !important;
+      border: 1px solid #5a5bab3d;
+      border-radius: 10px !important;
+    }
+
+    .markdown-body h2 {
+      border-bottom: 1px solid #2d2d59;
+    }
+
+    .markdown-body table tr {
+      background-color: #4d4da71a;
+    }
+
+    .markdown-body table tr:nth-child(2n) {
+      background-color: #32326382;
+    }
+
+    .markdown-body table td,
+    .markdown-body table th {
+      border: 1px solid #3b3b72b0;
+    }
+
+    .markdown-body table {
+      border: 1px solid #323263;
+      border-radius: 10px;
+    }
+
+    .markdown-body code,
+    .markdown-body tt {
+      background-color: #7373d15c;
+    }
+
+    .markdown-body blockquote {
+      margin: 0;
+      padding: 5px 1em;
+      border-top-right-radius: 10px;
+      border-bottom-right-radius: 10px;
+      color: #b2b4fc;
+      border-left: .25em solid #4b4bd0;
+      background-color: #1f1f485c;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      overflow-y: overlay;
+      overflow-x: hidden;
+      overscroll-behavior: none;
+    }
+
+    ::-webkit-scrollbar {
+      width: 5px;
+      height: 7px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #1d1e2e;
+      border-radius: 5px;
+    }
+
+    * {
+      scrollbar-width: thin;
+      scrollbar-color: #1d1e2e transparent;
+    }
+
+    .clickable-no-event-capture>svg,
+    .clickable-no-event-capture>iconify-icon {
+      pointer-events: none;
+    }
+
+    .sidebar-tree-item {
+      position: relative;
+    }
+
+    .foldable-content-wrapper>div>.sidebar-tree-item::before {
+      content: '';
+      position: absolute;
+      left: -0.625rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 0.625rem;
+      height: 1px;
+      background-color: #ffffff12;
+    }
+
+    .foldable-content-wrapper {
+      position: relative;
+      padding-left: 1rem;
+    }
+
+    .foldable-content-wrapper::before {
+      content: '';
+      position: absolute;
+      left: 0.375rem;
+      top: -0.125rem;
+      bottom: 0.125rem;
+      width: 1px;
+      background-color: #ffffff12;
+    }
+
+    .top-level-foldable>.flex.sidebar-tree-item::before {
+      display: none;
+    }
+
+    .sidebar-item-name {
+      flex-grow: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      margin-right: 0.5rem;
+    }
+
+    body {
+      background-color: #070716;
+      color: #d1d5db;
+      background-image: url(https://i.imgur.com/Q0bsQ4x.png);
+      background-repeat: no-repeat;
+      background-size: contain;
+    }
+
+    body.modal-open {
+      overflow: hidden;
+    }
+
+    body.sidebar-open-mobile {
+      overflow: hidden;
+    }
+
+    .bg-forge-alt {
+      background-color: #ffffff05;
+    }
+
+    .bg-forge-blurple {
+      background-color: rgb(82 64 255);
+    }
+
+    .text-forge-alt-100 {
+      color: #ffffff;
+    }
+
+    .text-forge-alt-200 {
+      color: #fcfcfc;
+    }
+
+    .text-forge-alt-300 {
+      color: #f9f9f9;
+    }
+
+    .text-forge-alt-400 {
+      color: #f5f5f5;
+    }
+
+    .text-forge-alt-500 {
+      color: #989ab7;
+    }
+
+    .blur-bg {
+      backdrop-filter: blur(20px);
+    }
+
+    .blur-bg-md {
+      backdrop-filter: blur(15px);
+    }
+
+    .grid-pattern-strip {
+      background-image: repeating-linear-gradient(315deg, transparent, #00000000 5px, rgb(255 255 255 / 10%) 5px, rgba(55, 65, 81, 0.15) 6.5px);
+      pointer-events: none;
+    }
+
+    .tippy-box[data-theme~='translucent-tooltip'] {
+      background-color: #9398fd0a;
+      backdrop-filter: blur(10px);
+      color: #ffffff;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      line-height: 1.4;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+
+    .tippy-box[data-theme~='translucent-tooltip'] .tippy-content {
+      padding: 8px 12px;
+    }
+
+    .tippy-box[data-theme~='translucent-tooltip'] ul {
+      margin: 0;
+      padding: 0 0 0 20px;
+      list-style-type: disc;
+    }
+
+    .tippy-box[data-theme~='translucent-tooltip'] li {
+      margin-bottom: 4px;
+    }
+
+    .tippy-box[data-theme~='translucent-tooltip'] li:last-child {
+      margin-bottom: 0;
+    }
+
+    #on-page-links li a.on-page-active {
+      background-color: #ffffff0d;
+      color: #ffffff;
+      font-weight: 500;
+    }
+
+    .anim-fade-in-scale {
+      animation: fadeInScale 0.2s ease-out forwards;
+    }
+
+    .anim-fade-out-scale {
+      animation: fadeOutScale 0.2s ease-out forwards;
+    }
+
+    @keyframes fadeInScale {
+      from {
+        opacity: 0;
+        transform: scale(0.95);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes fadeOutScale {
+      from {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      to {
+        opacity: 0;
+        transform: scale(0.95);
+      }
+    }
+
+    .anim-slide-down-fade {
+      animation: slideDownFade 0.2s ease-out forwards;
+    }
+
+    .anim-slide-up-fade {
+      animation: slideUpFade 0.2s ease-out forwards;
+    }
+
+    @keyframes slideDownFade {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideUpFade {
+      from {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      to {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+    }
+
+    kbd {
+      transition: all 0.15s ease-out !important;
+    }
+
+    kbd:hover {
+      background-color: rgba(255, 255, 255, 0.25) !important;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+      transform: translateY(-1px) !important;
+    }
+
+    kbd:active {
+      background-color: rgba(255, 255, 255, 0.3) !important;
+      transform: translateY(0px) scale(0.98) !important;
+    }
+
+    .custom-checkmark-icon {
+      transform: scale(0);
+    }
+
+    input.peer:checked+span>.custom-checkmark-icon {
+      transform: scale(1);
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border-width: 0;
+    }
+
+    .data-info-box {
+      background-color: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 0.5rem;
+      padding: 1rem;
+    }
+
+    .data-info-box h3 {
+      font-size: 1.125rem;
+      color: #e5e5e5;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+    }
+
+    .data-info-box h3 iconify-icon {
+      margin-right: 0.5rem;
+      color: #989ab7;
+      font-size: 1.25rem;
+    }
+
+    .clickable-item-link {
+      cursor: pointer;
+      color: #a5b4fc;
+      transition: all 0.15s ease-out;
+    }
+
+    .clickable-item-link:hover {
+      color: #c7d2fe;
+    }
+  </style>
+</head>
+
+<body class="font-sans antialiased bg-forge-main pb-16 sm:pb-0">
+
+  <!-- HEADER -->
+  <header class="fixed top-0 left-0 right-0 bg-forge-alt blur-bg z-[99]">
+    <div class="h-16 flex items-center justify-between px-4 sm:px-6 z-50">
+      <a href="#" id="home-link" class="flex items-center">
+        <span class="text-white font-bold text-lg tracking-tight">ForgeLevels</span>
+        <span class="ml-2 text-xs bg-forge-blurple text-white px-2 py-0.5 rounded-full">Docs</span>
+      </a>
+
+      <!-- Search bar -->
+      <div class="flex-1 max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg mx-4 hidden sm:block group" role="search">
+        <div class="relative">
+          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <iconify-icon icon="mdi:magnify" class="text-forge-alt-500"></iconify-icon>
+          </div>
+          <input id="header-search-trigger" type="text" placeholder="Search documentation..."
+            class="w-full pl-10 pr-[90px] py-2 bg-white/5 hover:bg-white/10 cursor-pointer border border-white/5 rounded-md text-sm text-forge-alt-200 placeholder-neutral-400 outline-none transition-all duration-150 cursor-pointer active:scale-[0.99] group-hover:shadow-md group-hover:shadow-indigo-600/20"
+            readonly aria-haspopup="dialog" aria-controls="search-modal" aria-label="Search documentation">
+          <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+            <span class="text-[11px]">
+              <kbd
+                class="px-1.5 py-0.5 font-semibold text-forge-alt-300 bg-white/10 border border-white/20 rounded-sm">Ctrl</kbd>
+              <span class="mx-0.5">+</span>
+              <kbd
+                class="px-1.5 py-0.5 font-semibold text-forge-alt-300 bg-white/10 border border-white/20 rounded-sm">K</kbd>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex items-center space-x-2 sm:space-x-3">
+        <a href="https://github.com/tryforge" target="_blank" rel="noopener noreferrer"
+          class="hidden sm:inline-block text-sm text-forge-alt-400 hover:text-white hover:bg-white/5 px-3 py-1.5 rounded-md transition-all duration-150 hover:-translate-y-px active:scale-95">GitHub</a>
+        <a href="https://discord.gg/yFW5Ju6JP8" target="_blank" rel="noopener noreferrer"
+          class="hidden sm:inline-block text-sm text-forge-alt-400 hover:text-white hover:bg-white/5 px-3 py-1.5 rounded-md transition-all duration-150 hover:-translate-y-px active:scale-95">Support</a>
+        <button id="desktop-mobile-menu-button"
+          class="sm:hidden text-forge-alt-400 hover:text-white p-2 rounded-md hover:bg-white/5 transition-all duration-150 active:scale-95"
+          aria-label="Open navigation menu">
+          <iconify-icon icon="mdi:dots-vertical" class="text-xl"></iconify-icon>
+        </button>
+      </div>
+    </div>
+
+    <!-- Tab nav: Documentation + Changelog only -->
+    <nav class="h-12 border-b border-white/5 items-center px-4 sm:px-6 z-40 hidden sm:flex justify-between"
+      aria-label="Main navigation">
+      <div class="flex space-x-1 sm:space-x-2">
+        <a href="#" data-tab-name="documentation"
+          class="tab-link text-sm font-medium text-white px-3 py-2.5 border-b-2 border-white transition-all duration-150 hover:-translate-y-px active:scale-95">Documentation</a>
+        <a href="#" data-tab-name="changelog"
+          class="tab-link text-sm font-medium text-forge-alt-500 hover:text-forge-alt-100 px-3 py-2.5 border-b-2 border-transparent hover:border-white/50 transition-all duration-150 hover:-translate-y-px active:scale-95">Changelog</a>
+      </div>
+      <div class="flex items-center space-x-3">
+        <button id="settings-button-desktop"
+          class="w-7 h-7 flex items-center justify-center text-forge-alt-400 hover:text-white rounded-full bg-white/5 border border-gray-300/10 hover:bg-white/10 transition-all duration-150 active:scale-95"
+          aria-label="Open Settings">
+          <iconify-icon icon="lets-icons:setting-line-duotone" class="text-lg"></iconify-icon>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Mobile dropdown menu -->
+  <div id="mobile-menu-dropdown"
+    class="hidden sm:hidden fixed top-16 right-4 bg-[#181826] border border-white/10 rounded-md shadow-xl p-2 z-[90] w-48 origin-top-right">
+    <a href="https://github.com/tryforge" target="_blank" rel="noopener noreferrer"
+      class="block text-sm text-forge-alt-300 hover:text-white hover:bg-white/5 px-3 py-2 rounded-md transition-all duration-150 hover:translate-x-1 active:scale-[0.98]">GitHub</a>
+    <a href="https://discord.gg/yFW5Ju6JP8" target="_blank" rel="noopener noreferrer"
+      class="block text-sm text-forge-alt-300 hover:text-white hover:bg-white/5 px-3 py-2 rounded-md transition-all duration-150 hover:translate-x-1 active:scale-[0.98]">Support</a>
+    <div class="px-1 py-1 mt-1 border-t border-white/10">
+      <button id="settings-button-mobile"
+        class="w-full flex items-center justify-between text-sm text-forge-alt-300 bg-white/5 border border-white/10 px-3 py-2 rounded-md transition-all hover:bg-white/10 active:scale-[0.98] focus:outline-none">
+        <span class="flex items-center">
+          <iconify-icon icon="lets-icons:setting-line-duotone" class="mr-1.5 text-base text-gray-400"></iconify-icon>
+          Settings
+        </span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ===== DOCUMENTATION TAB ===== -->
+  <div class="flex pt-16 sm:pt-28 tab-content-area min-h-screen" id="tab-documentation">
+    <div
+      class="grid-pattern-strip fixed top-16 sm:top-28 bottom-0 left-[18rem] w-10 z-5 border-r border-white/5 hidden lg:block"
+      aria-hidden="true"></div>
+
+    <aside id="sidebar-container"
+      class="fixed top-16 sm:top-28 bottom-0 left-0 w-full sm:w-72 bg-forge-alt border-r border-white/5 flex flex-col z-[60] transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out"
+      role="navigation" aria-label="Documentation navigation">
+      <div id="version-filter-area" class="p-4 border-b border-white/5">
+        <div id="version-filter-container" class="relative">
+          <button id="version-filter-btn"
+            class="w-full flex items-center justify-between text-sm text-forge-alt-300 bg-white/5 border border-white/5 px-3 py-2.5 rounded-md transition-all duration-150 focus:outline-none active:scale-[0.98] hover:bg-white/10"
+            aria-haspopup="true" aria-expanded="false">
+            <span>Filter by Version</span>
+            <iconify-icon icon="mdi:chevron-down"
+              class="text-lg text-forge-alt-500 ml-1 transform transition-transform duration-200"></iconify-icon>
+          </button>
+          <div id="version-filter-dropdown"
+            class="hidden absolute left-0 right-0 mt-1 w-full bg-[#181826] border border-white/5 rounded-md z-[100] p-2 origin-top">
+            <div class="flex justify-between items-center mb-2 pb-2 border-b border-white/5">
+              <button id="select-all-versions"
+                class="text-xs text-forge-alt-400 hover:text-forge-alt-100 px-1 transition-colors duration-150 active:scale-95">Select
+                All</button>
+              <button id="deselect-all-versions"
+                class="text-xs text-forge-alt-400 hover:text-forge-alt-100 px-1 transition-colors duration-150 active:scale-95">Deselect
+                All</button>
+            </div>
+            <div id="version-checkboxes-container" class="space-y-0.5 max-h-48 overflow-y-auto"></div>
+          </div>
+        </div>
+      </div>
+      <nav id="sidebar" class="flex-1 overflow-y-auto p-4 space-y-0.5 md:mb-0 mb-16">
+        <div class="text-forge-alt-500 p-2 text-sm text-center flex items-center justify-center">
+          <iconify-icon icon="mingcute:loading-fill" class="animate-spin mr-1.5"></iconify-icon>Loading navigation...
+        </div>
+      </nav>
+    </aside>
+
+    <div id="sidebar-overlay"
+      class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden lg:hidden transition-opacity duration-300 opacity-0">
+    </div>
+
+    <div class="lg:ml-80 lg:mr-10 flex-1 flex min-w-0 px-4 sm:px-0 max-w-screen">
+      <main id="content-area" class="px-1 pt-3 pb-5 sm:p-8 md:p-16 flex-grow min-h-[calc(100vh-7rem)] min-w-0">
+        <div id="initial-content-message" class="text-forge-alt-500 text-center text-xl">
+          <div
+            class="mt-3 relative w-full min-h-32 h-fit rounded-3xl bg-gradient-to-tr from-[#5240ff] to-[#231a7d] flex flex-col items-center justify-center py-8 px-4">
+            <p class="text-forge-alt-300 text-2xl font-semibold">ForgeLevels</p>
+            <p class="text-sm text-forge-alt-300 mt-2 max-w-[40rem]">
+              A fully-featured leveling extension for ForgeScript. Configurable XP, roles, rewards, and leaderboards.
+            </p>
+          </div>
+          <p id="loading-status" class="text-sm text-forge-alt-500 mt-6" aria-live="polite"></p>
+        </div>
+      </main>
+
+      <div class="hidden lg:flex sticky top-16 sm:top-28 h-[calc(100vh-7rem)]">
+        <nav id="on-page-nav-container"
+          class="hidden w-60 xl:w-64 flex-shrink-0 h-full border-l border-white/5 bg-forge-alt" role="navigation">
+          <div class="px-3 py-4 h-full overflow-y-auto">
+            <h3 class="text-xs font-semibold text-forge-alt-200 uppercase tracking-wider mb-3 py-2">On this page</h3>
+            <ul id="on-page-links" class="relative space-y-1.5 text-xs"></ul>
+          </div>
+        </nav>
+      </div>
+    </div>
+
+    <div
+      class="grid-pattern-strip fixed top-16 sm:top-28 bottom-0 right-0 w-10 z-5 border-l border-white/5 hidden lg:block"
+      aria-hidden="true"></div>
+  </div>
+
+  <!-- ===== CHANGELOG TAB ===== -->
+  <div class="flex pt-16 sm:pt-28 tab-content-area hidden min-h-screen" id="tab-changelog">
+    <div
+      class="grid-pattern-strip fixed top-16 sm:top-28 bottom-0 left-0 w-10 z-5 border-r border-white/5 hidden lg:block"
+      aria-hidden="true"></div>
+    <div class="w-full p-4 sm:p-8 text-left max-w-5xl mx-auto">
+      <div
+        class="h-32 w-full bg-gradient-to-tr from-[#5240ff] to-[#231a7d] flex items-center justify-center text-center rounded-3xl mb-8">
+        <h1 class="text-3xl font-semibold text-white">ForgeLevels Changelog</h1>
+      </div>
+      <div id="changelog-content-area">
+        <p class="text-center flex items-center justify-center">
+          <iconify-icon icon="mingcute:loading-fill" class="animate-spin mr-1.5"></iconify-icon> Loading changelog...
+        </p>
+      </div>
+    </div>
+    <div
+      class="grid-pattern-strip fixed top-16 sm:top-28 bottom-0 right-0 w-10 z-5 border-l border-white/5 hidden lg:block"
+      aria-hidden="true"></div>
+  </div>
+
+  <!-- ===== SEARCH MODAL ===== -->
+  <div id="search-modal"
+    class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/50 backdrop-blur-lg hidden" role="dialog"
+    aria-modal="true" aria-labelledby="search-modal-label">
+    <h2 id="search-modal-label" class="sr-only">Search Documentation</h2>
+    <div
+      class="relative bg-[#0A0A10]/80 backdrop-blur-lg border border-white/10 rounded-3xl shadow-2xl w-full max-w-2xl flex flex-col max-h-[90vh] anim-fade-in-scale">
+      <div class="flex flex-col flex-grow overflow-hidden">
+        <div class="p-6 border-b border-white/10 flex-shrink-0 space-y-5">
+          <div class="relative">
+            <iconify-icon icon="mdi:magnify"
+              class="absolute left-4 top-1/2 -translate-y-1/2 text-lg text-gray-500 pointer-events-none"></iconify-icon>
+            <input type="text" id="search-modal-input" placeholder="Search functions, events, guides..."
+              class="w-full pl-11 pr-4 py-3 bg-black/20 border border-white/20 rounded-xl text-base text-gray-200 placeholder-gray-500 outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all"
+              aria-label="Search input">
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
+            <div>
+              <p class="text-xs text-gray-400 mb-2.5">Filter by Type:</p>
+              <div id="search-type-filters" class="flex flex-col space-y-2">
+                <label class="flex items-center space-x-3 cursor-pointer group">
+                  <input type="checkbox" data-type-filter="function" class="search-filter-type sr-only peer" checked>
+                  <span
+                    class="w-4 h-4 bg-black/20 border border-white/20 rounded-md flex items-center justify-center peer-checked:bg-indigo-600 peer-checked:border-indigo-500 transition-all group-active:scale-95">
+                    <iconify-icon icon="fluent:checkmark-12-filled"
+                      class="custom-checkmark-icon text-white text-[11px] transition-transform duration-150 ease-out"></iconify-icon>
+                  </span>
+                  <span class="text-sm text-gray-300 group-hover:text-white transition-colors">Functions</span>
+                </label>
+                <label class="flex items-center space-x-3 cursor-pointer group">
+                  <input type="checkbox" data-type-filter="event" class="search-filter-type sr-only peer" checked>
+                  <span
+                    class="w-4 h-4 bg-black/20 border border-white/20 rounded-md flex items-center justify-center peer-checked:bg-indigo-600 peer-checked:border-indigo-500 transition-all group-active:scale-95">
+                    <iconify-icon icon="fluent:checkmark-12-filled"
+                      class="custom-checkmark-icon text-white text-[11px] transition-transform duration-150 ease-out"></iconify-icon>
+                  </span>
+                  <span class="text-sm text-gray-300 group-hover:text-white transition-colors">Events</span>
+                </label>
+                <label class="flex items-center space-x-3 cursor-pointer group">
+                  <input type="checkbox" data-type-filter="enum" class="search-filter-type sr-only peer" checked>
+                  <span
+                    class="w-4 h-4 bg-black/20 border border-white/20 rounded-md flex items-center justify-center peer-checked:bg-indigo-600 peer-checked:border-indigo-500 transition-all group-active:scale-95">
+                    <iconify-icon icon="fluent:checkmark-12-filled"
+                      class="custom-checkmark-icon text-white text-[11px] transition-transform duration-150 ease-out"></iconify-icon>
+                  </span>
+                  <span class="text-sm text-gray-300 group-hover:text-white transition-colors">Enums</span>
+                </label>
+                <label class="flex items-center space-x-3 cursor-pointer group">
+                  <input type="checkbox" data-type-filter="guide" class="search-filter-type sr-only peer" checked>
+                  <span
+                    class="w-4 h-4 bg-black/20 border border-white/20 rounded-md flex items-center justify-center peer-checked:bg-indigo-600 peer-checked:border-indigo-500 transition-all group-active:scale-95">
+                    <iconify-icon icon="fluent:checkmark-12-filled"
+                      class="custom-checkmark-icon text-white text-[11px] transition-transform duration-150 ease-out"></iconify-icon>
+                  </span>
+                  <span class="text-sm text-gray-300 group-hover:text-white transition-colors">Guides</span>
+                </label>
+              </div>
+            </div>
+            <div>
+              <p class="text-xs text-gray-400 mb-2.5">Filter by Version:</p>
+              <div id="search-version-filter-container" class="relative">
+                <button id="search-version-filter-btn"
+                  class="w-full flex items-center justify-between text-left bg-black/20 border border-white/20 rounded-xl p-3 text-sm text-gray-200 outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all active:scale-[.98]">
+                  <span id="search-version-filter-btn-text">All Versions</span>
+                  <iconify-icon icon="mdi:chevron-down"
+                    class="text-lg text-gray-400 ml-1 transform transition-transform duration-200"></iconify-icon>
+                </button>
+                <div id="search-version-filter-dropdown"
+                  class="hidden absolute left-0 right-0 mt-1 w-full bg-[#101018] border border-white/20 rounded-xl z-[101] p-2 max-h-40 overflow-y-auto origin-top shadow-xl">
+                  <div class="flex justify-between items-center mb-2 pb-2 border-b border-white/10">
+                    <button id="search-select-all-versions"
+                      class="text-xs text-gray-400 hover:text-white px-1 transition-colors duration-150 active:scale-95">Select
+                      All</button>
+                    <button id="search-deselect-all-versions"
+                      class="text-xs text-gray-400 hover:text-white px-1 transition-colors duration-150 active:scale-95">Deselect
+                      All</button>
+                  </div>
+                  <div id="search-version-checkboxes-container" class="space-y-0.5"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="search-results-container" class="flex-grow overflow-y-auto p-4 space-y-1">
+          <p id="search-initial-message" class="text-center text-gray-500 text-sm p-8">Start typing to see results.</p>
+        </div>
+        <div
+          class="p-4 text-xs text-gray-500 text-center border-t border-white/10 flex-shrink-0 flex items-center justify-center gap-x-4">
+          <span>Press <kbd
+              class="px-2 py-1 font-semibold text-gray-400 bg-black/40 border border-white/10 rounded-md">Esc</kbd> to
+            close</span>
+          <span>Use <kbd
+              class="px-2 py-1 font-semibold text-gray-400 bg-black/40 border border-white/10 rounded-md">↑</kbd> <kbd
+              class="px-2 py-1 font-semibold text-gray-400 bg-black/40 border border-white/10 rounded-md">↓</kbd> to
+            navigate</span>
+          <span><kbd
+              class="px-2 py-1 font-semibold text-gray-400 bg-black/40 border border-white/10 rounded-md">Enter</kbd> to
+            select</span>
+        </div>
+      </div>
+      <button onclick="closeSearchModal();"
+        class="absolute top-3 right-3 text-gray-300 bg-black/40 hover:bg-black/60 rounded-full w-7 h-7 flex items-center justify-center transition-all active:scale-90"
+        aria-label="Close">
+        <iconify-icon icon="mdi:close" class="text-lg"></iconify-icon>
+      </button>
+    </div>
+  </div>
+
+  <!-- ===== SETTINGS MODAL ===== -->
+  <div id="settings-modal"
+    class="fixed inset-0 z-[100] flex items-start justify-center pt-16 sm:pt-20 bg-black/60 backdrop-blur-sm hidden"
+    role="dialog" aria-modal="true">
+    <div class="bg-[#0D0D1F] border border-white/10 rounded-lg shadow-2xl w-full max-w-md flex flex-col mx-4 sm:mx-0">
+      <div class="flex items-center justify-between p-4 border-b border-white/10">
+        <h2 class="text-lg font-semibold text-white">Settings</h2>
+        <button id="settings-modal-close-button"
+          class="text-forge-alt-400 hover:text-white p-2 rounded-md hover:bg-white/5 transition-all duration-150 active:scale-95">
+          <iconify-icon icon="mdi:close" class="text-xl"></iconify-icon>
+        </button>
+      </div>
+      <div class="p-6 space-y-6">
+        <label class="flex items-center justify-between cursor-pointer group">
+          <div>
+            <span class="text-base text-forge-alt-200 group-hover:text-white transition-colors">Disable Function
+              Folders</span>
+            <p class="text-xs text-forge-alt-500 mt-0.5">Show all functions in a single flat list.</p>
+          </div>
+          <div class="relative">
+            <input id="setting-toggle-disable-folders" type="checkbox" class="sr-only peer">
+            <div
+              class="w-10 h-5 bg-white/10 rounded-full peer-checked:bg-indigo-600 transition-colors peer-focus:ring-2 peer-focus:ring-indigo-500/50">
+            </div>
+            <div
+              class="absolute left-0.5 top-0.5 bg-white w-4 h-4 rounded-full transition-transform peer-checked:translate-x-5">
+            </div>
+          </div>
+        </label>
+        <label class="flex items-center justify-between cursor-pointer group">
+          <div>
+            <span class="text-base text-forge-alt-200 group-hover:text-white transition-colors">Disable Sidebar
+              Tooltips</span>
+            <p class="text-xs text-forge-alt-500 mt-0.5">Turn off tooltips on sidebar items.</p>
+          </div>
+          <div class="relative">
+            <input id="setting-toggle-disable-tooltips" type="checkbox" class="sr-only peer">
+            <div
+              class="w-10 h-5 bg-white/10 rounded-full peer-checked:bg-indigo-600 transition-colors peer-focus:ring-2 peer-focus:ring-indigo-500/50">
+            </div>
+            <div
+              class="absolute left-0.5 top-0.5 bg-white w-4 h-4 rounded-full transition-transform peer-checked:translate-x-5">
+            </div>
+          </div>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== MOBILE BOTTOM NAV (Menu + Changelog only) ===== -->
+  <nav id="mobile-bottom-nav"
+    class="fixed bottom-0 left-0 right-0 bg-[#10101061] blur-bg border-t border-white/10 h-16 flex items-center justify-around px-2 sm:hidden z-[98]"
+    aria-label="Mobile navigation">
+    <button type="button" data-target-id="mobile-nav-menu"
+      class="mobile-nav-button group relative flex flex-1 items-center justify-center p-2 h-10 rounded-full text-slate-400 hover:text-indigo-500 focus:outline-none transition-all duration-300 ease-out active:scale-95"
+      aria-label="Menu">
+      <div
+        class="active-indicator absolute inset-0 bg-indigo-400 opacity-0 scale-90 group-[.active]:opacity-100 group-[.active]:scale-100 transition-all duration-200 ease-out rounded-full">
+      </div>
+      <iconify-icon icon="mdi:menu"
+        class="relative z-10 text-2xl transition-colors group-[.active]:text-indigo-700"></iconify-icon>
+      <span
+        class="label relative z-10 text-sm font-medium ml-1.5 text-indigo-700 max-w-0 opacity-0 whitespace-nowrap overflow-hidden group-[.active]:max-w-[100px] group-[.active]:opacity-100 transition-all duration-300 ease-out">Menu</span>
+    </button>
+    <button type="button" data-target-id="mobile-nav-changelog"
+      class="mobile-nav-button group relative flex flex-1 items-center justify-center p-2 h-10 rounded-full text-slate-400 hover:text-indigo-500 focus:outline-none transition-all duration-300 ease-out active:scale-95"
+      aria-label="Changelog">
+      <div
+        class="active-indicator absolute inset-0 bg-indigo-400 opacity-0 scale-90 group-[.active]:opacity-100 group-[.active]:scale-100 transition-all duration-200 ease-out rounded-full">
+      </div>
+      <iconify-icon icon="mdi:history"
+        class="relative z-10 text-2xl transition-colors group-[.active]:text-indigo-700"></iconify-icon>
+      <span
+        class="label relative z-10 text-sm font-medium ml-1.5 text-indigo-700 max-w-0 opacity-0 whitespace-nowrap overflow-hidden group-[.active]:max-w-[100px] group-[.active]:opacity-100 transition-all duration-300 ease-out">Changelog</span>
+    </button>
+  </nav>
+
+  <!-- Mobile search FAB -->
+  <button id="mobile-search-fab"
+    class="sm:hidden fixed bottom-20 right-4 bg-indigo-600 hover:bg-indigo-700 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg z-[99] transition-all duration-150 active:scale-90 focus:outline-none"
+    aria-label="Open search">
+    <iconify-icon icon="mdi:magnify" class="text-2xl"></iconify-icon>
+  </button>
+
+  <!-- ===== MAIN SCRIPT ===== -->
+  <script>
+    // ─────────────────────────────────────────────────────────────────────────────
+    // CONFIGURATION
+    // Edit these paths to match your repo structure.
+    // All paths are relative to index.html (the site root).
+    // ─────────────────────────────────────────────────────────────────────────────
+    const CONFIG = {
+      // Local JSON metadata files (generated by generateMetadata())
+      functionsJsonPath: 'metadata/functions.json',
+      eventsJsonPath: 'metadata/events.json',
+      enumsJsonPath: 'metadata/enums.json',
+      changelogsJsonPath: 'metadata/changelogs.json', // optional, can be missing
+
+      // Folder containing .md guide files. Each file should have optional frontmatter:
+      //   ---
+      //   title: My Guide Title
+      //   category: Getting Started
+      //   subCategory: Advanced  (optional)
+      //   ---
+      // The filename (without .md) is used as fallback title.
+      guidesIndexPath: 'guides/index.json', // a JSON array of filenames, e.g. ["getting-started.md","usage.md"]
+      // OR set guidesIndexPath to null and list files manually in GUIDES_FILES below:
+      guidesFiles: [], // e.g. ['guides/getting-started.md', 'guides/usage.md']
+      // Leave empty if using guidesIndexPath
+
+      // Extension display info
+      extensionName: 'ForgeLevels',
+      extensionDescription: 'A fully-featured leveling extension for ForgeScript. Configurable XP, roles, rewards, and leaderboards.',
+
+      // GitHub repo link (shown in header)
+      githubUrl: 'https://github.com/tryforge',
+      discordUrl: 'https://discord.gg/yFW5Ju6JP8',
+    };
+    // ─────────────────────────────────────────────────────────────────────────────
+
+    // Update static UI from config
+    document.querySelector('#home-link .text-white').textContent = CONFIG.extensionName;
+    document.querySelector('#tab-documentation .text-2xl.font-semibold').textContent = CONFIG.extensionName;
+    document.querySelector('#tab-documentation .text-sm.text-forge-alt-300.mt-2').textContent = CONFIG.extensionDescription;
+    document.querySelector('#tab-changelog h1').textContent = CONFIG.extensionName + ' Changelog';
+    document.querySelectorAll('a[href="https://github.com/tryforge"]').forEach(a => a.href = CONFIG.githubUrl);
+    document.querySelectorAll('a[href="https://discord.gg/yFW5Ju6JP8"]').forEach(a => a.href = CONFIG.discordUrl);
+
+    // ─── State ───────────────────────────────────────────────────────────────────
+    let functionsData = [], eventsData = [], enumsData = {};
+    let allPkgChangelogs = {};
+    let dedicatedGuides = []; // loaded from .md files
+    let activeSidebarItem = null;
+    let allAvailableVersions = [], selectedVersions = [];
+    let navigableItems = [];
+    let arrowSvgElement = null, arrowColor = "#6164ab", tooltipElement = null;
+    let userSettings = { disableFolders: false, disableSidebarTooltips: false };
+    let allSearchableItems = [];
+    let searchSelectedVersions = [];
+    let searchActiveResultIndex = -1;
+    let currentSearchSessionResults = [];
+    let searchResultsOffset = 0;
+    const SEARCH_PAGE_SIZE = 20;
+    let sortedChangelogVersions = [];
+    let changelogVersionDataMap = new Map();
+    let observedHeadingsMap = new Map();
+    let headingObserver;
+
+    // ─── DOM refs ────────────────────────────────────────────────────────────────
+    const sidebarNav = document.getElementById('sidebar');
+    const contentArea = document.getElementById('content-area');
+    const initialContentMsg = document.getElementById('initial-content-message');
+    const loadingStatus = document.getElementById('loading-status');
+    const versionFilterContainer = document.getElementById('version-filter-container');
+    const versionFilterBtn = document.getElementById('version-filter-btn');
+    const versionFilterDropdown = document.getElementById('version-filter-dropdown');
+    const versionCheckboxesContainer = document.getElementById('version-checkboxes-container');
+    const versionFilterChevron = versionFilterBtn.querySelector('iconify-icon');
+    const desktopMobileMenuBtn = document.getElementById('desktop-mobile-menu-button');
+    const mobileMenuDropdown = document.getElementById('mobile-menu-dropdown');
+    const onPageNavContainer = document.getElementById('on-page-nav-container');
+    const onPageLinksUl = document.getElementById('on-page-links');
+    const searchModal = document.getElementById('search-modal');
+    const searchModalInput = document.getElementById('search-modal-input');
+    const headerSearchTrigger = document.getElementById('header-search-trigger');
+    const searchResultsContainer = document.getElementById('search-results-container');
+    const searchInitialMessage = document.getElementById('search-initial-message');
+    const searchTypeFiltersContainer = document.getElementById('search-type-filters');
+    const searchVersionFilterContainer = document.getElementById('search-version-filter-container');
+    const searchVersionFilterBtn = document.getElementById('search-version-filter-btn');
+    const searchVersionFilterBtnText = document.getElementById('search-version-filter-btn-text');
+    const searchVersionFilterDropdown = document.getElementById('search-version-filter-dropdown');
+    const searchVersionCheckboxesContainer = document.getElementById('search-version-checkboxes-container');
+    const searchSelectAllBtn = document.getElementById('search-select-all-versions');
+    const searchDeselectAllBtn = document.getElementById('search-deselect-all-versions');
+    const sidebarContainer = document.getElementById('sidebar-container');
+    const sidebarOverlay = document.getElementById('sidebar-overlay');
+    const settingsModal = document.getElementById('settings-modal');
+    const mobileSearchFab = document.getElementById('mobile-search-fab');
+    let searchModalTrigger = null;
+
+    // ─── Utilities ───────────────────────────────────────────────────────────────
+    function slugify(text) {
+      return text.toString().toLowerCase()
+        .replace(/\s+/g, '-').replace(/[^\w-]+/g, '')
+        .replace(/--+/g, '-').replace(/^-+/, '').replace(/-+$/, '');
+    }
+    function capitalizeFirstLetter(s) { return s ? s.charAt(0).toUpperCase() + s.slice(1) : ''; }
+    function lowercaseFirstLetter(s) { return (!s || !s.length) ? '' : s.charAt(0).toLowerCase() + s.slice(1); }
+    function formatTitle(str) {
+      if (!str) return '';
+      return str.toLowerCase().replace(/\b\w/g, c => c.toUpperCase()).replace(/\bjson\b/gi, 'JSON');
+    }
+    function sortVersionsDescending(v1, v2) {
+      const p1 = v1.split('.').map(Number), p2 = v2.split('.').map(Number);
+      for (let i = 0; i < Math.max(p1.length, p2.length); i++) {
+        const a = p1[i] || 0, b = p2[i] || 0;
+        if (a > b) return -1; if (a < b) return 1;
+      }
+      return 0;
+    }
+    function formatBytes(bytes, dec = 2) {
+      if (!bytes || bytes <= 0) return '0 Bytes';
+      const k = 1024, sizes = ['Bytes', 'KB', 'MB', 'GB'], i = Math.floor(Math.log(bytes) / Math.log(k));
+      return parseFloat((bytes / Math.pow(k, i)).toFixed(dec)) + ' ' + sizes[i];
+    }
+    function debounce(fn, ms) { let t; return (...args) => { clearTimeout(t); t = setTimeout(() => fn(...args), ms); }; }
+    function humanizeDate(iso) {
+      if (!iso) return null;
+      const sec = Math.round((Date.now() - new Date(iso).getTime()) / 1000);
+      if (isNaN(sec)) return null;
+      const m = Math.round(sec / 60), h = Math.round(m / 60), d = Math.round(h / 24), mo = Math.round(d / 30.44), y = Math.round(d / 365.25);
+      if (sec < 5) return 'just now';
+      if (sec < 60) return `${sec} seconds ago`;
+      if (m < 60) return `${m} minute${m > 1 ? 's' : ''} ago`;
+      if (h < 24) return `${h} hour${h > 1 ? 's' : ''} ago`;
+      if (d < 7) return `${d} day${d > 1 ? 's' : ''} ago`;
+      if (mo < 12) return `${mo} month${mo > 1 ? 's' : ''} ago`;
+      return `${y} year${y > 1 ? 's' : ''} ago`;
+    }
+    function calculateReadTime(text) {
+      if (!text) return 'Less than a minute read';
+      const words = text.trim().split(/\s+/).filter(Boolean).length;
+      const mins = Math.floor(words / 225);
+      return mins === 0 ? 'Less than a minute read' : `${mins} minute${mins > 1 ? 's' : ''} read`;
+    }
+    function showLoadingStatus(msg) {
+      if (!loadingStatus) return;
+      if (msg && msg.trim()) loadingStatus.innerHTML = `<span class="inline-flex items-center"><iconify-icon icon="mingcute:loading-fill" class="animate-spin mr-1.5"></iconify-icon>${msg}</span>`;
+      else loadingStatus.textContent = '';
+    }
+    function setCookie(n, v, d) { let e = ''; if (d) { const dt = new Date(); dt.setTime(dt.getTime() + (d * 864e5)); e = '; expires=' + dt.toUTCString(); } document.cookie = n + '=' + (v || '') + e + '; path=/; SameSite=Lax'; }
+    function getCookie(n) { const ne = n + '=', ca = document.cookie.split(';'); for (let c of ca) { c = c.trim(); if (c.indexOf(ne) === 0) return c.substring(ne.length); } return null; }
+
+    // ─── Animation helpers ───────────────────────────────────────────────────────
+    function animateOpen(el, cls, cb, btn = null) {
+      if (!el.classList.contains('hidden') && !el.dataset.isAnimating) return;
+      el.dataset.isAnimating = 'true'; el.classList.remove('hidden'); el.style.opacity = '';
+      el.classList.add(cls); if (btn) btn.setAttribute('aria-expanded', 'true');
+      el.addEventListener('animationend', function h() {
+        el.classList.remove(cls); delete el.dataset.isAnimating; if (cb) cb();
+        el.removeEventListener('animationend', h);
+      }, { once: true });
+    }
+    function animateClose(el, cls, cb, btn = null) {
+      if (el.classList.contains('hidden') || el.dataset.isAnimating) return;
+      el.dataset.isAnimating = 'true'; el.classList.add(cls); if (btn) btn.setAttribute('aria-expanded', 'false');
+      el.addEventListener('animationend', function h() {
+        el.classList.remove(cls); el.classList.add('hidden'); el.style.opacity = '0';
+        delete el.dataset.isAnimating; if (cb) cb(); el.removeEventListener('animationend', h);
+      }, { once: true });
+    }
+
+    // ─── Markdown renderer ───────────────────────────────────────────────────────
+    const md = window.markdownit({ breaks: true, html: true })
+      .use(window.markdownitTaskLists, { enabled: true });
+    md.renderer.rules.fence = (tokens, idx) => {
+      const token = tokens[idx];
+      const lang = token.info ? token.info.trim() : '';
+      if (lang) return `<pre><code class="language-${lang}">${md.utils.escapeHtml(token.content)}</code></pre>`;
+      return `<pre><code>${md.utils.escapeHtml(token.content)}</code></pre>`;
+    };
+
+    // ─── Frontmatter parser ──────────────────────────────────────────────────────
+    function parseFrontmatter(raw) {
+      const fm = { title: '', category: 'General', subCategory: null };
+      let content = raw;
+      const match = raw.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n([\s\S]*)$/);
+      if (match) {
+        const yaml = match[1]; content = match[2];
+        yaml.split('\n').forEach(line => {
+          const [k, ...v] = line.split(':');
+          if (k && v.length) {
+            const key = k.trim(), val = v.join(':').trim();
+            if (key === 'title') fm.title = val;
+            else if (key === 'category') fm.category = val;
+            else if (key === 'subCategory') fm.subCategory = val;
+          }
+        });
+      }
+      return { fm, content };
+    }
+
+    // ─── Load local JSON ─────────────────────────────────────────────────────────
+    async function loadLocalJson(path, fallback) {
+      try {
+        const r = await fetch(path);
+        if (!r.ok) return fallback;
+        return await r.json();
+      } catch { return fallback; }
+    }
+
+    // ─── Load guides from .md files ──────────────────────────────────────────────
+    async function loadGuides() {
+      let files = CONFIG.guidesFiles.slice();
+
+      if (!files.length && CONFIG.guidesIndexPath) {
+        const index = await loadLocalJson(CONFIG.guidesIndexPath, null);
+        if (Array.isArray(index)) {
+          const dir = CONFIG.guidesIndexPath.replace(/\/[^/]+$/, '/');
+          files = index.map(f => (f.startsWith('guides/') || f.startsWith('./') || f.startsWith('/')) ? f : dir + f);
+        }
+      }
+
+      const guides = [];
+      let id = 1;
+      for (const filePath of files) {
+        try {
+          const r = await fetch(filePath);
+          if (!r.ok) continue;
+          const raw = await r.text();
+          const { fm, content } = parseFrontmatter(raw);
+          const fileName = filePath.replace(/^.*\//, '').replace(/\.md$/i, '');
+          guides.push({
+            id: id++,
+            filePath,
+            title: fm.title || formatTitle(fileName.replace(/-/g, ' ')),
+            category: fm.category || 'General',
+            subCategory: fm.subCategory || null,
+            content,
+            rawContent: raw,
+            contributors: [],
+            approver: null,
+            approvedAt: null,
+            packageName: CONFIG.extensionName,
+          });
+        } catch { /* skip */ }
+      }
+      return guides;
+    }
+
+    // ─── URL routing (hash-based for GH Pages) ───────────────────────────────────
+    // URLs: #/function/$name  #/event/name  #/enum/name  #/guide/slug-id
+    function getHashRoute() {
+      const hash = window.location.hash.replace(/^#/, '');
+      const parts = hash.split('/').filter(Boolean);
+      if (parts.length >= 2) return { type: parts[0], name: decodeURIComponent(parts.slice(1).join('/')) };
+      return null;
+    }
+    function updateHash(type, name) {
+      history.pushState({ type, name }, '', `#/${type}/${encodeURIComponent(name)}`);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    function routeFromHash() {
+      const route = getHashRoute();
+      if (!route) return;
+      const { type, name } = route;
+      if (type === 'function') {
+        const func = functionsData.find(f => f.name === name);
+        if (func) { displayFunctionDetails(func); highlightSidebarFor(type, name); }
+      } else if (type === 'event') {
+        const evt = eventsData.find(e => e.name === name);
+        if (evt) { displayEventDetails(evt); highlightSidebarFor(type, name); }
+      } else if (type === 'enum') {
+        if (enumsData[name]) { displayEnumDetails(name, enumsData[name]); highlightSidebarFor(type, name); }
+      } else if (type === 'guide') {
+        const match = name.match(/-(\d+)$/);
+        if (match) {
+          const gid = parseInt(match[1], 10);
+          const guide = dedicatedGuides.find(g => g.id === gid);
+          if (guide) { displayDedicatedGuide(guide); highlightSidebarFor('guide', guide.title); }
+        }
+      }
+    }
+    function highlightSidebarFor(type, name) {
+      const item = navigableItems.find(n => n.type === type && n.name === name);
+      if (!item) return;
+      let p = item.element.closest('.foldable-content-wrapper');
+      while (p) {
+        if (p.classList.contains('hidden')) { p.previousElementSibling?.click(); }
+        p = p.parentElement?.closest('.foldable-content-wrapper');
+      }
+      setActiveSidebarItem(item.element);
+      item.element.scrollIntoView({ behavior: 'auto', block: 'center' });
+    }
+
+    // ─── Tabs ────────────────────────────────────────────────────────────────────
+    function switchToTab(name) {
+      document.querySelectorAll('header nav .tab-link').forEach(l => {
+        const active = l.dataset.tabName === name;
+        l.classList.toggle('text-white', active);
+        l.classList.toggle('border-white', active);
+        l.classList.toggle('text-forge-alt-500', !active);
+        l.classList.toggle('border-transparent', !active);
+      });
+      document.querySelectorAll('.tab-content-area').forEach(c => c.classList.toggle('hidden', c.id !== `tab-${name}`));
+      document.querySelectorAll('#mobile-bottom-nav .mobile-nav-button').forEach(b => b.classList.remove('active'));
+      const targetBtn = name === 'documentation'
+        ? document.querySelector('#mobile-bottom-nav .mobile-nav-button[data-target-id="mobile-nav-menu"]')
+        : document.querySelector(`#mobile-bottom-nav .mobile-nav-button[data-target-id="mobile-nav-${name}"]`);
+      if (targetBtn) targetBtn.classList.add('active');
+      if (name === 'documentation') { updateOnPageNav(); }
+      else {
+        if (sidebarContainer) sidebarContainer.classList.add('-translate-x-full');
+        if (sidebarOverlay) { sidebarOverlay.classList.add('hidden'); sidebarOverlay.style.opacity = '0'; }
+        document.body.classList.remove('sidebar-open-mobile');
+        if (onPageNavContainer) onPageNavContainer.classList.add('hidden');
+      }
+      if (name === 'changelog') displayChangelogOverview();
+    }
+    function initTabs() {
+      document.querySelectorAll('header nav .tab-link').forEach(link => {
+        link.addEventListener('click', e => {
+          e.preventDefault();
+          const name = link.dataset.tabName;
+          history.pushState({ tab: name }, '', window.location.pathname + window.location.search + (name === 'documentation' ? window.location.hash : ''));
+          switchToTab(name);
+          window.scrollTo({ top: 0, behavior: 'auto' });
+        });
+      });
+      switchToTab('documentation');
+    }
+
+    // ─── Scrollspy ───────────────────────────────────────────────────────────────
+    function initScrollspy() {
+      if (!onPageLinksUl) return;
+      headingObserver = new IntersectionObserver(entries => {
+        let active = null;
+        entries.forEach(e => { if (e.isIntersecting) { if (!active || e.target.getBoundingClientRect().top < active.target.getBoundingClientRect().top) active = e; } });
+        onPageLinksUl.querySelectorAll('a').forEach(a => { a.classList.remove('on-page-active'); });
+        if (active) { const link = observedHeadingsMap.get(active.target); if (link) link.classList.add('on-page-active'); }
+      }, { rootMargin: '-120px 0px -60% 0px', threshold: 0.1 });
+    }
+    function updateOnPageNav() {
+      if (!onPageNavContainer || !onPageLinksUl || !headingObserver) return;
+      observedHeadingsMap.forEach((_, el) => headingObserver.unobserve(el));
+      observedHeadingsMap.clear(); onPageLinksUl.innerHTML = '';
+      let counter = 0;
+      contentArea.querySelectorAll('h1,h2,h3,h4').forEach(heading => {
+        const text = heading.textContent.trim();
+        if (!text || heading.classList.contains('sr-only')) return;
+        if (!heading.id) heading.id = slugify(text) + '-' + counter++;
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        a.href = '#' + heading.id; a.textContent = text;
+        a.className = 'block py-1 text-forge-alt-400 hover:text-forge-alt-200 transition-all duration-150 rounded-sm overflow-hidden text-ellipsis whitespace-nowrap hover:translate-x-1';
+        if (heading.tagName === 'H1') a.classList.add('pl-2', 'font-medium');
+        else if (heading.tagName === 'H2') a.classList.add('pl-4');
+        else if (heading.tagName === 'H3') a.classList.add('pl-6');
+        else a.classList.add('pl-8');
+        a.onclick = e => { e.preventDefault(); document.getElementById(heading.id)?.scrollIntoView({ behavior: 'smooth', block: 'start' }); };
+        li.appendChild(a); onPageLinksUl.appendChild(li);
+        observedHeadingsMap.set(heading, a); headingObserver.observe(heading);
+      });
+      const num = observedHeadingsMap.size;
+      if (num < 3) { onPageNavContainer.classList.add('hidden'); onPageNavContainer.classList.remove('lg:block'); }
+      else { onPageNavContainer.classList.remove('hidden'); onPageNavContainer.classList.add('lg:block'); }
+    }
+
+    // ─── Settings ────────────────────────────────────────────────────────────────
+    function loadUserSettings() {
+      const c = getCookie('userSettings');
+      if (c) { try { Object.assign(userSettings, JSON.parse(c)); } catch { } }
+      document.getElementById('setting-toggle-disable-folders').checked = userSettings.disableFolders;
+      document.getElementById('setting-toggle-disable-tooltips').checked = userSettings.disableSidebarTooltips;
+    }
+    function saveUserSettings() { setCookie('userSettings', JSON.stringify(userSettings), 365); }
+    function openSettingsModal() { document.body.classList.add('modal-open'); animateOpen(settingsModal, 'anim-fade-in-scale'); }
+    function closeSettingsModal() { animateClose(settingsModal, 'anim-fade-out-scale', () => document.body.classList.remove('modal-open')); }
+    function setupSettingsModal() {
+      document.getElementById('settings-button-desktop').addEventListener('click', openSettingsModal);
+      document.getElementById('settings-button-mobile').addEventListener('click', openSettingsModal);
+      document.getElementById('settings-modal-close-button').addEventListener('click', closeSettingsModal);
+      document.getElementById('setting-toggle-disable-folders').addEventListener('change', e => { userSettings.disableFolders = e.target.checked; saveUserSettings(); populateSidebar(); });
+      document.getElementById('setting-toggle-disable-tooltips').addEventListener('change', e => { userSettings.disableSidebarTooltips = e.target.checked; saveUserSettings(); populateSidebar(); });
+    }
+
+    // ─── Mobile sidebar ──────────────────────────────────────────────────────────
+    function closeMobileSidebar() {
+      if (!document.body.classList.contains('sidebar-open-mobile')) return;
+      sidebarContainer?.classList.add('-translate-x-full');
+      if (sidebarOverlay) { sidebarOverlay.classList.add('hidden'); sidebarOverlay.style.opacity = '0'; }
+      document.body.classList.remove('sidebar-open-mobile');
+      document.querySelector('#mobile-bottom-nav .mobile-nav-button[data-target-id="mobile-nav-menu"]')?.classList.remove('active');
+    }
+    function setupMobileNavbar() {
+      document.querySelectorAll('#mobile-bottom-nav .mobile-nav-button').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const id = btn.dataset.targetId;
+          if (id === 'mobile-nav-menu') {
+            document.querySelectorAll('#mobile-bottom-nav .mobile-nav-button').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            sidebarContainer?.classList.toggle('-translate-x-full');
+            if (sidebarOverlay) {
+              const hidden = sidebarOverlay.classList.toggle('hidden');
+              sidebarOverlay.style.opacity = hidden ? '0' : '1';
+            }
+            document.body.classList.toggle('sidebar-open-mobile');
+            switchToTab('documentation');
+          } else if (id === 'mobile-nav-changelog') {
+            switchToTab('changelog');
+          }
+        });
+      });
+      mobileSearchFab?.addEventListener('click', openSearchModal);
+    }
+    if (sidebarOverlay) {
+      sidebarOverlay.addEventListener('click', () => {
+        sidebarContainer?.classList.add('-translate-x-full');
+        sidebarOverlay.classList.add('hidden'); sidebarOverlay.style.opacity = '0';
+        document.body.classList.remove('sidebar-open-mobile');
+        document.querySelector('#mobile-bottom-nav .mobile-nav-button[data-target-id="mobile-nav-menu"]')?.classList.remove('active');
+      });
+    }
+
+    // ─── Sidebar builders ────────────────────────────────────────────────────────
+    function createFoldableItem(title, contentId, isSubItem = false, startExpanded = false, isTopLevel = false) {
+      const container = document.createElement('div');
+      container.className = `foldable ${isTopLevel ? 'top-level-foldable' : ''}`;
+      const header = document.createElement('div');
+      header.className = `flex justify-between items-center cursor-pointer py-2 px-2 hover:bg-white/5 rounded transition-colors clickable-no-event-capture ${isSubItem ? 'sidebar-tree-item' : ''}`;
+      const titleSpan = document.createElement('span');
+      titleSpan.className = `text-sm flex-grow ${isTopLevel ? 'font-medium text-forge-alt-100' : 'text-forge-alt-200'}`;
+      titleSpan.textContent = title;
+      const chevron = document.createElement('iconify-icon');
+      chevron.setAttribute('icon', 'mdi:chevron-down');
+      chevron.className = 'text-lg text-forge-alt-500 transform transition-transform duration-200 flex-shrink-0';
+      const wrapper = document.createElement('div');
+      wrapper.className = 'foldable-content-wrapper mt-0.5 space-y-0.5';
+      if (startExpanded) chevron.classList.add('rotate-180'); else wrapper.classList.add('hidden');
+      const content = document.createElement('div');
+      content.id = contentId; content.className = 'space-y-0.5';
+      wrapper.appendChild(content);
+      header.addEventListener('click', () => { chevron.classList.toggle('rotate-180'); wrapper.classList.toggle('hidden'); });
+      header.appendChild(titleSpan); header.appendChild(chevron);
+      container.appendChild(header); container.appendChild(wrapper);
+      return { container, contentElement: content };
+    }
+    function setActiveSidebarItem(el) {
+      activeSidebarItem?.classList.remove('bg-white/10', 'text-white');
+      activeSidebarItem?.classList.add('text-forge-alt-300');
+      activeSidebarItem = el;
+      el.classList.remove('text-forge-alt-300'); el.classList.add('bg-white/10', 'text-white');
+    }
+    function createSidebarEntry(text, version, clickHandler, type) {
+      const item = document.createElement('div');
+      item.className = 'flex justify-between items-center py-1.5 px-2 cursor-pointer hover:bg-white/5 rounded text-sm text-forge-alt-300 sidebar-tree-item transition-all duration-150 hover:scale-[1.02] hover:brightness-110 active:scale-[0.98]';
+      const nameSpan = document.createElement('span');
+      nameSpan.className = 'sidebar-item-name'; nameSpan.textContent = text;
+      item.appendChild(nameSpan);
+      if (type === 'function' && version) {
+        const pill = document.createElement('span');
+        pill.className = 'ml-auto flex-shrink-0 bg-forge-blurple text-white text-[10px] px-1.5 py-1 rounded-full leading-none';
+        pill.textContent = `v${version}`; item.appendChild(pill);
+      }
+      item.addEventListener('click', e => {
+        e.stopPropagation();
+        initialContentMsg?.classList.add('hidden');
+        clickHandler(); setActiveSidebarItem(item); closeMobileSidebar();
+      });
+      return item;
+    }
+    function setupTooltipForSidebarItem(el, data, type) {
+      if (typeof tippy === 'undefined' || userSettings.disableSidebarTooltips) return;
+      let html = `<div class="text-left"><h4 class="font-semibold text-white mb-1.5 text-base">${data.name}</h4>`;
+      if (type === 'function') {
+        if (data.description) html += `<p class="text-xs text-forge-alt-300 mb-2">${data.description.substring(0, 100)}${data.description.length > 100 ? '...' : ''}</p>`;
+        if (data.args?.length) {
+          html += `<strong class="text-xs text-forge-alt-200 block mb-1">Arguments:</strong><ul class="list-disc list-inside text-xs space-y-0.5 text-forge-alt-400">`;
+          data.args.slice(0, 3).forEach(a => html += `<li><span class="font-mono text-forge-alt-100">${a.name}</span> <span class="text-forge-alt-500">(${a.type}${a.required ? '' : ',optional'})</span></li>`);
+          if (data.args.length > 3) html += `<li>...and ${data.args.length - 3} more</li>`;
+          html += `</ul>`;
+        } else html += `<p class="text-xs text-forge-alt-400 mt-1">No arguments.</p>`;
+      } else if (type === 'event') {
+        if (data.description) html += `<p class="text-xs text-forge-alt-300 mb-2">${data.description.substring(0, 100)}...</p>`;
+      } else if (type === 'enum') {
+        html += `<strong class="text-xs text-forge-alt-200 block mb-1">Values:</strong>`;
+        if (data.values?.length) html += `<p class="text-xs text-forge-alt-400 font-mono">${data.values.slice(0, 5).join(', ')}${data.values.length > 5 ? '...' : ''}</p>`;
+      }
+      html += `</div>`;
+      tippy(el, { content: html, allowHTML: true, theme: 'translucent-tooltip', placement: 'right-start', arrow: false, animation: 'fade', duration: [200, 200], delay: [200, 0], offset: [0, 10], maxWidth: 320, onShow: () => !('ontouchstart' in window) });
+    }
+
+    // ─── Populate sidebar ────────────────────────────────────────────────────────
+    function populateSidebar() {
+      sidebarNav.innerHTML = ''; navigableItems = [];
+      let hasAny = false;
+
+      // Guides section
+      const guidesByCat = {};
+      dedicatedGuides.forEach(g => {
+        const cat = g.category || 'General';
+        if (!guidesByCat[cat]) guidesByCat[cat] = { items: [], subCategories: {} };
+        if (g.subCategory) {
+          if (!guidesByCat[cat].subCategories[g.subCategory]) guidesByCat[cat].subCategories[g.subCategory] = [];
+          guidesByCat[cat].subCategories[g.subCategory].push(g);
+        } else {
+          guidesByCat[cat].items.push(g);
+        }
+      });
+      if (Object.keys(guidesByCat).length > 0) {
+        hasAny = true;
+        const { container: gc, contentElement: ge } = createFoldableItem('Guides', 'guides-main-list', false, true, true);
+        Object.keys(guidesByCat).sort().forEach(catName => {
+          const catData = guidesByCat[catName];
+          const { container: cc, contentElement: ce } = createFoldableItem(formatTitle(catName), `guides-cat-${slugify(catName)}`, true, false);
+          catData.items.sort((a, b) => a.title.localeCompare(b.title)).forEach(g => {
+            const el = createSidebarEntry(formatTitle(g.title), null, () => displayDedicatedGuide(g), 'guide');
+            ce.appendChild(el); navigableItems.push({ element: el, name: g.title, type: 'guide', data: g });
+          });
+          Object.keys(catData.subCategories).sort().forEach(sub => {
+            const { container: sc, contentElement: se } = createFoldableItem(formatTitle(sub), `guides-sub-${slugify(sub)}`, true, false);
+            catData.subCategories[sub].sort((a, b) => a.title.localeCompare(b.title)).forEach(g => {
+              const el = createSidebarEntry(formatTitle(g.title), null, () => displayDedicatedGuide(g), 'guide');
+              se.appendChild(el); navigableItems.push({ element: el, name: g.title, type: 'guide', data: g });
+            });
+            ce.appendChild(sc);
+          });
+          ge.appendChild(cc);
+        });
+        sidebarNav.appendChild(gc);
+      }
+
+      // Functions
+      const filteredFuncs = functionsData.filter(f => f.version && selectedVersions.includes(f.version));
+      if (filteredFuncs.length > 0) {
+        hasAny = true;
+        const { container, contentElement } = createFoldableItem('Functions', 'functions-list', false, true, true);
+        sidebarNav.appendChild(container);
+        if (userSettings.disableFolders) {
+          filteredFuncs.sort((a, b) => a.name.localeCompare(b.name)).forEach(func => {
+            const el = createSidebarEntry(func.name, func.version, () => displayFunctionDetails(func), 'function');
+            contentElement.appendChild(el); navigableItems.push({ element: el, name: func.name, type: 'function', data: func });
+            setupTooltipForSidebarItem(el, func, 'function');
+          });
+        } else {
+          const byCat = filteredFuncs.reduce((a, f) => { const c = f.category || 'Uncategorized'; if (!a[c]) a[c] = []; a[c].push(f); return a; }, {});
+          if (byCat['Uncategorized']) {
+            byCat['Uncategorized'].sort((a, b) => a.name.localeCompare(b.name)).forEach(func => {
+              const el = createSidebarEntry(func.name, func.version, () => displayFunctionDetails(func), 'function');
+              contentElement.appendChild(el); navigableItems.push({ element: el, name: func.name, type: 'function', data: func });
+              setupTooltipForSidebarItem(el, func, 'function');
+            });
+            delete byCat['Uncategorized'];
+          }
+          Object.keys(byCat).sort().forEach(cat => {
+            if (!byCat[cat].length) return;
+            const { container: cc, contentElement: ce } = createFoldableItem(capitalizeFirstLetter(cat), `funcs-cat-${cat.toLowerCase().replace(/\W/g, '-')}`, true, Object.keys(byCat).length === 1);
+            contentElement.appendChild(cc);
+            byCat[cat].sort((a, b) => a.name.localeCompare(b.name)).forEach(func => {
+              const el = createSidebarEntry(func.name, func.version, () => displayFunctionDetails(func), 'function');
+              ce.appendChild(el); navigableItems.push({ element: el, name: func.name, type: 'function', data: func });
+              setupTooltipForSidebarItem(el, func, 'function');
+            });
+          });
+        }
+      }
+
+      // Events
+      const filteredEvts = eventsData.filter(e => e.version && selectedVersions.includes(e.version));
+      if (filteredEvts.length > 0) {
+        hasAny = true;
+        const { container, contentElement } = createFoldableItem('Events', 'events-list', false, false, true);
+        sidebarNav.appendChild(container);
+        filteredEvts.sort((a, b) => a.name.localeCompare(b.name)).forEach(evt => {
+          const el = createSidebarEntry(evt.name, null, () => displayEventDetails(evt), 'event');
+          contentElement.appendChild(el); navigableItems.push({ element: el, name: evt.name, type: 'event', data: evt });
+          setupTooltipForSidebarItem(el, evt, 'event');
+        });
+      }
+
+      // Enums
+      if (Object.keys(enumsData).length > 0) {
+        hasAny = true;
+        const { container, contentElement } = createFoldableItem('Enums', 'enums-list', false, false, true);
+        sidebarNav.appendChild(container);
+        Object.keys(enumsData).sort().forEach(name => {
+          const el = createSidebarEntry(name, null, () => displayEnumDetails(name, enumsData[name]), 'enum');
+          contentElement.appendChild(el);
+          const d = { name, values: enumsData[name] };
+          navigableItems.push({ element: el, name, type: 'enum', data: d });
+          setupTooltipForSidebarItem(el, d, 'enum');
+        });
+      }
+
+      if (!hasAny) {
+        sidebarNav.innerHTML = `<div class="text-forge-alt-500 p-2 text-sm text-center">${selectedVersions.length === 0 ? 'No items match selected versions.' : 'No documentation items found.'}</div>`;
+      }
+    }
+
+    // ─── Version filter ──────────────────────────────────────────────────────────
+    function setupVersionFilterDropdown() {
+      versionCheckboxesContainer.innerHTML = '';
+      allAvailableVersions.forEach(ver => {
+        const id = `ver-${ver.replace(/\./g, '-')}`;
+        const label = document.createElement('label');
+        label.htmlFor = id; label.className = 'flex items-center space-x-2.5 p-2 rounded hover:bg-white/5 cursor-pointer transition-colors group';
+        const cb = document.createElement('input'); cb.type = 'checkbox'; cb.id = id; cb.value = ver;
+        cb.checked = selectedVersions.includes(ver); cb.className = 'sr-only peer';
+        cb.addEventListener('change', () => {
+          selectedVersions = cb.checked ? [...selectedVersions, ver] : selectedVersions.filter(v => v !== ver);
+          populateSidebar();
+        });
+        const vis = document.createElement('span');
+        vis.className = 'w-4 h-4 bg-white/10 border border-white/5 rounded flex items-center justify-center text-white group-hover:border-white/30 transition-all duration-150 group-active:scale-95';
+        vis.innerHTML = '<iconify-icon icon="fluent:checkmark-12-filled" class="custom-checkmark-icon inline-block text-xs transition-transform duration-150 ease-out"></iconify-icon>';
+        const span = document.createElement('span'); span.textContent = ver; span.className = 'text-sm text-forge-alt-200 group-hover:text-forge-alt-100 transition-colors';
+        label.appendChild(cb); label.appendChild(vis); label.appendChild(span);
+        versionCheckboxesContainer.appendChild(label);
+      });
+      document.getElementById('select-all-versions').onclick = () => { selectedVersions = [...allAvailableVersions]; updateVersionCheckboxes(); populateSidebar(); };
+      document.getElementById('deselect-all-versions').onclick = () => { selectedVersions = []; updateVersionCheckboxes(); populateSidebar(); };
+    }
+    function updateVersionCheckboxes() {
+      versionCheckboxesContainer.querySelectorAll('input[type=checkbox]').forEach(cb => cb.checked = selectedVersions.includes(cb.value));
+    }
+    versionFilterBtn.addEventListener('click', e => {
+      e.stopPropagation();
+      const hidden = versionFilterDropdown.classList.contains('hidden');
+      if (hidden) animateOpen(versionFilterDropdown, 'anim-slide-down-fade', null, versionFilterBtn);
+      else animateClose(versionFilterDropdown, 'anim-slide-up-fade', null, versionFilterBtn);
+      versionFilterChevron.classList.toggle('rotate-180');
+    });
+
+    // ─── SVG arrow setup ─────────────────────────────────────────────────────────
+    function ensureGlobalSvgDefs() {
+      if (document.getElementById('global-svg-defs-container')) return;
+      const d = document.createElement('div'); d.id = 'global-svg-defs-container';
+      d.style.cssText = 'position:absolute;width:0;height:0;overflow:hidden;';
+      d.innerHTML = `<svg><defs><marker id="dynamic-arrowhead" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L8,3 L0,6 Z" fill="${arrowColor}"/></marker></defs></svg>`;
+      document.body.appendChild(d);
+    }
+
+    // ─── Tooltips ────────────────────────────────────────────────────────────────
+    function initializeDynamicTooltips(container) {
+      if (typeof tippy === 'undefined' || !container) return;
+      tippy(container.querySelectorAll('[data-tippy-dynamic-content]'), {
+        content: r => r.getAttribute('data-tippy-dynamic-content'),
+        allowHTML: true, theme: 'translucent-tooltip', arrow: false,
+        animation: 'fade', duration: [200, 200], interactive: true, delay: [200, 0], maxWidth: 320,
+      });
+    }
+
+    // ─── Argument types ──────────────────────────────────────────────────────────
+    const argumentTypes = {
+      "String": { "description": "A string can hold any text value.", "example": "This is a guide!" },
+      "Number": { "description": "A numeric value, integer or floating-point.", "example": "10, 2.5, 1e2" },
+      "BigInt": { "description": "A large integer without precision loss.", "example": "50000000000000000000" },
+      "Boolean": { "description": "A true or false value.", "example": "true, false" },
+      "Color": { "description": "A color value: hex, integer, or named color.", "example": "#ff0000, Red" },
+      "Permission": { "description": "A Discord permission flag name.", "example": "SendMessages" },
+      "Time": { "description": "A time value in ms or formatted string.", "example": "10m, 1d2h" },
+      "URL": { "description": "A URL starting with https://.", "example": "https://example.com" },
+      "Channel": { "description": "A Discord channel ID.", "example": "123456789012345678" },
+      "Guild": { "description": "A Discord guild/server ID.", "example": "123456789012345678" },
+      "User": { "description": "A Discord user ID.", "example": "123456789012345678" },
+      "Role": { "description": "A Discord role ID.", "example": "123456789012345678" },
+      "Member": { "description": "A Discord guild member ID.", "example": "123456789012345678" },
+      "Message": { "description": "A Discord message ID.", "example": "123456789012345678" },
+      "Json": { "description": "A valid JSON value.", "example": "{ \"key\": \"value\" }" },
+    };
+
+    function applyArgumentTypeTooltips(container) {
+      if (typeof tippy === 'undefined' || !container) return;
+      const keys = Object.keys(argumentTypes);
+      const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT);
+      const nodes = [];
+      let node;
+      while (node = walker.nextNode()) {
+        if (node.parentElement?.closest('pre,code,button,a,.argument-type-mention,.clickable-item-link')) continue;
+        nodes.push(node);
+      }
+      nodes.forEach(textNode => {
+        const orig = textNode.nodeValue; const parent = textNode.parentNode; if (!parent) return;
+        const frag = document.createDocumentFragment(); let last = 0, replaced = false;
+        const regex = new RegExp(`\\b(${keys.map(k => k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|')})\\b`, 'g');
+        let m;
+        while ((m = regex.exec(orig)) !== null) {
+          replaced = true;
+          if (m.index > last) frag.appendChild(document.createTextNode(orig.substring(last, m.index)));
+          const span = document.createElement('span');
+          span.className = 'argument-type-mention cursor-help underline decoration-dotted decoration-indigo-400/70 hover:decoration-indigo-400 text-indigo-400/90 hover:text-indigo-300 transition-colors';
+          span.textContent = m[1];
+          const d = argumentTypes[m[1]];
+          span.setAttribute('data-tippy-content-dynamic', `<div><h4 class="font-semibold text-white mb-1 text-base">${m[1]}</h4><p class="text-xs text-forge-alt-300 mb-1.5">${d.description}</p>${d.example ? `<p class="text-xs text-forge-alt-400">Example: <code class="bg-black/20 px-1 rounded">${d.example}</code></p>` : ''}</div>`);
+          frag.appendChild(span); last = regex.lastIndex;
+        }
+        if (replaced) { if (last < orig.length) frag.appendChild(document.createTextNode(orig.substring(last))); if (parent && textNode.parentNode === parent) parent.replaceChild(frag, textNode); }
+      });
+      tippy(container.querySelectorAll('.argument-type-mention[data-tippy-content-dynamic]'), {
+        content: r => r.getAttribute('data-tippy-content-dynamic'),
+        allowHTML: true, theme: 'translucent-tooltip', arrow: false, animation: 'fade', duration: [0, 200], interactive: true, delay: [0, 0], maxWidth: 400,
+      });
+    }
+
+    // ─── Cross-linking ───────────────────────────────────────────────────────────
+    function getFunctionTooltipContent(f) {
+      if (!f) return '';
+      let h = `<div class="text-left max-w-sm"><h4 class="font-semibold text-white mb-1.5 text-base">${f.name}</h4>`;
+      if (f.description) h += `<p class="text-xs text-forge-alt-300 mb-2">${f.description.substring(0, 100)}${f.description.length > 100 ? '...' : ''}</p>`;
+      if (f.args?.length) {
+        h += `<strong class="text-xs text-forge-alt-200 block mb-1">Arguments:</strong><ul class="list-disc list-inside text-xs space-y-0.5 text-forge-alt-400">`;
+        f.args.slice(0, 3).forEach(a => h += `<li><span class="font-mono text-forge-alt-100">${a.name}</span> <span class="text-forge-alt-500">(${a.type}${a.required ? '' : ',optional'})</span></li>`);
+        if (f.args.length > 3) h += `<li>...and ${f.args.length - 3} more</li>`;
+        h += `</ul>`;
+      } else h += `<p class="text-xs text-forge-alt-400 mt-1">No arguments.</p>`;
+      return h + `</div>`;
+    }
+    function applyGeneralCrossLinking(container) {
+      if (!container || !functionsData.length) return;
+      const names = functionsData.map(f => f.name.substring(1));
+      if (!names.length) return;
+      const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT);
+      const nodes = []; let node;
+      while (node = walker.nextNode()) {
+        if (node.parentElement?.closest('pre,code,button,a,.clickable-item-link,.argument-type-mention')) continue;
+        nodes.push(node);
+      }
+      nodes.forEach(textNode => {
+        const orig = textNode.nodeValue; const parent = textNode.parentNode; if (!parent) return;
+        const frag = document.createDocumentFragment(); let last = 0, replaced = false;
+        const regex = new RegExp(`\\$(${names.join('|')})\\b`, 'g'); let m;
+        while ((m = regex.exec(orig)) !== null) {
+          replaced = true;
+          if (m.index > last) frag.appendChild(document.createTextNode(orig.substring(last, m.index)));
+          const funcData = functionsData.find(f => f.name === m[0]);
+          if (!funcData) { frag.appendChild(document.createTextNode(m[0])); last = regex.lastIndex; continue; }
+          const span = document.createElement('span');
+          span.className = 'clickable-item-link'; span.textContent = m[0];
+          span.dataset.itemName = funcData.name; span.dataset.itemType = 'function'; if (funcData.version) span.dataset.itemVersion = funcData.version;
+          span.addEventListener('click', handleCrossLinkClick);
+          span.setAttribute('data-tippy-dynamic-content', getFunctionTooltipContent(funcData));
+          frag.appendChild(span); last = regex.lastIndex;
+        }
+        if (replaced) { if (last < orig.length) frag.appendChild(document.createTextNode(orig.substring(last))); if (parent && textNode.parentNode === parent) parent.replaceChild(frag, textNode); }
+      });
+      initializeDynamicTooltips(container);
+    }
+    function handleCrossLinkClick(e) {
+      const name = e.target.dataset.itemName, type = e.target.dataset.itemType, ver = e.target.dataset.itemVersion;
+      switchToTab('documentation');
+      if (type === 'function') { const f = functionsData.find(fn => fn.name === name && fn.version === ver); if (f) displayFunctionDetails(f); }
+      else if (type === 'event') { const ev = eventsData.find(en => en.name === name); if (ev) displayEventDetails(ev); }
+      else if (type === 'enum') { if (enumsData[name]) displayEnumDetails(name, enumsData[name]); }
+      setTimeout(() => highlightSidebarFor(type, name), 50);
+    }
+
+    // ─── Arg span hover (usage box) ──────────────────────────────────────────────
+    function attachArgSpanHoverListeners(funcData, codeEl) {
+      if (!tooltipElement || !arrowSvgElement) return;
+      const tooltipCC = tooltipElement.querySelector('#tooltip-content-container');
+      codeEl.querySelectorAll('.arg-hoverable').forEach(span => {
+        span.addEventListener('mouseenter', () => {
+          const argData = funcData.args[parseInt(span.dataset.argIndex)];
+          if (!argData) return;
+          span.classList.add('bg-indigo-500/30', 'border-indigo-500/40'); span.classList.remove('border-gray-300/30');
+          const typeName = argData.type === 'Enum' && argData.enumName ? argData.enumName : (argData.type || 'any');
+          tooltipCC.innerHTML = `<div class="flex items-center justify-between gap-4"><h4 class="font-bold text-white text-base truncate">${argData.name}</h4><span class="flex-shrink-0 font-mono text-xs bg-black/30 border border-white/10 text-gray-300 px-2 py-1 rounded-md">${typeName}</span></div><div class="flex flex-wrap items-center gap-2 mt-2.5"><span class="text-xs font-medium px-2 py-0.5 rounded-full ${argData.required ? 'bg-rose-500/20 text-rose-300 border border-rose-500/30' : 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'}">${argData.required ? 'Required' : 'Optional'}</span>${argData.rest ? '<span class="text-xs font-medium px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">Rest...</span>' : ''}</div>${argData.description ? `<p class="mt-3 pt-3 border-t border-white/10 text-sm text-gray-300">${argData.description}</p>` : ''}`;
+          tooltipElement.style.cssText = 'top:-9999px;left:-9999px;'; tooltipElement.classList.remove('hidden');
+          const tr = tooltipElement.getBoundingClientRect(), sr = span.getBoundingClientRect();
+          const above = sr.top - 10 >= tr.height + 30;
+          const top = above ? sr.top - tr.height - 30 : sr.bottom + 30;
+          let left = (sr.left + sr.width / 2) - (tr.width / 2);
+          left = Math.max(10, Math.min(left, window.innerWidth - tr.width - 10));
+          tooltipElement.style.cssText = `top:${top}px;left:${left}px;`;
+          arrowSvgElement.style.display = 'none';
+        });
+        span.addEventListener('mouseleave', () => {
+          span.classList.remove('bg-indigo-500/30', 'border-indigo-500/40'); span.classList.add('border-gray-300/30');
+          tooltipElement.classList.add('hidden'); arrowSvgElement.style.display = 'none';
+        });
+      });
+    }
+
+    // ─── Prev/Next navigation ────────────────────────────────────────────────────
+    function appendPrevNextNavigation(currentData, currentType, targetEl) {
+      const idx = navigableItems.findIndex(n => n.type === currentType && n.name === (currentType === 'enum' ? currentData : currentData.name));
+      if (idx === -1) return;
+      let prev = null, next = null;
+      for (let i = idx - 1; i >= 0; i--) { if (navigableItems[i].type === currentType) { prev = navigableItems[i]; break; } }
+      for (let i = idx + 1; i < navigableItems.length; i++) { if (navigableItems[i].type === currentType) { next = navigableItems[i]; break; } }
+      if (!prev && !next) { if (targetEl) targetEl.innerHTML = ''; return; }
+      targetEl.innerHTML = '';
+      const nav = document.createElement('div'); nav.className = 'flex justify-between items-start mt-12 pt-8 border-t border-white/5';
+      if (prev) { const a = document.createElement('a'); a.href = '#'; a.className = 'text-left group max-w-[45%]'; a.innerHTML = `<div class="text-sm text-forge-alt-500 flex items-center group-hover:text-forge-alt-300 transition-colors"><span>Previous</span></div><div class="text-base font-medium text-forge-alt-300 group-hover:text-white mt-1 flex items-center transition-colors"><iconify-icon icon="mdi:arrow-left" class="mr-2 text-sm opacity-70 group-hover:opacity-100 flex-shrink-0"></iconify-icon><span class="truncate">${prev.name}</span></div>`; a.onclick = e => { e.preventDefault(); prev.element.click(); }; nav.appendChild(a); } else nav.appendChild(document.createElement('div'));
+      if (next) { const a = document.createElement('a'); a.href = '#'; a.className = 'text-right group max-w-[45%]'; a.innerHTML = `<div class="text-sm text-forge-alt-500 flex items-center justify-end group-hover:text-forge-alt-300 transition-colors"><span>Next</span></div><div class="text-base font-medium text-forge-alt-300 group-hover:text-white mt-1 flex items-center justify-end transition-colors"><span class="truncate">${next.name}</span><iconify-icon icon="mdi:arrow-right" class="ml-2 text-sm opacity-70 group-hover:opacity-100 flex-shrink-0"></iconify-icon></div>`; a.onclick = e => { e.preventDefault(); next.element.click(); }; nav.appendChild(a); } else if (prev) nav.appendChild(document.createElement('div'));
+      targetEl.appendChild(nav);
+    }
+
+    // ─── Function details ────────────────────────────────────────────────────────
+    function generateUsageString(fn, withBrackets) {
+      if (fn.brackets === true) withBrackets = true; else if (fn.brackets === undefined) withBrackets = false;
+      if (withBrackets) {
+        if (fn.args?.length) {
+          const spans = fn.args.map((a, i) => `<span class="arg-hoverable px-1 cursor-help border rounded-md border-gray-300/30 transition-all duration-100 hover:border-indigo-500/50 hover:bg-indigo-500/20" data-arg-index="${i}">${a.rest ? '...' : ''}${a.name}${(!a.required || a.rest) ? '?' : ''}</span>`).join('<span>;</span>');
+          return `${fn.name}[${spans}]`;
+        }
+        return `${fn.name}[]`;
+      }
+      return fn.name;
+    }
+    function displayFunctionDetails(func) {
+      switchToTab('documentation'); initialContentMsg?.classList.add('hidden');
+      updateHash('function', func.name);
+      const withBrackets = func.brackets === true || func.brackets === false;
+      const usageStr = generateUsageString(func, withBrackets);
+      let titleName = (func.brackets === true || func.brackets === false) ? func.name + '[]' : func.name;
+      let argsHtml = '<p class="text-forge-alt-400 text-sm">This function takes no arguments.</p>';
+      if (func.args?.length) {
+        argsHtml = `<div class="overflow-x-auto mt-3 border border-white/10 rounded-lg shadow-sm"><table class="w-full min-w-[600px] md:min-w-full"><thead class="bg-white/10"><tr><th class="px-6 py-3 text-left text-xs font-semibold text-forge-alt-400 uppercase tracking-wider">Name</th><th class="px-6 py-3 text-left text-xs font-semibold text-forge-alt-400 uppercase tracking-wider">Type</th><th class="px-6 py-3 text-left text-xs font-semibold text-forge-alt-400 uppercase tracking-wider">Description</th><th class="px-6 py-3 text-center text-xs font-semibold text-forge-alt-400 uppercase tracking-wider">Required</th><th class="px-6 py-3 text-center text-xs font-semibold text-forge-alt-400 uppercase tracking-wider">REST</th></tr></thead><tbody class="bg-forge-alt divide-y divide-white/10">${func.args.map((a, i) => `<tr class="hover:bg-white/[.03] transition-colors"><td class="px-6 py-4 align-top font-mono text-sm text-forge-alt-100 break-words">${a.name}</td><td class="px-6 py-4 align-top font-mono text-sm text-forge-alt-300">${a.type === 'Enum' && a.enumName ? `<span class="clickable-item-link" data-item-name="${a.enumName}" data-item-type="enum">${a.enumName}</span>` : (a.type || 'any')}</td><td class="px-6 py-4 align-top text-sm text-forge-alt-300 whitespace-normal break-words">${a.description || ''}</td><td class="px-6 py-4 align-top text-center"><span class="px-2.5 py-0.5 inline-flex text-xs leading-5 font-semibold rounded-full ${a.required ? 'bg-green-500/20 text-green-300' : 'bg-yellow-500/20 text-yellow-300'}">${a.required ? 'Yes' : 'No'}</span></td><td class="px-6 py-4 align-top text-center"><span class="px-2.5 py-0.5 inline-flex text-xs leading-5 font-semibold rounded-full ${a.rest ? 'bg-indigo-500/20 text-indigo-300' : 'bg-slate-500/20 text-slate-300'}">${a.rest ? 'Yes' : 'No'}</span></td></tr>`).join('')}</tbody></table></div>`;
+      }
+      let bracketTag = '', bracketColor = '';
+      if (func.brackets === true) { bracketTag = 'REQUIRES BRACKETS'; bracketColor = 'border-red-400/60 bg-red-700/40 text-red-300'; }
+      else if (func.brackets === false) { bracketTag = 'OPTIONAL BRACKETS'; bracketColor = 'border-yellow-400/60 bg-yellow-700/40 text-yellow-300'; }
+      else { bracketTag = 'NO BRACKETS'; bracketColor = 'border-green-400/60 bg-green-700/40 text-green-300'; }
+
+      const relatedFuncs = functionsData.filter(f => f.category === func.category && f.name !== func.name && selectedVersions.includes(f.version)).slice(0, 5);
+      const relatedHtml = relatedFuncs.length ? `<div class="data-info-box mt-8"><h3><iconify-icon icon="lets-icons:chat-search-duotone"></iconify-icon>Related Functions</h3><ul class="list-disc list-inside text-sm text-forge-alt-300 space-y-1">${relatedFuncs.map(rf => `<li><span class="clickable-item-link" data-item-name="${rf.name}" data-item-type="function" data-item-version="${rf.version}" data-tippy-dynamic-content='${getFunctionTooltipContent(rf).replace(/'/g, "&quot;")}'>${rf.name}</span></li>`).join('')}</ul></div>` : '';
+
+      contentArea.innerHTML = `<div id="function-doc-wrapper" class="space-y-8">
+      <div class="pb-5 border-b border-white/5">
+        <div class="flex flex-wrap justify-between items-start gap-2 mb-2">
+          <h1 class="text-3xl font-semibold text-white break-all">${titleName}</h1>
+          ${func.version ? `<span class="text-xs bg-forge-blurple py-0.5 rounded-full tracking-wide px-2 text-white">v${func.version}</span>` : ''}
+        </div>
+        <div class="flex flex-wrap gap-2.5 mt-4 items-center">
+          ${func.deprecated ? '<span class="border border-red-300/70 bg-red-600/40 text-forge-alt-400 text-[11px] font-medium px-2.5 py-1 rounded-full flex items-center"><iconify-icon icon="mdi:alert-octagon-outline" class="mr-1"></iconify-icon>DEPRECATED</span>' : ''}
+          ${func.experimental ? '<span class="border border-yellow-300/70 bg-yellow-600/40 text-forge-alt-400 text-[11px] font-medium px-2.5 py-1 rounded-full flex items-center"><iconify-icon icon="mdi:flask-outline" class="mr-1"></iconify-icon>EXPERIMENTAL</span>' : ''}
+          <span class="text-[11px] font-medium px-2.5 py-1 rounded-full flex items-center ${bracketColor}"><iconify-icon icon="mdi:code-brackets" class="mr-1"></iconify-icon>${bracketTag}</span>
+        </div>
+      </div>
+      <div>
+        <p class="text-forge-alt-200 text-base leading-relaxed bg-white/5 p-4 rounded-md border border-white/10 shadow-inner">${func.description || ''}</p>
+        ${func.deprecated ? '<div class="mt-2 p-3 rounded-md bg-red-900/50 border border-red-500 text-red-300 text-sm">This function is deprecated. It may be removed in upcoming releases.</div>' : ''}
+        ${func.experimental ? '<div class="mt-2 p-3 rounded-md bg-yellow-900/50 border border-yellow-500 text-yellow-300 text-sm">This is an experimental function. Expect bugs or changes.</div>' : ''}
+      </div>
+      ${func.aliases?.length ? `<div class="data-info-box"><h3><iconify-icon icon="lets-icons:send-duotone"></iconify-icon>Aliases</h3><div class="flex flex-wrap gap-2">${func.aliases.map(a => `<span class="bg-white/5 text-forge-alt-300 px-2.5 py-1 rounded-md text-xs font-mono">${a}</span>`).join('')}</div></div>` : ''}
+      <div>
+        <h2 class="text-xl font-medium mt-4 mb-1.5 text-forge-alt-100">Usage</h2>
+        <div class="mt-3 relative w-full h-64 rounded-3xl bg-gradient-to-tr from-[#5240ff] to-[#231a7d] flex items-center justify-center">
+          <div class="absolute top-3 right-3 flex space-x-2 z-10">
+            <button id="copy-usage-btn" class="w-9 h-9 flex items-center justify-center bg-black/60 hover:bg-black/80 rounded-md text-white transition-all duration-150 focus:outline-none active:scale-90">
+              <iconify-icon icon="mingcute:clipboard-fill" class="text-lg"></iconify-icon>
+            </button>
+            ${func.brackets === false ? `<button id="toggle-brackets-btn" class="w-9 h-9 flex items-center justify-center bg-black/60 hover:bg-black/80 rounded-md text-white transition-all duration-150 focus:outline-none active:scale-90"><iconify-icon icon="bx:bracket" class="text-lg"></iconify-icon></button>` : ''}
+          </div>
+          <pre class="bg-black p-5 rounded-3xl text-forge-alt-200 text-sm font-mono overflow-x-auto overflow-y-auto mb-3 max-w-[calc(100%-2rem)] max-h-[calc(100%-2rem)]"><code id="function-usage-code">${usageStr}</code></pre>
+        </div>
+      </div>
+      <div>
+        <h2 class="text-xl font-medium mt-4 mb-1.5 text-forge-alt-100">Arguments</h2>
+        ${argsHtml}
+      </div>
+      <div class="data-info-box">
+        <h3><iconify-icon icon="lets-icons:chat-duotone"></iconify-icon>Output</h3>
+        ${func.output?.length ? `<div class="flex flex-wrap gap-2">${func.output.map(o => `<span class="bg-white/5 border border-white/5 text-forge-alt-200 px-2.5 py-1 rounded-md text-xs font-mono">${o}</span>`).join('')}</div>` : '<p class="text-forge-alt-400 text-sm">This function does not return any output.</p>'}
+      </div>
+      ${relatedHtml}
+    </div>
+    <div id="pagination-container"></div>`;
+
+      // Wire up copy btn
+      const usageCodeEl = document.getElementById('function-usage-code');
+      const copyBtn = document.getElementById('copy-usage-btn');
+      if (copyBtn && typeof tippy !== 'undefined') tippy(copyBtn, { content: 'Copy usage', theme: 'translucent-tooltip', placement: 'top', arrow: false, animation: 'fade', duration: [200, 200] });
+      copyBtn?.addEventListener('click', () => {
+        navigator.clipboard.writeText(usageCodeEl.textContent.trim()).then(() => {
+          const icon = copyBtn.querySelector('iconify-icon'); icon.setAttribute('icon', 'fluent:checkmark-12-filled');
+          copyBtn.classList.add('bg-green-500', 'pointer-events-none'); copyBtn.classList.remove('bg-black/60', 'hover:bg-black/80');
+          setTimeout(() => { icon.setAttribute('icon', 'mingcute:clipboard-fill'); copyBtn.classList.remove('bg-green-500', 'pointer-events-none'); copyBtn.classList.add('bg-black/60', 'hover:bg-black/80'); }, 1500);
+        });
+      });
+      // Toggle brackets
+      if (func.brackets === false) {
+        const toggleBtn = document.getElementById('toggle-brackets-btn');
+        let showingBrackets = withBrackets;
+        toggleBtn?.addEventListener('click', () => {
+          showingBrackets = !showingBrackets;
+          usageCodeEl.innerHTML = generateUsageString(func, showingBrackets);
+          if (showingBrackets && func.args?.length) attachArgSpanHoverListeners(func, usageCodeEl);
+        });
+      }
+      // Wire enum links
+      contentArea.querySelectorAll('td span.clickable-item-link[data-item-type="enum"]').forEach(s => s.addEventListener('click', handleCrossLinkClick));
+      contentArea.querySelectorAll('.data-info-box .clickable-item-link').forEach(s => s.addEventListener('click', handleCrossLinkClick));
+      appendPrevNextNavigation(func, 'function', document.getElementById('pagination-container'));
+      if (withBrackets && func.args?.length) attachArgSpanHoverListeners(func, usageCodeEl);
+      applyArgumentTypeTooltips(contentArea);
+      applyGeneralCrossLinking(contentArea);
+      initializeDynamicTooltips(contentArea);
+      updateOnPageNav();
+    }
+
+    // ─── Event details ───────────────────────────────────────────────────────────
+    function displayEventDetails(evt) {
+      switchToTab('documentation'); initialContentMsg?.classList.add('hidden');
+      updateHash('event', evt.name);
+      contentArea.innerHTML = `<div id="event-doc-wrapper" class="space-y-8">
+      <div class="pb-5 border-b border-white/5">
+        <div class="flex flex-wrap justify-between items-start gap-2 mb-1">
+          <h1 class="text-3xl font-semibold text-white break-all">${evt.name}</h1>
+          ${evt.version ? `<span class="text-xs bg-forge-blurple py-0.5 rounded-full tracking-wide px-2 text-white">v${evt.version}</span>` : ''}
+        </div>
+      </div>
+      <p class="text-forge-alt-200 text-base leading-relaxed bg-white/5 p-4 rounded-md border border-white/10 shadow-inner">${evt.description || ''}</p>
+      ${evt.intents?.length ? `<div class="data-info-box"><h3><iconify-icon icon="mdi:flag-variant-outline"></iconify-icon>Required Intents</h3><div class="flex flex-wrap gap-2">${evt.intents.map(i => `<span class="bg-white/10 text-forge-alt-200 px-2.5 py-1 rounded-md text-xs font-mono">${i}</span>`).join('')}</div></div>` : '<p class="text-forge-alt-400 text-sm">This event requires no specific intents.</p>'}
+    </div>
+    <div id="pagination-container-event"></div>`;
+      appendPrevNextNavigation(evt, 'event', document.getElementById('pagination-container-event'));
+      applyArgumentTypeTooltips(contentArea); applyGeneralCrossLinking(contentArea); initializeDynamicTooltips(contentArea);
+      updateOnPageNav();
+    }
+
+    // ─── Enum details ────────────────────────────────────────────────────────────
+    function displayEnumDetails(enumName, enumValues) {
+      switchToTab('documentation'); initialContentMsg?.classList.add('hidden');
+      updateHash('enum', enumName);
+      const usedBy = functionsData.filter(f => f.args?.some(a => a.enumName === enumName) && selectedVersions.includes(f.version));
+      const usedByHtml = usedBy.length
+        ? `<ul class="list-disc list-inside text-sm text-forge-alt-300 space-y-1">${usedBy.map(fn => `<li><span class="clickable-item-link" data-item-name="${fn.name}" data-item-type="function" data-item-version="${fn.version}">${fn.name}</span></li>`).join('')}</ul>`
+        : '<p class="text-sm text-forge-alt-400">No references found.</p>';
+      contentArea.innerHTML = `<div id="enum-doc-wrapper" class="space-y-8">
+      <div class="pb-5 border-b border-white/5"><h1 class="text-3xl font-semibold text-white break-all">${enumName}</h1></div>
+      <p class="text-forge-alt-200 text-base leading-relaxed bg-white/5 p-4 rounded-md border border-white/10">Enums are case-sensitive. They represent a fixed set of named constants.</p>
+      <div>
+        <h2 class="text-xl font-medium mt-4 mb-2.5 text-forge-alt-100">Values</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">${enumValues.map(v => `<div data-value="${v}" class="enum-value-box relative cursor-pointer bg-white/5 border border-white/5 text-forge-alt-300 p-3 rounded-lg text-sm break-all font-mono transition-all duration-150 hover:scale-105 hover:bg-white/10">${v}</div>`).join('')}</div>
+      </div>
+      <div class="data-info-box mt-8"><h3><iconify-icon icon="lets-icons:setting-line-duotone"></iconify-icon>Used By Functions</h3>${usedByHtml}</div>
+    </div>
+    <div id="pagination-container-enum"></div>`;
+      // Copy on click
+      contentArea.getElementById = contentArea.querySelector.bind(contentArea);
+      contentArea.querySelectorAll('.enum-value-box').forEach(box => {
+        box.addEventListener('click', () => {
+          const val = box.dataset.value;
+          navigator.clipboard.writeText(val).then(() => {
+            box.classList.add('bg-green-500/50', 'border-green-500/50', 'scale-110'); box.textContent = 'Copied!';
+            setTimeout(() => { box.textContent = val; box.classList.remove('bg-green-500/50', 'border-green-500/50', 'scale-110'); }, 1200);
+          });
+        });
+      });
+      contentArea.querySelectorAll('.clickable-item-link').forEach(s => s.addEventListener('click', handleCrossLinkClick));
+      appendPrevNextNavigation(enumName, 'enum', document.getElementById('pagination-container-enum'));
+      applyGeneralCrossLinking(contentArea); initializeDynamicTooltips(contentArea);
+      updateOnPageNav();
+    }
+
+    // ─── Guide display ───────────────────────────────────────────────────────────
+    function displayDedicatedGuide(guide) {
+      switchToTab('documentation'); initialContentMsg?.classList.add('hidden');
+      const slug = slugify(guide.title);
+      updateHash('guide', `${slug}-${guide.id}`);
+      const safeHtml = DOMPurify.sanitize(md.render(guide.content));
+      const readTime = calculateReadTime(guide.content);
+      contentArea.innerHTML = `<div class="space-y-8" id="dedicated-guide-wrapper">
+      <div class="p-5 rounded-lg border border-indigo-500/30 bg-indigo-900/10">
+        <h1 class="text-3xl lg:text-4xl font-semibold text-white">${guide.title}</h1>
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between text-sm text-forge-alt-400 mt-4 gap-y-4">
+          <div></div>
+          <div class="flex items-center">
+            <iconify-icon icon="mdi:clock-time-three-outline" class="mr-1.5 text-base"></iconify-icon>
+            <span>${readTime}</span>
+          </div>
+        </div>
+      </div>
+      <div class="markdown-body prose prose-invert max-w-none prose-p:text-forge-alt-300 prose-headings:text-white prose-a:text-indigo-400 prose-code:text-indigo-300 prose-strong:text-white">
+        ${safeHtml}
+      </div>
+    </div>`;
+      applyGeneralCrossLinking(contentArea);
+      initializeDynamicTooltips(contentArea);
+      updateOnPageNav();
+    }
+
+    // ─── Changelog ───────────────────────────────────────────────────────────────
+    function prepareAllChangelogData() {
+      changelogVersionDataMap.clear();
+      [...functionsData, ...eventsData].forEach(item => {
+        if (!item.version) return;
+        if (!changelogVersionDataMap.has(item.version)) changelogVersionDataMap.set(item.version, { functions: [], events: [] });
+        if (item.args !== undefined) changelogVersionDataMap.get(item.version).functions.push(item);
+        else changelogVersionDataMap.get(item.version).events.push(item);
+      });
+      const combined = new Set([...changelogVersionDataMap.keys(), ...Object.keys(allPkgChangelogs)]);
+      sortedChangelogVersions = Array.from(combined).sort(sortVersionsDescending);
+    }
+    function displayChangelogOverview() {
+      const area = document.getElementById('changelog-content-area');
+      if (!area) return;
+      area.innerHTML = '';
+      if (!sortedChangelogVersions.length) { area.innerHTML = '<p class="text-center text-forge-alt-400">No changelog data available.</p>'; return; }
+      const main = document.createElement('div'); main.className = 'space-y-0';
+      sortedChangelogVersions.forEach((ver, idx) => {
+        const vd = changelogVersionDataMap.get(ver) || { functions: [], events: [] };
+        const nF = vd.functions.length, nE = vd.events.length;
+        const nC = (allPkgChangelogs[ver] || []).filter(c => c.message && c.message.trim()).length;
+        const parts = [];
+        if (nF) parts.push(`${nF} new function${nF !== 1 ? 's' : ''}`);
+        if (nE) parts.push(`${nE} new event${nE !== 1 ? 's' : ''}`);
+        if (nC) parts.push(`${nC} commit${nC !== 1 ? 's' : ''}`);
+        const summary = parts.length ? 'This update features ' + (parts.length === 1 ? parts[0] : parts.length === 2 ? parts.join(' and ') : parts.slice(0, -1).join(', ') + ', and ' + parts.slice(-1)) + '.' : 'General improvements and bug fixes.';
+        const isLatest = idx === 0;
+        const card = document.createElement('div'); card.className = 'relative py-6 group';
+        card.innerHTML = `<div class="absolute left-5 sm:left-7 top-0 w-0.5 bg-white/10 ${idx === sortedChangelogVersions.length - 1 ? 'h-[1.875rem]' : 'h-full'}"></div><div class="absolute left-[1.25rem] md:left-[1.83rem] top-[2.5rem] w-4 h-4 rounded-full ${isLatest ? 'bg-green-400' : 'bg-forge-blurple'} border-2 border-black/30 transform -translate-x-1/2 -translate-y-1/2"></div><div class="ml-12 sm:ml-14"><div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-2"><h2 class="text-2xl font-semibold text-white flex items-center">Version ${ver}${isLatest ? '<span class="ml-3 px-2.5 py-1 bg-green-500/20 text-green-300 text-xs font-semibold rounded-full">Latest</span>' : ''}</h2></div><div class="${isLatest ? 'bg-green-500/5 border-green-500/30' : 'bg-forge-alt border-white/10'} border rounded-lg p-4 sm:p-6 shadow-md"><p class="text-sm text-forge-alt-300 mb-3">${summary}</p><button class="inline-flex items-center text-sm ${isLatest ? 'text-green-400 hover:text-green-300' : 'text-indigo-400 hover:text-indigo-300'} font-medium transition-colors view-cl-btn" data-ver="${ver}">View Details<iconify-icon icon="mdi:arrow-right" class="ml-1.5"></iconify-icon></button></div></div>`;
+        card.querySelector('.view-cl-btn').addEventListener('click', () => renderChangelogDetail(ver));
+        main.appendChild(card);
+      });
+      area.appendChild(main);
+    }
+    function renderChangelogDetail(ver) {
+      const area = document.getElementById('changelog-content-area');
+      const vd = changelogVersionDataMap.get(ver) || { functions: [], events: [] };
+      const fnHtml = vd.functions.length ? `<div class="mt-6"><h3 class="text-xl font-semibold text-white mb-3">New Functions (${vd.functions.length})</h3><ul class="space-y-3">${vd.functions.sort((a, b) => a.name.localeCompare(b.name)).map(fn => `<li class="p-4 bg-white/5 border border-white/10 rounded-md hover:bg-white/10 cursor-pointer cl-fn-link" data-fn="${fn.name}" data-ver="${fn.version}"><p class="font-mono text-base text-forge-alt-100">${fn.name}</p><p class="text-xs text-forge-alt-300 mt-1">${fn.description?.substring(0, 150) || 'No description.'}</p></li>`).join('')}</ul></div>` : '';
+      const evHtml = vd.events.length ? `<div class="mt-6"><h3 class="text-xl font-semibold text-white mb-3">New Events (${vd.events.length})</h3><ul class="space-y-3">${vd.events.sort((a, b) => a.name.localeCompare(b.name)).map(ev => `<li class="p-4 bg-white/5 border border-white/10 rounded-md hover:bg-white/10 cursor-pointer cl-ev-link" data-ev="${ev.name}"><p class="font-mono text-base text-forge-alt-100">${ev.name}</p><p class="text-xs text-forge-alt-300 mt-1">${ev.description?.substring(0, 150) || 'No description.'}</p></li>`).join('')}</ul></div>` : '';
+      area.innerHTML = `<button id="cl-back" class="my-6 flex items-center text-sm text-indigo-400 hover:text-indigo-300 group"><iconify-icon icon="mdi:arrow-left" class="mr-2 text-lg group-hover:-translate-x-1 transition-transform"></iconify-icon>Back</button><div class="bg-forge-alt border border-white/10 rounded-lg p-4 sm:p-6 shadow-lg"><h2 class="text-2xl font-semibold text-white mb-2">Version ${ver}</h2>${fnHtml || evHtml ? fnHtml + evHtml : '<p class="mt-4 text-forge-alt-300">No specific items documented for this version.</p>'}</div>`;
+      document.getElementById('cl-back').addEventListener('click', displayChangelogOverview);
+      area.querySelectorAll('.cl-fn-link').forEach(li => li.addEventListener('click', () => { const f = functionsData.find(fn => fn.name === li.dataset.fn && fn.version === li.dataset.ver); if (f) { switchToTab('documentation'); displayFunctionDetails(f); } }));
+      area.querySelectorAll('.cl-ev-link').forEach(li => li.addEventListener('click', () => { const e = eventsData.find(ev => ev.name === li.dataset.ev); if (e) { switchToTab('documentation'); displayEventDetails(e); } }));
+    }
+
+    // ─── Search ──────────────────────────────────────────────────────────────────
+    function prepareSearchableData() {
+      const items = [];
+      functionsData.forEach(f => items.push({ name: f.name, description: f.description || '', type: 'function', version: f.version, data: f, category: f.category }));
+      eventsData.forEach(e => items.push({ name: e.name, description: e.description || '', type: 'event', version: e.version, data: e }));
+      Object.keys(enumsData).forEach(n => items.push({ name: n, description: `Values: ${enumsData[n].slice(0, 10).join(', ')}`, type: 'enum', version: null, data: { name: n, values: enumsData[n] } }));
+      dedicatedGuides.forEach(g => items.push({ name: g.title, description: g.content || '', type: 'guide', version: null, data: g }));
+      const map = new Map();
+      items.forEach(item => { const key = `${item.type}-${item.name}-${item.version || ''}`; if (!map.has(key)) map.set(key, item); });
+      allSearchableItems = Array.from(map.values());
+    }
+    function populateSearchVersionFilterDropdown() {
+      searchVersionCheckboxesContainer.innerHTML = '';
+      allAvailableVersions.forEach(ver => {
+        const id = `sver-${ver.replace(/\./g, '-')}`;
+        const label = document.createElement('label'); label.htmlFor = id; label.className = 'flex items-center space-x-2.5 p-1.5 rounded hover:bg-white/10 cursor-pointer transition-colors group';
+        const cb = document.createElement('input'); cb.type = 'checkbox'; cb.id = id; cb.value = ver; cb.checked = searchSelectedVersions.includes(ver); cb.className = 'search-version-checkbox sr-only peer';
+        cb.addEventListener('change', () => { searchSelectedVersions = cb.checked ? [...searchSelectedVersions, ver] : searchSelectedVersions.filter(v => v !== ver); updateSearchVersionFilterBtnText(); performSearch(); });
+        const vis = document.createElement('span'); vis.className = 'w-3.5 h-3.5 bg-white/20 border border-white/30 rounded-sm flex items-center justify-center text-white group-hover:border-white/50 transition-all';
+        vis.innerHTML = '<iconify-icon icon="fluent:checkmark-12-filled" class="custom-checkmark-icon inline-block text-[10px]"></iconify-icon>';
+        const span = document.createElement('span'); span.textContent = ver; span.className = 'text-xs text-forge-alt-300 group-hover:text-forge-alt-100 transition-colors';
+        label.appendChild(cb); label.appendChild(vis); label.appendChild(span);
+        searchVersionCheckboxesContainer.appendChild(label);
+      });
+    }
+    function updateSearchVersionFilterBtnText() {
+      const n = searchSelectedVersions.length, total = allAvailableVersions.length;
+      if (n === total) searchVersionFilterBtnText.textContent = 'All Versions';
+      else if (n === 0) searchVersionFilterBtnText.textContent = 'No Versions Selected';
+      else if (n === 1) searchVersionFilterBtnText.textContent = `Version ${searchSelectedVersions[0]}`;
+      else searchVersionFilterBtnText.textContent = `${n} Versions Selected`;
+    }
+    function openSearchModal() {
+      searchModalTrigger = document.activeElement; document.body.classList.add('modal-open'); mobileSearchFab?.classList.add('hidden');
+      animateOpen(searchModal, 'anim-fade-in-scale', () => searchModalInput.focus());
+      searchModalInput.value = '';
+      if (!searchVersionCheckboxesContainer.children.length && allAvailableVersions.length) { searchSelectedVersions = [...allAvailableVersions]; populateSearchVersionFilterDropdown(); }
+      updateSearchVersionFilterBtnText();
+      if (searchInitialMessage) { searchInitialMessage.textContent = 'Start typing to see results.'; searchInitialMessage.classList.remove('hidden'); }
+      searchResultsContainer.innerHTML = ''; searchResultsContainer.appendChild(searchInitialMessage);
+      performSearch();
+    }
+    function closeSearchModal() {
+      animateClose(searchModal, 'anim-fade-out-scale', () => {
+        document.body.classList.remove('modal-open'); mobileSearchFab?.classList.remove('hidden');
+        searchActiveResultIndex = -1; currentSearchSessionResults = []; searchResultsOffset = 0;
+        if (searchModalTrigger) { searchModalTrigger.focus(); searchModalTrigger = null; }
+      });
+    }
+    function performSearch() {
+      const query = searchModalInput.value.toLowerCase().trim();
+      const activeTypes = Array.from(searchTypeFiltersContainer.querySelectorAll('.search-filter-type:checked')).map(c => c.dataset.typeFilter);
+      if (!query) {
+        currentSearchSessionResults = allSearchableItems.filter(i => activeTypes.includes(i.type) && (i.type === 'enum' || i.type === 'guide' || !i.version || searchSelectedVersions.includes(i.version)));
+      } else {
+        currentSearchSessionResults = allSearchableItems.map(item => {
+          if (!activeTypes.includes(item.type)) return null;
+          if (item.type !== 'enum' && item.type !== 'guide' && item.version && !searchSelectedVersions.includes(item.version)) return null;
+          const ln = item.name.toLowerCase(); let score = 0;
+          if (ln === query) score = 100; else if (ln.startsWith(query)) score = 50;
+          else if (new RegExp(`\\b${query.replace(/[$]/g, '\\$&')}\\b`, 'i').test(item.name)) score = 25;
+          else if (ln.includes(query)) score = 10;
+          if (item.description?.toLowerCase().includes(query)) score += 1;
+          return score > 0 ? { item, score } : null;
+        }).filter(Boolean).sort((a, b) => b.score - a.score).map(x => x.item);
+      }
+      searchResultsOffset = 0; searchActiveResultIndex = -1; searchResultsContainer.innerHTML = '';
+      if (!currentSearchSessionResults.length) {
+        searchResultsContainer.innerHTML = `<p class="text-center text-forge-alt-500 text-sm p-4">${query === '' ? 'No items match filters.' : 'No results found.'}</p>`;
+        searchInitialMessage?.classList.add('hidden');
+      } else {
+        searchInitialMessage?.classList.add('hidden'); renderSearchChunk(currentSearchSessionResults.slice(0, SEARCH_PAGE_SIZE));
+        searchResultsOffset = Math.min(SEARCH_PAGE_SIZE, currentSearchSessionResults.length);
+      }
+    }
+    function renderSearchChunk(items) {
+      const esc = s => { const p = document.createElement('p'); p.textContent = s; return p.innerHTML; };
+      items.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'search-result-item p-3 hover:bg-white/10 rounded-md cursor-pointer border border-transparent focus:outline-none focus:bg-white/10 transition-all duration-100';
+        div.tabIndex = -1;
+        const q = searchModalInput.value.toLowerCase().trim();
+        const safeName = esc(item.name), safeDesc = esc((item.description || '').substring(0, 100) + '...');
+        let nameHtml = safeName;
+        if (q) { try { const re = new RegExp(`(${esc(q).replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi'); nameHtml = safeName.replace(re, '<span class="bg-yellow-500/30 text-yellow-200 px-0.5 rounded">$1</span>'); } catch { } }
+        const badge = { function: `<span class="text-[10px] bg-blue-500/30 text-blue-300 px-1.5 py-0.5 rounded-full ml-2 font-medium">Function</span>`, event: `<span class="text-[10px] bg-green-500/30 text-green-300 px-1.5 py-0.5 rounded-full ml-2 font-medium">Event</span>`, enum: `<span class="text-[10px] bg-purple-500/30 text-purple-300 px-1.5 py-0.5 rounded-full ml-2 font-medium">Enum</span>`, guide: `<span class="text-[10px] bg-yellow-500/30 text-yellow-300 px-1.5 py-0.5 rounded-full ml-2 font-medium">Guide</span>` }[item.type] || '';
+        div.innerHTML = `<div class="flex justify-between items-center"><h4 class="text-base font-medium text-forge-alt-100 truncate pr-2">${nameHtml}</h4><div class="flex-shrink-0">${badge}${item.version ? `<span class="text-[10px] bg-gray-500/30 text-gray-300 px-1.5 py-0.5 rounded-full ml-2 font-medium">v${item.version}</span>` : ''}</div></div><p class="text-xs text-forge-alt-400 mt-1 truncate">${safeDesc}</p>`;
+        div.addEventListener('click', () => {
+          closeSearchModal(); switchToTab('documentation'); initialContentMsg?.classList.add('hidden');
+          if (item.type === 'function') displayFunctionDetails(item.data);
+          else if (item.type === 'event') displayEventDetails(item.data);
+          else if (item.type === 'enum') displayEnumDetails(item.data.name, item.data.values);
+          else if (item.type === 'guide') displayDedicatedGuide(item.data);
+          setTimeout(() => highlightSidebarFor(item.type, item.type === 'guide' ? item.data.title : item.data.name), 50);
+        });
+        searchResultsContainer.appendChild(div);
+      });
+    }
+    function navigateSearchResults(e) {
+      const items = Array.from(searchResultsContainer.querySelectorAll('.search-result-item'));
+      if (!items.length) return;
+      if (e.key === 'ArrowDown') searchActiveResultIndex = (searchActiveResultIndex + 1) % items.length;
+      else if (e.key === 'ArrowUp') searchActiveResultIndex = (searchActiveResultIndex - 1 + items.length) % items.length;
+      else if (e.key === 'Enter') { if (searchActiveResultIndex >= 0 && searchActiveResultIndex < items.length) items[searchActiveResultIndex].click(); else if (searchModalInput.value.trim() && items.length) items[0].click(); return; }
+      items.forEach((item, i) => { if (i === searchActiveResultIndex) { item.classList.add('bg-white/10'); item.focus(); item.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); } else item.classList.remove('bg-white/10'); });
+    }
+
+    // ─── Event listeners ─────────────────────────────────────────────────────────
+    headerSearchTrigger?.addEventListener('click', openSearchModal);
+    searchModalInput.addEventListener('input', debounce(performSearch, 250));
+    searchTypeFiltersContainer.addEventListener('change', e => { if (e.target.classList.contains('search-filter-type')) performSearch(); });
+    searchVersionFilterBtn.addEventListener('click', e => {
+      e.stopPropagation();
+      const hidden = searchVersionFilterDropdown.classList.contains('hidden');
+      if (hidden) animateOpen(searchVersionFilterDropdown, 'anim-slide-down-fade', null, searchVersionFilterBtn);
+      else animateClose(searchVersionFilterDropdown, 'anim-slide-up-fade', null, searchVersionFilterBtn);
+      searchVersionFilterBtn.querySelector('iconify-icon').classList.toggle('rotate-180');
+    });
+    searchSelectAllBtn.addEventListener('click', () => { searchSelectedVersions = [...allAvailableVersions]; searchVersionCheckboxesContainer.querySelectorAll('input[type=checkbox]').forEach(c => c.checked = true); updateSearchVersionFilterBtnText(); performSearch(); });
+    searchDeselectAllBtn.addEventListener('click', () => { searchSelectedVersions = []; searchVersionCheckboxesContainer.querySelectorAll('input[type=checkbox]').forEach(c => c.checked = false); updateSearchVersionFilterBtnText(); performSearch(); });
+    searchModal.addEventListener('click', e => { if (e.target === searchModal) closeSearchModal(); });
+    document.addEventListener('keydown', e => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); searchModal.classList.contains('hidden') ? openSearchModal() : closeSearchModal(); }
+      if (e.key === 'Escape') { if (!searchModal.classList.contains('hidden')) closeSearchModal(); if (!settingsModal.classList.contains('hidden')) closeSettingsModal(); }
+      if (!searchModal.classList.contains('hidden') && (e.key === 'ArrowUp' || e.key === 'ArrowDown' || e.key === 'Enter')) { e.preventDefault(); navigateSearchResults(e); }
+    });
+    desktopMobileMenuBtn?.addEventListener('click', e => {
+      e.stopPropagation();
+      const hidden = mobileMenuDropdown.classList.contains('hidden');
+      if (hidden) animateOpen(mobileMenuDropdown, 'anim-fade-in-scale', null, desktopMobileMenuBtn);
+      else animateClose(mobileMenuDropdown, 'anim-fade-out-scale', null, desktopMobileMenuBtn);
+    });
+    window.addEventListener('click', e => {
+      if (versionFilterContainer && !versionFilterContainer.contains(e.target) && !versionFilterDropdown.classList.contains('hidden')) { animateClose(versionFilterDropdown, 'anim-slide-up-fade', null, versionFilterBtn); versionFilterChevron.classList.remove('rotate-180'); }
+      if (searchVersionFilterContainer && !searchVersionFilterContainer.contains(e.target) && !searchVersionFilterDropdown.classList.contains('hidden')) { animateClose(searchVersionFilterDropdown, 'anim-slide-up-fade', null, searchVersionFilterBtn); searchVersionFilterBtn.querySelector('iconify-icon').classList.remove('rotate-180'); }
+      if (desktopMobileMenuBtn && mobileMenuDropdown && !mobileMenuDropdown.classList.contains('hidden') && !desktopMobileMenuBtn.contains(e.target) && !mobileMenuDropdown.contains(e.target)) { animateClose(mobileMenuDropdown, 'anim-fade-out-scale', null, desktopMobileMenuBtn); }
+      if (settingsModal && !settingsModal.classList.contains('hidden') && !settingsModal.querySelector('.bg-\\[\\#0D0D1F\\]').contains(e.target)) { closeSettingsModal(); }
+    });
+    window.addEventListener('popstate', () => routeFromHash());
+    document.getElementById('home-link').addEventListener('click', e => {
+      e.preventDefault(); history.pushState({}, '', window.location.pathname + window.location.search);
+      switchToTab('documentation');
+      contentArea.innerHTML = ''; contentArea.appendChild(initialContentMsg); initialContentMsg.classList.remove('hidden');
+      activeSidebarItem?.classList.remove('bg-white/10', 'text-white'); activeSidebarItem?.classList.add('text-forge-alt-300'); activeSidebarItem = null;
+      updateOnPageNav();
+    });
+
+    // ─── Bootstrap ───────────────────────────────────────────────────────────────
+    async function fetchData() {
+      showLoadingStatus('Loading documentation data...');
+      try {
+        const [fnData, evData, enData, clData] = await Promise.all([
+          loadLocalJson(CONFIG.functionsJsonPath, []),
+          loadLocalJson(CONFIG.eventsJsonPath, []),
+          loadLocalJson(CONFIG.enumsJsonPath, {}),
+          loadLocalJson(CONFIG.changelogsJsonPath, {}),
+        ]);
+        if (typeof DOMPurify !== 'undefined') {
+          functionsData = fnData.map(f => ({ ...f, description: f.description ? DOMPurify.sanitize(f.description) : '', args: f.args ? f.args.map(a => ({ ...a, description: a.description ? DOMPurify.sanitize(a.description) : '' })) : [] }));
+          eventsData = evData.map(e => ({ ...e, description: e.description ? DOMPurify.sanitize(e.description) : '' }));
+        } else { functionsData = fnData; eventsData = evData; }
+        enumsData = enData;
+        allPkgChangelogs = clData;
+
+        showLoadingStatus('Loading guides...');
+        dedicatedGuides = await loadGuides();
+
+        const versions = new Set();
+        functionsData.forEach(f => { if (f.version) versions.add(f.version); });
+        eventsData.forEach(e => { if (e.version) versions.add(e.version); });
+        allAvailableVersions = Array.from(versions).sort(sortVersionsDescending);
+        selectedVersions = [...allAvailableVersions]; searchSelectedVersions = [...allAvailableVersions];
+
+        prepareSearchableData(); populateSearchVersionFilterDropdown(); updateSearchVersionFilterBtnText(); prepareAllChangelogData();
+        setupVersionFilterDropdown(); populateSidebar();
+
+        ensureGlobalSvgDefs();
+        tooltipElement = document.createElement('div');
+        tooltipElement.id = 'argument-tooltip';
+        tooltipElement.className = 'fixed hidden z-[998] bg-[#9398fd0a] border border-[#9398fd80] rounded-2xl p-3 text-sm text-forge-alt-200 max-w-xs blur-bg-md';
+        tooltipElement.innerHTML = '<div id="tooltip-content-container"></div>';
+        document.body.appendChild(tooltipElement);
+        arrowSvgElement = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        arrowSvgElement.id = 'dynamic-arrow-svg';
+        arrowSvgElement.style.cssText = 'position:fixed;z-index:999;pointer-events:none;display:none;';
+        document.body.appendChild(arrowSvgElement);
+
+        initScrollspy(); setupMobileNavbar(); initTabs();
+
+        // Route after everything is ready
+        routeFromHash();
+
+        showLoadingStatus('Documentation ready.');
+        setTimeout(() => showLoadingStatus(''), 2000);
+      } catch (err) {
+        console.error(err);
+        initialContentMsg?.classList.add('hidden');
+        contentArea.innerHTML = `<div class="border border-white/5 p-6 rounded-lg bg-white/10 text-forge-alt-200 max-w-md mx-auto mt-10"><h2 class="text-xl font-semibold mb-2 text-white">Error Loading Docs</h2><p class="text-forge-alt-400">${err.message}</p></div>`;
+        showLoadingStatus('');
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      loadUserSettings(); setupSettingsModal(); fetchData();
+    });
+  </script>
+</body>
+
+</html>
