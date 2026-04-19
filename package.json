@@ -10,7 +10,7 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "dev": "ts-node src/__tests__/index.ts",
-    "docgen": "tsc && typedoc src/index.ts && node dist/docgen",
+    "docgen": "tsc && node dist/docgen",
     "commit": "npm run docgen && node dist/commit"
   },
   "repository": {
