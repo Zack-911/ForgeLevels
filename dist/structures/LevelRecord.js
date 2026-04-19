@@ -15,6 +15,20 @@ const typeorm_1 = require("typeorm");
  * SQLite / MySQL / PostgreSQL record for a member's leveling data.
  */
 let LevelRecord = class LevelRecord {
+    /** Composite key: guildId_userId */
+    identifier;
+    /** The guild this record belongs to */
+    guildId;
+    /** The user this record belongs to */
+    userId;
+    /** Total accumulated XP */
+    xp;
+    /** Current level (derived from xp but cached for fast leaderboard queries) */
+    level;
+    /** Total messages sent (used for stats) */
+    totalMessages;
+    /** Unix timestamp (ms) of the last XP gain — used for cooldown enforcement */
+    lastXpAt;
 };
 exports.LevelRecord = LevelRecord;
 __decorate([
@@ -52,6 +66,7 @@ exports.LevelRecord = LevelRecord = __decorate([
  * MongoDB variant of the LevelRecord.
  */
 let MongoLevelRecord = class MongoLevelRecord extends LevelRecord {
+    mongoId;
 };
 exports.MongoLevelRecord = MongoLevelRecord;
 __decorate([
@@ -65,6 +80,13 @@ exports.MongoLevelRecord = MongoLevelRecord = __decorate([
  * Per-guild configuration stored as a JSON blob.
  */
 let GuildConfig = class GuildConfig {
+    /** The guild ID — primary key */
+    guildId;
+    /**
+     * Serialized JSON of ILevelConfig.
+     * Stored as a string so it works across all DB adapters.
+     */
+    config;
 };
 exports.GuildConfig = GuildConfig;
 __decorate([
@@ -82,6 +104,7 @@ exports.GuildConfig = GuildConfig = __decorate([
  * MongoDB variant of GuildConfig.
  */
 let MongoGuildConfig = class MongoGuildConfig extends GuildConfig {
+    mongoId;
 };
 exports.MongoGuildConfig = MongoGuildConfig;
 __decorate([

@@ -14,16 +14,20 @@ var LevelConfigKey;
     LevelConfigKey[LevelConfigKey["formula"] = 5] = "formula";
     LevelConfigKey[LevelConfigKey["xpBase"] = 6] = "xpBase";
     LevelConfigKey[LevelConfigKey["xpExponent"] = 7] = "xpExponent";
-    LevelConfigKey[LevelConfigKey["customFormula"] = 8] = "customFormula";
-    LevelConfigKey[LevelConfigKey["maxLevel"] = 9] = "maxLevel";
-    LevelConfigKey[LevelConfigKey["stackRoles"] = 10] = "stackRoles";
+    LevelConfigKey[LevelConfigKey["maxLevel"] = 8] = "maxLevel";
+    LevelConfigKey[LevelConfigKey["stackRoles"] = 9] = "stackRoles";
+    LevelConfigKey[LevelConfigKey["noXpRoles"] = 10] = "noXpRoles";
+    LevelConfigKey[LevelConfigKey["multipliers"] = 11] = "multipliers";
+    LevelConfigKey[LevelConfigKey["roleRewards"] = 12] = "roleRewards";
+    LevelConfigKey[LevelConfigKey["messageRewards"] = 13] = "messageRewards";
+    LevelConfigKey[LevelConfigKey["notification"] = 14] = "notification";
+    LevelConfigKey[LevelConfigKey["ignore"] = 15] = "ignore";
 })(LevelConfigKey || (exports.LevelConfigKey = LevelConfigKey = {}));
 var XPFormula;
 (function (XPFormula) {
     XPFormula[XPFormula["linear"] = 0] = "linear";
     XPFormula[XPFormula["quadratic"] = 1] = "quadratic";
     XPFormula[XPFormula["exponential"] = 2] = "exponential";
-    XPFormula[XPFormula["custom"] = 3] = "custom";
 })(XPFormula || (exports.XPFormula = XPFormula = {}));
 const KEY_NAMES = Object.keys(LevelConfigKey).filter(k => isNaN(Number(k)));
 exports.default = new forgescript_1.NativeFunction({
@@ -66,8 +70,7 @@ exports.default = new forgescript_1.NativeFunction({
         try {
             parsed = JSON.parse(value);
         }
-        catch { /* keep as string */ }
-        // Validation for XP range (Issue 19)
+        catch { }
         if (keyName === "xpMin" || keyName === "xpMax") {
             const num = Number(parsed);
             if (isNaN(num))

@@ -36,7 +36,7 @@ exports.default = new forgescript_1.NativeFunction({
         const cfg = await LevelsDatabase_1.LevelsDatabase.resolvedConfig(gid);
         const val = cfg[keyName];
         if (val === undefined)
-            return this.success("");
+            return this.success();
         return this.success(typeof val === "object" ? JSON.stringify(val) : String(val));
     },
 });

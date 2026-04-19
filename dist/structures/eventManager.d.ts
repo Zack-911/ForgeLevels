@@ -17,6 +17,15 @@ export interface ILevelEvents {
         totalXp: number;
         obj?: any;
     }];
+    /** Fired when a member levels down */
+    levelDown: [{
+        userId: string;
+        guildId: string;
+        oldLevel: number;
+        newLevel: number;
+        totalXp: number;
+        obj?: any;
+    }];
     /** Fired when a role reward is granted */
     levelReward: [{
         userId: string;

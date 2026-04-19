@@ -58,10 +58,12 @@ exports.default = new forgescript_1.NativeFunction({
             let displayName = null;
             let avatarURL = null;
             try {
-                const u = await ctx.client.users.fetch(rec.userId);
-                username = u.username;
-                displayName = u.displayName;
-                avatarURL = u.displayAvatarURL();
+                const u = ctx.client.users.cache.get(rec.userId) ?? await ctx.client.users.fetch(rec.userId).catch(() => null);
+                if (u) {
+                    username = u.username;
+                    displayName = u.displayName;
+                    avatarURL = u.displayAvatarURL();
+                }
             }
             catch { }
             return {

@@ -37,7 +37,7 @@ exports.default = new eventManager_1.LevelsEventHandler({
                             await member.roles.add(highest.roleId).catch(() => null);
                         }
                         // Remove all other role rewards (both lower earned ones and higher ones from previous levels)
-                        for (const reward of roleRewards) {
+                        for (const reward of earned) {
                             if (reward.roleId !== highest.roleId && !reward.persistent) {
                                 await member.roles.remove(reward.roleId).catch(() => null);
                             }
@@ -52,26 +52,6 @@ exports.default = new eventManager_1.LevelsEventHandler({
             const msgRewards = (cfg.messageRewards ?? []).filter(r => r.level === l);
             for (const reward of msgRewards) {
                 ext.emitter.emit("levelReward", { userId, guildId, level: l, label: reward.label, obj });
-            }
-        }
-        // ── Automated Notifications (Issue 3) ─────────────────────────────────
-        const notif = cfg.notification;
-        if (notif && notif.type && notif.type !== "none") {
-            const channel = notif.type === "channel"
-                ? (notif.channelId ? await this.channels.fetch(notif.channelId).catch(() => null) : ("send" in obj ? obj : null))
-                : null;
-            const message = notif.message || "Congratulations {user}, you've reached level {level}!";
-            const formatted = message
-                .replace("{user}", `<@${userId}>`)
-                .replace("{level}", String(newLevel))
-                .replace("{xp}", String(totalXp))
-                .replace("{guild}", guild?.name || "the server");
-            if (notif.type === "dm") {
-                const user = await this.users.fetch(userId).catch(() => null);
-                await user?.send(formatted).catch(() => null);
-            }
-            else if (channel && "send" in channel) {
-                await channel.send(formatted).catch(() => null);
             }
         }
         // ── Run user-registered levelUp commands ──────────────────────────────

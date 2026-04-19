@@ -1,6 +1,6 @@
 import { Snowflake } from "discord.js";
 /** Built-in formulas for calculating how much XP is required to reach a level */
-export type XPFormula = "linear" | "quadratic" | "exponential" | "custom";
+export type XPFormula = "linear" | "quadratic" | "exponential";
 /** A role reward granted when reaching a specific level */
 export interface IRoleReward {
     /** The level that triggers this reward */
@@ -87,12 +87,6 @@ export interface ILevelConfig {
      * Default: 1.5
      */
     xpExponent?: number;
-    /**
-     * A custom JS expression string evaluated when formula = "custom".
-     * Available variables: `level`, `base`, `exponent`
-     * Example: "base * level * (level + 1) / 2"
-     */
-    customFormula?: string;
     /** Maximum level a member can reach. 0 = no cap. Default: 0 */
     maxLevel?: number;
     /** Role rewards granted at specific levels */

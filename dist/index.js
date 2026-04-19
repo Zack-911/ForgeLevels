@@ -26,14 +26,18 @@ const LevelsDatabase_1 = require("./structures/LevelsDatabase");
 const messageHandler_1 = require("./handlers/messageHandler");
 const package_json_1 = require("../package.json");
 class ForgeLevels extends forgescript_1.ForgeExtension {
+    options;
+    name = "forge.levels";
+    description = package_json_1.description;
+    version = package_json_1.version;
+    requireExtensions = ["forge.db"];
+    emitter = new tiny_typed_emitter_1.TypedEmitter();
+    commands;
+    db;
+    client;
     constructor(options = {}) {
         super();
         this.options = options;
-        this.name = "forge.levels";
-        this.description = package_json_1.description;
-        this.version = package_json_1.version;
-        this.requireExtensions = ["forge.db"];
-        this.emitter = new tiny_typed_emitter_1.TypedEmitter();
     }
     async init(client) {
         this.client = client;

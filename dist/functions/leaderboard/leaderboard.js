@@ -87,12 +87,12 @@ exports.default = new forgescript_1.NativeFunction({
             }
             catch { }
             return fmt
-                .replace("{position}", String(offset + i + 1))
-                .replace("{userID}", rec.userId)
-                .replace("{user}", user)
-                .replace("{level}", String(level))
-                .replace("{xp}", String(rec.xp))
-                .replace("{messages}", String(rec.totalMessages));
+                .replaceAll("{position}", String(offset + i + 1))
+                .replaceAll("{userID}", rec.userId)
+                .replaceAll("{user}", user)
+                .replaceAll("{level}", String(level))
+                .replaceAll("{xp}", String(rec.xp))
+                .replaceAll("{messages}", String(rec.totalMessages));
         }));
         return this.success(lines.join(sep));
     },

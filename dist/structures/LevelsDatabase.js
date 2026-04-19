@@ -12,16 +12,22 @@ class LevelsDatabaseManager extends forge_db_1.DataBaseManager {
 exports.LevelsDatabaseManager = LevelsDatabaseManager;
 // ─── Concrete DB class ────────────────────────────────────────────────────────
 class LevelsDatabase extends LevelsDatabaseManager {
+    database = "forge.levels.db";
+    entityManager = {
+        sqlite: [LevelRecord_1.LevelRecord, LevelRecord_1.GuildConfig],
+        mongodb: [LevelRecord_1.MongoLevelRecord, LevelRecord_1.MongoGuildConfig],
+        mysql: [LevelRecord_1.LevelRecord, LevelRecord_1.GuildConfig],
+        postgres: [LevelRecord_1.LevelRecord, LevelRecord_1.GuildConfig],
+    };
+    static db;
+    db;
+    static RecordEntity;
+    static ConfigEntity;
+    // Config cache — reduces DB hits for every message
+    static configCache = new Map();
     constructor() {
         super();
-        this.database = "forge.levels.db";
-        this.entityManager = {
-            sqlite: [LevelRecord_1.LevelRecord, LevelRecord_1.GuildConfig],
-            mongodb: [LevelRecord_1.MongoLevelRecord, LevelRecord_1.MongoGuildConfig],
-            mysql: [LevelRecord_1.LevelRecord, LevelRecord_1.GuildConfig],
-            postgres: [LevelRecord_1.LevelRecord, LevelRecord_1.GuildConfig],
-        };
-        this.type ?? (this.type = "sqlite");
+        this.type ??= "sqlite";
         this.db = this.getDB();
     }
     async init() {
@@ -160,6 +166,4 @@ class LevelsDatabase extends LevelsDatabaseManager {
     }
 }
 exports.LevelsDatabase = LevelsDatabase;
-// Config cache — reduces DB hits for every message
-LevelsDatabase.configCache = new Map();
 //# sourceMappingURL=LevelsDatabase.js.map

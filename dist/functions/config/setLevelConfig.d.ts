@@ -8,15 +8,19 @@ export declare enum LevelConfigKey {
     formula = 5,
     xpBase = 6,
     xpExponent = 7,
-    customFormula = 8,
-    maxLevel = 9,
-    stackRoles = 10
+    maxLevel = 8,
+    stackRoles = 9,
+    noXpRoles = 10,
+    multipliers = 11,
+    roleRewards = 12,
+    messageRewards = 13,
+    notification = 14,
+    ignore = 15
 }
 export declare enum XPFormula {
     linear = 0,
     quadratic = 1,
-    exponential = 2,
-    custom = 3
+    exponential = 2
 }
 declare const _default: NativeFunction<[{
     name: string;

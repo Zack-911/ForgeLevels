@@ -6,7 +6,7 @@ exports.DEFAULT_CONFIG = {
     enabled: true,
     xpMin: 15,
     xpMax: 25,
-    xpCooldown: 60000,
+    xpCooldown: 60_000,
     xpMultiplier: 1,
     formula: "quadratic",
     xpBase: 100,
