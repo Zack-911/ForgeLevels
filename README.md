@@ -223,10 +223,6 @@ $setLevelConfig[formula;exponential]
 $setLevelConfig[xpBase;80]
 $setLevelConfig[xpExponent;1.4]
 $setLevelConfig[maxLevel;50]
-
-// Custom formula
-$setLevelConfig[formula;custom]
-$setLevelConfig[customFormula;base * level * (level + 1) / 2]
 ```
 
 ---
