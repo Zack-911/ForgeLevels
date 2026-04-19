@@ -43,7 +43,6 @@ export default new NativeFunction({
 
         record.xp = Math.max(0, record.xp + xp)
         record.level = levelFromXp(record.xp, cfg).level
-        record.lastXpAt = Date.now()
 
         await LevelsDatabase.setMember(record)
 
