@@ -52,8 +52,23 @@ export default new NativeFunction({
             ext.emitter.emit("xpGain", { userId: uid, guildId: gid, xp: record.xp - oldXp, totalXp: record.xp, obj: ctx.obj })
         }
 
-        if (record.level !== oldLevel) {
+        if (record.level == oldLevel) {
+            return this.success()
+        }
+
+        if (record.level > oldLevel) {
             ext.emitter.emit("levelUp", {
+                userId: uid,
+                guildId: gid,
+                oldLevel,
+                newLevel: record.level,
+                totalXp: record.xp,
+                obj: ctx.obj
+            })
+        }
+
+        if (record.level < oldLevel) {
+            ext.emitter.emit("levelDown", {
                 userId: uid,
                 guildId: gid,
                 oldLevel,
