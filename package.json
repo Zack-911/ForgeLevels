@@ -27,7 +27,7 @@
     "levels"
   ],
   "author": "tryforge",
-  "license": "GPL-3.0",
+  "license": "MIT",
   "peerDependencies": {
     "@tryforge/forge.db": "^2.1.0",
     "@tryforge/forgescript": "^2.0.0"
